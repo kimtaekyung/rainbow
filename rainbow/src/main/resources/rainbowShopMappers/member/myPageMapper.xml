@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.member.dao.MyPageDao">
+	<!-- 회원 가입 아이디 중복 검사 -->
+	<update id="updateMemberInfo" statementType="PREPARED" parameterType="hashmap">
+		UPDATE RB_MEMBER
+		SET 
+			MB_ID = #{mb_id}
+			<if test="mb_password != null and mb_password != ''">
+			,MB_PASSWORD = #{mb_password}
+			</if>
+			<if test="mb_nickname != null and mb_nickname != ''">
+			,MB_NICKNAME = #{mb_nickname}
+			</if>
+			<if test="mb_email != null and mb_email != ''">
+			,MB_EMAIL = #{mb_email}
+			</if>
+			<if test="mb_event_receive != null and mb_event_receive != ''">
+			,MB_EVENT_RECEIVE = #{mb_event_receive}
+			</if>
+			<if test="mb_zip_code != null and mb_zip_code != ''">
+			,MB_ZIP_CODE = #{mb_zip_code}
+			</if>
+			<if test="mb_address != null and mb_address != ''">
+			,MB_ADDRESS= #{mb_address}
+			</if>
+			<if test="mb_address_detail != null and mb_address_detail != ''">
+			,MB_ADDRESS_DETAIL = #{mb_address_detail}
+			</if>
+			<if test="mb_tel != null and mb_tel != ''">
+			,MB_TEL = #{mb_tel}
+			</if>
+			<if test="mb_hp != null and mb_hp != ''">
+			,MB_HP = #{mb_hp}
+			</if>
+			<if test="mb_bank_owner != null and mb_bank_owner != ''">
+			,MB_BANK_OWNER = #{mb_bank_owner}
+			</if>
+			<if test="mb_bank_name != null and mb_bank_name != ''">
+			,MB_BANK_NAME = #{mb_bank_name}
+			</if>
+			<if test="mb_bank_no != null and mb_bank_no != ''">
+			,MB_BANK_NO = #{mb_bank_no}
+			</if>
+			<if test="mb_biz_tel != null and mb_biz_tel != ''">
+			,MB_BIZ_TEL = #{mb_biz_tel}
+			</if>
+		WHERE MB_SEQ = #{mb_seq}
+	</update>
+	
+	<!-- 로그인 검증후 로그인 로그 생성 및 멤버 상태,세션아이디,패스워드 업데이트 -->
+	<select id="updateBizMemberInfoProcess" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call PROC_MEMBER_BIZ_UPDATE
+			(
+	        	#{mb_seq,mode=IN,jdbcType=INTEGER}
+	        	,#{mb_id,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_nickname,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_name,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_type,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_ceo_name,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_no,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_condition, mode=IN, jdbcType=VARCHAR}
+	        	,#{mb_biz_category,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_zip_code,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_address,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_address_detail,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_tel,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_img_path,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_biz_cert_state,mode=IN,jdbcType=CHAR}
+	        	,#{admin_mb_seq,mode=IN,jdbcType=INTEGER}
+	        	,#{admin_mb_id,mode=IN,jdbcType=VARCHAR}
+	        	,#{return_mb_seq, mode=OUT, jdbcType=INTEGER}
+	     	)
+	    }
+	</select>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="memberLeave" statementType="PREPARED" parameterType="hashmap">
+		UPDATE RB_MEMBER
+		SET 
+			mb_state = '4'
+			,mb_leave_dttm = NOW()
+			<if test="mb_leave_reason != null and mb_leave_reason !=''">
+			,mb_leave_reason = #{mb_leave_reason}
+			</if>
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+	</update>
+	
+	<!-- 회원 알람 설정 정보 가져오기 -->
+	<select id="getMemberSetting" statementType="PREPARED" parameterType="hashmap" resultType="hashmap" >
+		SELECT 
+			USE_TEL
+			,USE_HP
+			,USE_BIZ_TEL
+			,DEFAULT_DELIVERY_COMPANY
+			,USE_PAYMENT_EMAIL
+			,USE_PAYMENT_MMS
+			,USE_DELIVERY_START_EMAIL
+			,USE_DELIVERY_START_MMS
+			,USE_SELLER_CANCEL_EMAIL
+			,USE_SELLER_CANCEL_MMS
+			,USE_SELF_CANCEL_EMAIL
+			,USE_SELF_CANCEL_MMS
+			,USE_RETURN_APPROVE_EMAIL
+			,USE_RETURN_APPROVE_MMS
+			,USE_EXCHANGE_APPROVE_EMAIL
+			,USE_EXCHANGE_APPROVE_MMS
+			,USE_RETURN_SUCCESS_EMAIL
+			,USE_RETURN_SUCCESS_MMS
+			,USE_EXCHANGE_SUCCESS_EMAIL
+			,USE_EXCHANGE_SUCCESS_MMS
+			,USE_DEPOSIT_SUCCESS_EMAIL
+			,USE_DEPOSIT_SUCCESS_MMS
+			,USE_BUYER_CANCEL_EMAIL
+			,USE_BUYER_CANCEL_MMS
+			,USE_RETURN_REQUEST_EMAIL
+			,USE_RETURN_REQUEST_MMS
+			,USE_EXCHANGE_REQUEST_EMAIL
+			,USE_EXCHANGE_REQUEST_MMS
+		FROM RB_MEMBER_SETTING
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+	</select>
+	
+	<!-- 회원 알람 설정 정보 변경하기 -->
+	<update id="updateMemberSetting" statementType="PREPARED" parameterType="hashmap" >
+		UPDATE RB_MEMBER_SETTING
+		SET 
+			RMS_REG_DTTM = NOW()
+			<if test="use_tel != null and use_tel != ''">
+			,USE_TEL 						= #{use_tel}
+			</if>
+			<if test="use_hp != null and use_hp != ''">
+			,USE_HP 						= #{use_hp}
+			</if>
+			<if test="use_biz_tel != null and use_biz_tel != ''">
+			,USE_BIZ_TEL 					= #{use_biz_tel}
+			</if>
+			<if test="default_delivery_company != null and default_delivery_company != ''">
+			,DEFAULT_DELIVERY_COMPANY 		= #{default_delivery_company}
+			</if>
+			
+			<if test="use_payment_email != null and use_payment_email != ''">
+			,USE_PAYMENT_EMAIL 				= #{use_payment_email}
+			</if>
+			<if test="use_payment_mms != null and use_payment_mms != ''">
+			,USE_PAYMENT_MMS			= #{use_payment_mms}
+			</if>
+			
+			<if test="use_delivery_start_email != null and use_delivery_start_email != ''">
+			,USE_DELIVERY_START_EMAIL 		= #{use_delivery_start_email}
+			</if>
+			<if test="use_delivery_start_mms != null and use_delivery_start_mms != ''">
+			,USE_DELIVERY_START_MMS 		= #{use_delivery_start_mms}
+			</if>
+			
+			<if test="use_seller_cancel_email != null and use_seller_cancel_email != ''">
+			,USE_SELLER_CANCEL_EMAIL 		= #{use_seller_cancel_email}
+			</if>
+			<if test="use_seller_cancel_mms != null and use_seller_cancel_mms != ''">
+			,USE_SELLER_CANCEL_MMS 			= #{use_seller_cancel_mms}
+			</if>
+			
+			<if test="use_self_cancel_email != null and use_self_cancel_email != ''">
+			,USE_SELF_CANCEL_EMAIL 			= #{use_self_cancel_email}
+			</if>
+			<if test="use_self_cancel_mms != null and use_self_cancel_mms != ''">
+			,USE_SELF_CANCEL_MMS 			= #{use_self_cancel_mms}
+			</if>
+			
+			<if test="use_return_approve_email != null and use_return_approve_email != ''">
+			,USE_RETURN_APPROVE_EMAIL 		= #{use_return_approve_email}
+			</if>
+			<if test="use_return_approve_mms != null and use_return_approve_mms != ''">
+			,USE_RETURN_APPROVE_MMS 		= #{use_return_approve_mms}
+			</if>
+			
+			<if test="use_exchange_approve_email != null and use_exchange_approve_email != ''">
+			,USE_EXCHANGE_APPROVE_EMAIL 	= #{use_exchange_approve_email}
+			</if>
+			<if test="use_exchange_approve_mms != null and use_exchange_approve_mms != ''">
+			,USE_EXCHANGE_APPROVE_MMS 		= #{use_exchange_approve_mms}
+			</if>
+			
+			<if test="use_return_success_email != null and use_return_success_email != ''">
+			,USE_RETURN_SUCCESS_EMAIL 		= #{use_return_success_email}
+			</if>
+			<if test="use_return_success_mms != null and use_return_success_mms != ''">
+			,USE_RETURN_SUCCESS_MMS 		= #{use_return_success_mms}
+			</if>
+			
+			<if test="use_exchange_success_email != null and use_exchange_success_email != ''">
+			,USE_EXCHANGE_SUCCESS_EMAIL 	= #{use_exchange_success_email}
+			</if>
+			<if test="use_exchange_success_mms != null and use_exchange_success_mms != ''">
+			,USE_EXCHANGE_SUCCESS_MMS 		= #{use_exchange_success_mms}
+			</if>
+			
+			<if test="use_deposit_success_email != null and use_deposit_success_email != ''">
+			,USE_DEPOSIT_SUCCESS_EMAIL 		= #{use_deposit_success_email}
+			</if>
+			<if test="use_deposit_success_mms != null and use_deposit_success_mms != ''">
+			,USE_DEPOSIT_SUCCESS_MMS 		= #{use_deposit_success_mms}
+			</if>
+			
+			<if test="use_buyer_cancel_email != null and use_buyer_cancel_email != ''">
+			,USE_BUYER_CANCEL_EMAIL			= #{use_buyer_cancel_email}
+			</if>
+			<if test="use_buyer_cancel_mms != null and use_buyer_cancel_mms != ''">
+			,USE_BUYER_CANCEL_MMS 			= #{use_buyer_cancel_mms}
+			</if>
+			
+			<if test="use_return_request_email != null and use_return_request_email != ''">
+			,USE_RETURN_REQUEST_EMAIL 		= #{use_return_request_email}
+			</if>
+			<if test="use_return_request_mms != null and use_return_request_mms != ''">
+			,USE_RETURN_REQUEST_MMS 		= #{use_return_request_mms}
+			</if>
+			
+			<if test="use_exchange_request_email != null and use_exchange_request_email != ''">
+			,USE_EXCHANGE_REQUEST_EMAIL 	= #{use_exchange_request_email}
+			</if>
+			<if test="use_exchange_request_mms != null and use_exchange_request_mms != ''">
+			,USE_EXCHANGE_REQUEST_MMS 		= #{use_exchange_request_mms}
+			</if>
+		WHERE 
+		MB_SEQ = #{mb_seq}
+	</update>
+	
+	<!-- 한 회원에 로그인 세션 리스트 개수 가져오기 -->
+	<select id="getLoginSessionListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) 
+		FROM MB_SESSION_STORE
+		WHERE 
+		1=1
+		AND MB_SEQ = #{mb_seq}
+	</select>
+	
+	<!-- 한 회원에 로그인 세션 리스트 가져오기 -->
+	<select id="getLoginSessionList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+            MB_SEQ 
+            ,(CASE LO_DEVICE_TYPE
+            	WHEN '1' THEN 'PC'
+            	WHEN '2' THEN '모바일'
+            	WHEN '3' THEN '테블릿'
+           	END) LO_DEVICE_TYPE 
+            ,LO_IP 
+            ,DATE_FORMAT(LO_DTTM,'%Y-%m-%d %T') as LO_DTTM
+            ,MB_SESSION_ID 
+            ,LO_DEVICE_ENV 
+		FROM MB_SESSION_STORE
+		WHERE 
+		1=1
+		AND MB_SEQ = #{mb_seq}
+		ORDER BY LO_DTTM DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 특정 세션 정보 삭제 -->
+	<delete id="deleteMemberSession" statementType="PREPARED" parameterType="hashmap">
+		DELETE 
+		FROM MB_SESSION_STORE
+		WHERE 1=1
+		AND MB_SESSION_ID = #{mb_session_id}
+		AND MB_SEQ		  = #{mb_seq}
+	</delete>
+
+	<!-- 특정 세션 스토어 정보 개수 가져오기 -->
+	<select id="getMemberSessionStoreCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM MB_SESSION_STORE
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		AND MB_SESSION_ID = #{mb_session_id}	
+	</select>
+	
+	<!-- 특정 회원 로그인 로그 리스트 카운트 가져오기 -->
+	<select id="getLoginLogListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM RB_MEMBER_LOGIN
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		ORDER BY LO_DTTM DESC;
+	</select>
+	
+	<!-- 특정 회원 로그인 로그 리스트 가져오기 -->
+	<select id="getLoginLogList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			LO_SEQ
+			,MB_SEQ
+			,(CASE LO_TYPE 
+				WHEN '1' THEN '로그인'
+				WHEN '2' THEN '로그아웃'
+				WHEN '3' THEN '로그인시간만료'
+				WHEN '4' THEN '강제로그아웃'
+			END) LO_TYPE  
+			,(CASE LO_DEVICE_TYPE
+            	WHEN '1' THEN 'PC'
+                WHEN '2' THEN '모바일'
+                WHEN '3' THEN '테블릿'
+            END) LO_DEVICE_TYPE
+			,LO_IP
+			,LO_URL
+			,DATE_FORMAT(LO_DTTM,'%Y-%m-%d %T') as LO_DTTM
+			,MB_SESSION_ID
+			,LO_DEVICE_ENV
+		FROM RB_MEMBER_LOGIN
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		ORDER BY LO_DTTM DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 특정 회원 블록 아이피 테이블 리스트 개수 가져오기 -->
+	<select id="getBlockIpListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM MB_BLOCK_IP
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+	</select>
+	
+	<!-- 특정 회원 블록 아이피 테이블 리스트 가져오기 -->
+	<select id="getBlockIpList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			MBI_SEQ
+			,MB_SEQ
+			,MB_IP
+			,DATE_FORMAT(REG_DTTM,'%Y-%m-%d %T') as REG_DTTM
+		FROM MB_BLOCK_IP
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		ORDER BY REG_DTTM DESC
+		<if test="page != null and page != 0 and pageSize != null and pageSize !=0">
+		LIMIT #{page}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 블록 아이피 추가하기-->
+	<insert id="insertBlockIpList"  statementType="PREPARED" parameterType="hashmap">
+		INSERT INTO MB_BLOCK_IP(
+			MB_SEQ
+			,MB_IP
+			,REG_DTTM
+		)VALUES(
+			#{mb_seq}
+			,#{mb_ip}
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 블록 아이피 삭제하기 -->
+	<delete id="deleteMemberBlockIp" statementType="PREPARED" parameterType="hashmap">
+		DELETE FROM MB_BLOCK_IP
+		WHERE MBI_SEQ = #{mbi_seq}
+	</delete>
+
+	<!-- 1:1문의 타입 리스트 가져오기 -->
+	<select id="getInquiryTypeList" statementType="PREPARED" resultType="hashmap">
+		SELECT 
+			RIT_SEQ
+			,RIT_NAME
+			,RIT_DESC
+		FROM RB_INQUIRY_TYPE
+	</select>
+	
+	<!-- 1:1 문의 하기  -->
+	<insert id="insertInquiry" statementType="PREPARED" parameterType="hashmap">
+		INSERT INTO RB_INQUIRY(
+			mb_seq
+			,rit_seq
+			,ri_subject
+			,ri_content
+			,ri_recv_email
+			,ri_reg_dttm
+			<if test="ri_attach_img_path_1 != null and ri_attach_img_path_1 != ''">
+				,ri_attach_img_path_1
+			</if>
+			<if test="ri_attach_img_path_2 != null and ri_attach_img_path_2 != ''">
+				,ri_attach_img_path_2
+			</if>
+			<if test="ri_attach_img_path_3 != null and ri_attach_img_path_3 != ''">
+				,ri_attach_img_path_3
+			</if>
+			<if test="ri_attach_img_path_4 != null and ri_attach_img_path_4 != ''">
+				,ri_attach_img_path_4
+			</if>
+			<if test="ri_attach_img_path_5 != null and ri_attach_img_path_5 != ''">
+				,ri_attach_img_path_5
+			</if>
+		)VALUES(
+			#{mb_seq}
+			,#{rit_seq}
+			,#{ri_subject}
+			,#{ri_content}
+			,#{ri_recv_email}
+			,NOW()
+			<if test="ri_attach_img_path_1 != null and ri_attach_img_path_1 != ''">
+				,#{ri_attach_img_path_1}
+			</if>
+			<if test="ri_attach_img_path_2 != null and ri_attach_img_path_2 != ''">
+				,#{ri_attach_img_path_2}
+			</if>
+			<if test="ri_attach_img_path_3 != null and ri_attach_img_path_3 != ''">
+				,#{ri_attach_img_path_3}
+			</if>
+			<if test="ri_attach_img_path_4 != null and ri_attach_img_path_4 != ''">
+				,#{ri_attach_img_path_4}
+			</if>
+			<if test="ri_attach_img_path_5 != null and ri_attach_img_path_5 != ''">
+				,#{ri_attach_img_path_5}
+			</if>
+		)
+	</insert>
+	
+	<!-- 1:1 문의 개수 가져오기 -->
+	<select id="getInquiryListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">	
+		SELECT 
+			COUNT(*)
+		FROM RB_INQUIRY
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		<if test="ri_is_answer != null and ri_is_answer != ''">
+		AND RI_IS_ANSWER = #{ri_is_answer}
+		</if>
+		<if test="ri_delete != null and ri_delete != ''">
+		AND RI_DELETE = #{ri_delete}
+		</if>
+		<![CDATA[
+		AND RI_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+		AND RI_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		<if test='search_word != null and search_word != "" and search_type != null and search_type != ""'>
+			<choose>
+				<when test='search_type == "TITLE"'>
+					AND RI_SUBJECT LIKE CONCAT('%', #{search_word}, '%')
+				</when>			
+				<when test='search_type == "CONTENT"'>
+					AND v_CONTENT LIKE CONCAT('%', #{search_word}, '%')
+				</when>
+				<when test='search_type == "ALL"'>
+					AND ((RI_SUBJECT LIKE CONCAT('%', #{search_word}, '%')) OR (RI_CONTENT LIKE CONCAT('%', #{search_word}, '%')))
+				</when>
+			</choose> 
+		</if>
+	</select>
+	
+	<!-- 1:1 문의 리스트 가져오기 -->
+	<select id="getInquiryList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+			T4.* 
+		FROM
+		(
+			SELECT 
+			T1.RI_SEQ
+			,T1.MB_SEQ
+			,T1.RIT_SEQ
+			,T1.RI_SUBJECT
+			,T1.RI_CONTENT
+			,T1.RI_RECV_EMAIL
+			,DATE_FORMAT(T1.RI_REG_DTTM,'%Y-%m-%d %T') as RI_REG_DTTM
+			,T1.RI_ANSWER
+			,T1.RI_IS_ANSWER
+			,T1.RI_ANSWER_MB_SEQ
+			,DATE_FORMAT(T1.RI_ANSWER_DTTM,'%Y-%m-%d %T') as RI_ANSWER_DTTM
+			,T1.RI_DELETE
+			,T1.RI_ATTACH_IMG_PATH_1
+			,T1.RI_ATTACH_IMG_PATH_2
+			,T1.RI_ATTACH_IMG_PATH_3
+			,T1.RI_ATTACH_IMG_PATH_4
+			,T1.RI_ATTACH_IMG_PATH_5
+			,T2.RIT_NAME
+			,T2.RIT_DESC
+			,T3.MB_NAME AS ANSWER_MB_NAME
+			,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+			FROM RB_INQUIRY T1
+			LEFT OUTER JOIN RB_INQUIRY_TYPE T2 ON T1.RIT_SEQ = T2.RIT_SEQ
+			LEFT OUTER JOIN RB_MEMBER T3 ON T1.RI_ANSWER_MB_SEQ = T3.MB_SEQ
+			,(SELECT @ROWNUM:=0) R
+			WHERE 1=1
+			AND T1.MB_SEQ = #{mb_seq}
+			<if test="ri_is_answer != null and ri_is_answer != ''">
+			AND T1.RI_IS_ANSWER = #{ri_is_answer}
+			</if>
+			<if test="ri_delete != null and ri_delete != ''">
+			AND T1.RI_DELETE = #{ri_delete}
+			</if>
+			<![CDATA[
+			AND T1.RI_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+			]]>
+			<![CDATA[
+			AND T1.RI_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+			]]>
+			<if test="search_word != null and search_word != '' and search_type != null and search_type != ''">
+				<choose>
+					<when test='search_type == "TITLE"'>
+						AND T1.RI_SUBJECT LIKE CONCAT('%', #{search_word}, '%')
+					</when>			
+					<when test='search_type == "CONTENT"'>
+						AND T1.RI_CONTENT LIKE CONCAT('%', #{search_word}, '%')
+					</when>
+					<when test='search_type == "ALL"'>
+						AND ((T1.RI_SUBJECT LIKE CONCAT('%', #{search_word}, '%')) OR (T1.RI_CONTENT LIKE CONCAT('%', #{search_word}, '%')))
+					</when>
+				</choose> 
+			</if>
+			ORDER BY T1.RI_REG_DTTM DESC
+			LIMIT #{page}, #{pageSize}
+		) T4
+	</select>
+	
+	<!-- 특정 회원 특정 1:1문의 내용 가져오기 -->
+	<select id="getInquiry" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">	
+		SELECT 
+			T1.RI_SEQ
+			,T1.MB_SEQ
+			,T1.RIT_SEQ
+			,T1.RI_SUBJECT
+			,T1.RI_CONTENT
+			,T1.RI_RECV_EMAIL
+			,DATE_FORMAT(T1.RI_REG_DTTM, '%Y-%m-%d %T') as RI_REG_DTTM
+			,T1.RI_ANSWER
+			,T1.RI_IS_ANSWER
+			,T1.RI_ANSWER_MB_SEQ
+			,DATE_FORMAT(T1.RI_ANSWER_DTTM, '%Y-%m-%d %T') as RI_ANSWER_DTTM
+			,T1.RI_DELETE
+			,T1.RI_ATTACH_IMG_PATH_1
+			,T1.RI_ATTACH_IMG_PATH_2
+			,T1.RI_ATTACH_IMG_PATH_3
+			,T1.RI_ATTACH_IMG_PATH_4
+			,T1.RI_ATTACH_IMG_PATH_5
+			,T2.RIT_NAME
+			,T2.RIT_DESC
+			,T3.MB_NAME
+		FROM RB_INQUIRY T1
+		LEFT OUTER JOIN RB_INQUIRY_TYPE T2 ON T1.RIT_SEQ = T2.RIT_SEQ
+		LEFT OUTER JOIN RB_MEMBER T3 ON T1.RI_ANSWER_MB_SEQ = T3.MB_SEQ
+		WHERE 1=1
+		AND RI_SEQ = #{ri_seq}
+	</select>
+	
+	<!-- 이머니 충전 로그 추가하기 -->
+	<insert id="insertCashCharge" statementType="PREPARED" parameterType="hashmap">
+		INSERT INTO RB_CASH_CHARGE(
+			MB_SEQ
+			,CC_AMOUNT
+			,CC_PAY_TYPE
+			<if test="cc_pay_name != null and cc_pay_name != ''">
+			,CC_PAY_NAME
+			</if>
+			<if test="cc_pay_bank != null and cc_pay_bank != ''">
+			,CC_PAY_BANK
+			</if>
+			<if test="cc_pay_no != null and cc_pay_no != ''">
+			,CC_PAY_NO
+			</if>
+			,CC_STATE
+			<if test="cc_bigo != null and cc_bigo != ''">
+			,CC_BIGO
+			</if>
+			,CC_REG_DTTM
+		)VALUES(
+			#{mb_seq}
+			,#{cc_amount}
+			,#{cc_pay_type}
+			<if test="cc_pay_name != null and cc_pay_name != ''">
+			,#{cc_pay_name}
+			</if>
+			<if test="cc_pay_bank != null and cc_pay_bank != ''">
+			,#{cc_pay_bank}
+			</if>
+			<if test="cc_pay_no != null and cc_pay_no != ''">
+			,#{cc_pay_no}
+			</if>
+			,#{cc_state}
+			<if test="cc_bigo != null and cc_bigo != ''">
+			,#{cc_bigo}
+			</if>
+			,now()
+		)
+	</insert>
+	
+	<!-- 이머니 충전 로그 리스트 카운트 가져오기 -->
+	<select id="getEmoneyChargeListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM RB_CASH_CHARGE
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		
+		<![CDATA[
+		AND CC_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+		AND CC_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+	</select>
+	
+	<!-- 이머니 충전 로그 리스트 가져오기 -->
+	<select id="getEmoneyChargeList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			T2.*
+		FROM
+		(
+		SELECT 
+			T1.CC_SEQ
+			,T1.MB_SEQ
+			,T1.CC_AMOUNT
+			,T1.CC_PAY_TYPE
+			,T1.CC_PAY_NAME
+			,T1.CC_PAY_NO
+			,T1.CC_STATE
+			,T1.CC_BIGO
+			,DATE_FORMAT(T1.CC_REG_DTTM, '%Y-%m-%d %T') CC_REG_DTTM
+			,DATE_FORMAT(T1.CC_MOD_DTTM, '%Y-%m-%d %T') CC_MOD_DTTM
+			,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+		FROM RB_CASH_CHARGE T1
+		,(SELECT @ROWNUM:=0) R
+		WHERE 1=1
+		AND T1.MB_SEQ = #{mb_seq}
+		
+		<![CDATA[
+			AND T1.CC_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+			AND T1.CC_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		ORDER BY T1.CC_REG_DTTM DESC
+		LIMIT #{page}, #{pageSize} 
+		) T2
+	</select>
+	
+	<select id="getCashChargeInfo" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT 
+			CC_SEQ
+			,MB_SEQ
+			,CC_AMOUNT
+			,CC_PAY_TYPE
+			,CC_PAY_BANK
+			,CC_PAY_NAME
+			,CC_PAY_NO
+			,CC_STATE
+			,CC_BIGO
+			,CC_REG_DTTM
+			,CC_MOD_DTTM
+		FROM RB_CASH_CHARGE
+		WHERE CC_SEQ = #{cc_seq}
+	</select>
+	
+	<!-- 이머니 충전 로그 상태 변경하기 -->
+	<update id="updateCashCharge" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_CASH_CHARGE
+		SET CC_STATE = #{cc_state}
+		WHERE CC_SEQ = #{cc_seq}
+		AND MB_SEQ = #{mb_seq}
+	</update>
+	
+	<!-- 이머니 출금 로그 추가하기-->
+	<insert id="insertCashOut" statementType="PREPARED" parameterType="hashmap">
+		INSERT INTO RB_CASH_OUT(
+			MB_SEQ
+			,CO_AMOUNT
+			,CO_BANK
+			,CO_ACCOUNT
+			,CO_ACCOUNT_NAME
+			,CO_STATE
+			,CO_REG_DTTM
+			,CO_PAY_TYPE
+		)VALUES(
+			#{mb_seq}
+			,#{co_amount}
+			,#{co_bank}
+			,#{co_account}
+			,#{co_account_name}
+			,#{co_state}
+			,now()
+			,#{co_pay_type}
+		)
+	</insert>
+	
+	<!-- 이머니 출금 로그 리스트 카운트 가져오기-->
+	<select id="getEmoneyCashOutListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)				
+		FROM RB_CASH_OUT
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		AND CO_STATE <![CDATA[<>]]> 4
+		<![CDATA[
+		AND CO_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+		AND CO_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+	</select>
+	
+	<!-- 이머니 출금 로그 리스트 가져오기-->
+	<select id="getEmoneyCashOutList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			T2.*
+		FROM
+		(
+			SELECT 
+				T1.CO_SEQ
+				,T1.MB_SEQ
+				,T1.CO_AMOUNT
+				,T1.CO_BANK
+				,T1.CO_ACCOUNT
+				,T1.CO_ACCOUNT_NAME
+				,T1.CO_STATE
+				,DATE_FORMAT(T1.CO_REG_DTTM, '%Y-%m-%d %T') CO_REG_DTTM
+				,DATE_FORMAT(T1.CO_MOD_DTTM, '%Y-%m-%d %T') CO_MOD_DTTM
+				,T1.CO_PAY_TYPE
+				,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+			FROM RB_CASH_OUT T1 
+			,(SELECT @ROWNUM:=0) R
+			WHERE 1=1
+			AND T1.MB_SEQ = #{mb_seq}
+			AND T1.CO_STATE <![CDATA[<>]]> 4
+			<![CDATA[
+			AND T1.CO_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+			]]>
+			<![CDATA[
+			AND T1.CO_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+			]]>
+			ORDER BY T1.CO_REG_DTTM DESC
+			LIMIT #{page}, #{pageSize}
+		) T2
+	</select>
+	
+	<!-- 이머니 출금 로그 가져오기-->
+	<select id="getCashOutInfo" statementType="PREPARED" parameterType="hashmap" resultType="hashmap" >
+		SELECT 
+			CO_SEQ
+			,MB_SEQ
+			,CO_AMOUNT
+			,CO_BANK
+			,CO_ACCOUNT
+			,CO_ACCOUNT_NAME
+			,CO_STATE
+			,CO_REG_DTTM
+			,CO_MOD_DTTM
+			,CO_PAY_TYPE  
+		FROM RB_CASH_OUT
+		WHERE CO_SEQ = #{co_seq}
+	</select>
+	
+	<!-- 이머니 출금 로그 변경하기-->
+	<update id="updateCashOutInfo" statementType="PREPARED" parameterType="hashmap">
+		UPDATE RB_CASH_OUT
+		SET CO_MOD_DTTM = NOW()
+		<if test="co_amount != null and co_amount != ''">
+		,CO_AMOUNT = #{co_amount}
+		</if>
+		<if test="co_bank != null and co_bank != ''">
+		,CO_BANK = #{co_bank}
+		</if>
+		<if test="co_account != null and co_account != ''">
+		,CO_ACCOUNT = #{co_account}
+		</if>
+		<if test="co_account_name != null and co_account_name != ''">
+		,CO_ACCOUNT_NAME = #{co_account_name}
+		</if>
+		<if test="co_state != null and co_state != ''">
+		,CO_STATE = #{co_state}
+		</if>
+		<if test="co_pay_type != null and co_pay_type != ''">
+		,CO_PAY_TYPE = #{co_pay_type}
+		</if>
+		WHERE 1=1
+		AND CO_SEQ = #{co_seq}
+	</update>
+	
+	<!-- 이머니 사용내역 리스트 카운트 가져오기-->
+	<select id="getEmoneyUseListCount" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM RB_CASH_LOG
+		WHERE 1=1
+		AND MB_SEQ = #{mb_seq}
+		<![CDATA[
+		AND CL_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+		AND CL_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+	</select>
+	
+	<!-- 이머니 사용내역 리스트 가져오기-->
+	<select id="getEmoneyUseList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			T2.CL_SEQ
+			,T2.MB_SEQ
+			,T2.CASH_CHANGE_AMOUNT
+			,T2.CASH_CARD_CHANGE_AMOUNT
+			,T2.MB_CASH
+			,T2.MB_CASH_CARD
+			,T2.CL_TITLE
+			,T2.CL_TYPE
+			,T2.ORDER_SEQ
+			,T2.CL_REG_DTTM
+			,T2.ROWNUM
+		FROM
+		(
+			SELECT 
+				T1.CL_SEQ
+				,T1.MB_SEQ
+				,T1.CASH_CHANGE_AMOUNT
+				,T1.CASH_CARD_CHANGE_AMOUNT
+				,T1.MB_CASH
+				,T1.MB_CASH_CARD
+				,T1.CL_TITLE
+				,T1.CL_TYPE
+				,T1.ORDER_SEQ
+				,DATE_FORMAT(T1.CL_REG_DTTM, '%Y-%m-%d %T') CL_REG_DTTM
+				,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+			FROM RB_CASH_LOG T1 
+			,(SELECT @ROWNUM:=0) R
+			WHERE 1=1
+			AND T1.MB_SEQ = #{mb_seq}
+			<![CDATA[
+			AND T1.CL_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+			]]>
+			<![CDATA[
+			AND T1.CL_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+			]]>
+		) T2
+		
+	ORDER BY T2.CL_REG_DTTM DESC
+	LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 쪽지 리스트 개수 가져오기 -->
+	<select id="getLetterListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT COUNT(*)
+		FROM RB_LETTER
+		WHERE 1=1
+		AND RL_RECEIVER_SEQ = #{rl_receiver_seq}
+		<if test='rl_state != null and rl_state != ""'>
+		AND RL_STATE = #{rl_state}
+		</if>
+		<if test='rl_view_state != null and rl_view_state != ""'>
+		AND RL_VIEW_STATE = #{rl_view_state}
+		</if>
+		<if test='search_word != null and search_word != "" and search_type != null and search_type != ""'>
+			<choose>
+				<when test='search_type == "TITLE"'>
+					AND RL_TITLE LIKE CONCAT('%', #{search_word}, '%')
+				</when>			
+				<when test='search_type == "CONTENT"'>
+					AND RL_CONTENT LIKE CONCAT('%', #{search_word}, '%')
+				</when>
+				<when test='search_type == "ALL"'>
+					AND ((RL_TITLE LIKE CONCAT('%', #{search_word}, '%')) OR (RL_CONTENT LIKE CONCAT('%', #{search_word}, '%')))
+				</when>
+			</choose> 
+		</if>
+		<if test='rl_view_state != null and  rl_view_state !=""'>
+			AND RL_VIEW_STATE = #{rl_view_state}				
+		</if>
+		
+		<![CDATA[
+			AND RL_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		]]>
+		<![CDATA[
+			AND RL_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+	</select>
+	
+	<!-- 쪽지 리스트 가져오기 -->
+	<select id="getLetterList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT 
+			T2.*
+		FROM
+		(
+			SELECT 
+				T1.RL_SEQ
+				,T2.MB_NICKNAME
+				,T1.RL_RECEIVER_SEQ
+				,T1.RL_TITLE
+				,T1.RL_CONTENT
+				,T1.RL_STATE
+				,T1.RL_VIEW_STATE
+				,DATE_FORMAT(T1.RL_REG_DTTM, '%Y-%m-%d %T') RL_REG_DTTM
+				,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+			FROM RB_LETTER T1 
+			LEFT OUTER JOIN RB_MEMBER T2 ON T1.RL_WRITER_SEQ = T2.MB_SEQ
+			,(SELECT @ROWNUM:=0) R
+			WHERE 1=1
+			AND T1.RL_RECEIVER_SEQ = #{rl_receiver_seq}
+			<if test='rl_state != null and rl_state != ""'>
+			AND T1.RL_STATE = #{rl_state}
+			</if>
+			<if test='rl_view_state != null and rl_view_state != ""'>
+			AND T1.RL_VIEW_STATE = #{rl_view_state}
+			</if>
+			<if test='search_word != null and search_word != "" and search_type != null and search_type != ""'>
+				<choose>
+					<when test='search_type == "TITLE"'>
+						AND T1.RL_TITLE LIKE CONCAT('%', #{search_word}, '%')
+					</when>			
+					<when test='search_type == "CONTENT"'>
+						AND T1.RL_CONTENT LIKE CONCAT('%', #{search_word}, '%')
+					</when>
+					<when test='search_type == "ALL"'>
+						AND ((T1.RL_TITLE LIKE CONCAT('%', #{search_word}, '%')) OR (T1.RL_CONTENT LIKE CONCAT('%', #{search_word}, '%')))
+					</when>
+				</choose> 
+			</if>
+			<if test='rl_view_state != null and  rl_view_state !=""'>
+				AND T1.RL_VIEW_STATE = #{rl_view_state}				
+			</if>
+			
+			<![CDATA[
+			AND T1.RL_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+			]]>
+			<![CDATA[
+			AND T1.RL_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+			]]>
+			ORDER BY T1.RL_REG_DTTM DESC
+			LIMIT #{page}, #{pageSize}
+		) T2
+	</select> 
+	
+	<!-- 쪽지 정보 가져오기 -->
+	<select id="getLetter" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT 
+			T1.RL_SEQ
+			,T1.RL_WRITER_SEQ
+			,T1.RL_RECEIVER_SEQ
+			,T1.RL_TITLE
+			,T1.RL_CONTENT
+			,T1.RL_STATE
+			,T1.RL_VIEW_STATE
+			,T1.RL_REG_DTTM
+			,T2.MB_NICKNAME AS WRITER_NAME
+		FROM RB_LETTER T1 LEFT OUTER JOIN RB_MEMBER T2 ON T1.RL_WRITER_SEQ = T2.MB_SEQ
+		WHERE RL_SEQ = #{rl_seq}
+	</select>
+	
+	<!-- 쪽지상태 변경하기 -->
+	<update id="updateLetterList" parameterType="hashmap" statementType="PREPARED">
+		<choose>
+			<when test='type != null and type != ""'>
+				UPDATE RB_LETTER
+				<choose>
+					<when test='type == "delete"'>
+						SET RL_STATE = 2
+					</when>				
+					<when test='type == "update"'>
+						SET RL_VIEW_STATE = 2
+					</when>
+				</choose>
+				WHERE 1=1
+				AND RL_RECEIVER_SEQ = #{mb_seq}
+				AND RL_SEQ IN 
+				<foreach item="item" index="index" collection="letterSeqList" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				
+			</when>		
+		</choose>
+	</update>
+	
+	<!-- 쪽지 한개 읽음 처리 -->
+	<update id="updateLetter" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_LETTER
+		SET RL_VIEW_STATE = 2
+		WHERE 1=1
+		AND RL_SEQ = #{rl_seq}
+		AND RL_RECEIVER_SEQ = #{mb_seq}
+	</update>
+	
+	
+</mapper>

@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+h2 {
+	overflow: hidden;
+	width: 980px;
+	height: 67px;
+	margin-bottom: 16px;
+	text-indent: -5000px;
+	background-image:
+		url('http://211.43.195.137/image/mySell/register/img_headerInfoFrm.png');
+	background-repeat: no-repeat;
+}
+
+ul.guide {
+	margin-top: 18px;
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+ul.guide li {
+	padding-left: 18px;
+	text-indent: -18px;
+}
+
+form#frmRegItem input.input, form#frmRegItem textarea, form#frmRegItem select
+	{
+	border: 1px solid #ccc;
+	font-size: 12px;
+}
+
+form#frmRegItem ul {
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+.disabledBox {
+	background-color: #E1E1E1;
+	border: 1px solid silver;
+	font-size: 12px;
+}
+
+.image {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #e0e0e0;
+	background: #ffffff;
+}
+
+#amtAreaNormal, #amtAreaDiscount {
+	padding: 5px;
+	border: 1px solid #ddd;
+	background-color: #eee;
+	overflow: hidden
+}
+
+#amtAreaNormal input[type=radio], #amtAreaDiscount input[type=radio] {
+	vertical-align: -2px;
+	margin-right: 3px;
+}
+
+#amtAreaNormal input[type=text], #amtAreaDiscount input[type=text] {
+	vertical-align: 2px;
+}
+
+#amtSectionWrap_n, #amtSectionWrap_d {
+	padding-left: 22px;
+}
+
+#amtDiscountSet {
+	display: block;
+	padding: 3px 0;
+}
+
+#amtDiscountGuide {
+	color: gray;
+	letter-spacing: -1px;
+	padding-bottom: 3px;
+}
+
+#spanLengthTitle {
+	position: relative;
+	width: 50px;
+	text-align: right;
+	color: #888;
+}
+
+.input::-ms-clear {
+	display: none;
+}
+
+/*-------------------------------------------------------------------
+스피드고배송관
+-------------------------------------------------------------------*/
+.storeGuide {
+	list-style-type: disc;
+	padding: 0px 10px;
+}
+
+.storeNoList {
+	list-style: none;
+}
+
+.storeBold {
+	font-weight: bold;
+}
+
+.storeRegItem {
+	margin-top: 25px;
+}
+
+.easyWebEditorDiv {
+	z-index: 9999
+}
+
+.easyWebEditorDiv a {
+	text-decoration: none;
+	color: #000
+}
+
+#easyWebEditor_colortbl a {
+	border: 1px solid #f5f5f5;
+	padding: 0 6px;
+	height: 9px;
+	font: 8px verdana;
+	text-decoration: none
+}
+
+.displayNone {
+	display: none;
+}
+
+label {
+	cursor: pointer;
+}
+
+#deliBuyerTbl {
+	padding: 8px;
+	margin-top: 6px;
+	border: 1px solid #ddd;
+	background-color: #eee;
+}
+
+.deliBuyerRow {
+	clear: both;
+	overflow: hidden;
+	margin-bottom: 4px;
+}
+
+.deliBuyerRow .qty1 {
+	float: left;
+	width: 50px;
+	text-align: right;
+}
+
+.deliBuyerRow .qty2 {
+	float: left;
+	width: 75px;
+}
+
+.deliBuyerRow .amt {
+	float: left;
+	width: 90px;
+}
+
+.deliBuyerRow .setAmount {
+	display: block;
+}
+
+.deliBuyerRow .finalAmount {
+	display: none;
+}
+
+.deliBuyerRow .func {
+	float: left;
+}
+
+.deliBuyerRow .func img {
+	cursor: pointer;
+}
+
+.deliBuyerRow .addBtn {
+	display: none;
+}
+
+.finalRow .finalAmount {
+	display: block;
+}
+
+.finalRow .setAmount {
+	display: none;
+}
+
+.finalRow .addBtn {
+	display: inline;
+}
+
+#deliBuyerTblSupply {
+	padding: 8px;
+	margin-top: 6px;
+	border: 1px solid #ddd;
+	background-color: #eee;
+}

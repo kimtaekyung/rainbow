@@ -1,0 +1,243 @@
+@charset "UTF-8";
+
+#v5ContentsWrap {
+	width: 770px;
+	margin: auto;
+}
+
+#v5ContentsWrap_pull {
+	width: 980px;
+	margin: auto;
+}
+
+#v5ContentsWrap p {
+	padding: 6px 0;
+}
+
+#v5ContentsWrap li {
+	list-style-position: inside;
+}
+
+#v5ContentsWrap td {
+	
+}
+
+#v5ContentsWrap A:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+#v5ContentsWrap A:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+#v5ContentsWrap A:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+#v5ContentsWrap A:hover {
+	color: #0000cc;
+	text-decoration: underline;
+}
+
+#v5ContentsWrap .linkNormal A:link {
+	color: #0000cc;
+	text-decoration: none;
+}
+
+#v5ContentsWrap .linkNormal A:visited {
+	color: #7600C8;
+	text-decoration: none;
+}
+
+#v5ContentsWrap .linkNormal A:active {
+	color: #cc0000;
+	text-decoration: none;
+}
+
+#v5ContentsWrap .linkNormal A:hover {
+	color: #0000cc;
+	text-decoration: underline;
+}
+
+#v5ContentsWrap .button {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #d0d0d0;
+	background: #eeeeee;
+	height: 20;
+}
+
+#v5ContentsWrap .input {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #cccccc;
+	background: #ffffff;
+	height: 20;
+}
+
+#v5ContentsWrap BODY, #v5ContentsWrap TD, #v5ContentsWrap DIV,
+	#v5ContentsWrap form, #v5ContentsWrap center, #v5ContentsWrap option,
+	#v5ContentsWrap pre, #v5ContentsWrap br {
+	color: #333333;
+	font-size: 9pt;
+	/*font-family:굴림,tahoma;*/
+	font-family: '돋움', 'dotum';
+	line-height: 155%;
+}
+
+#v5ContentsWrap input, #v5ContentsWrap SELECT, #v5ContentsWrap TEXTAREA
+	{
+	color: #333333;
+	font-size: 9pt;
+	/*font-family:굴림,tahoma;*/
+	font-family: '돋움', 'dotum';
+	line-height: 145%;
+	vertical-align: middle;
+}
+
+#v5ContentsWrap img {
+	vertical-align: middle;
+}
+
+#v5ContentsWrap BODY {
+	margin: 0px 0px 0px 0px
+}
+
+#v5ContentsWrap .highlight {
+	color: yellow;
+	background: red;
+	font-weight: bold;
+}
+
+#v5ContentsWrap .highlight2 {
+	color: #008000;
+	background: #D3FF05;
+}
+
+#v5ContentsWrap .rightline_d0d0d0 {
+	border-width: 0px 1px 0px 0px;
+	border-style: solid;
+	border-color: #d0d0d0;
+	text-indent: 8px;
+}
+
+#v5ContentsWrap .rightline_999999 {
+	border-width: 0px 1px 0px 0px;
+	border-style: solid;
+	border-color: #999999;
+}
+
+#v5ContentsWrap .smsBox {
+	border-width: 0px;
+	border-style: solid;
+	font: 9pt;
+	overflow: hidden
+}
+
+#v5ContentsWrap .disabledBox {
+	background-color: #E1E1E1;
+	border-width: 1;
+	border-color: silver;
+	border-style: solid;
+}
+
+#v5ContentsWrap .image {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #e0e0e0;
+	background: #ffffff;
+}
+
+#v5ContentsWrap .UB {
+	color: #0000cc;
+	text-decoration: underline;
+}
+
+#v5ContentsWrap .UR {
+	color: #cc0000;
+	text-decoration: underline;
+}
+
+#v5ContentsWrap .png24 {
+	tmp: expression(setPng24(this));
+}
+
+#v5ContentsWrap .linkRed {
+	text-decoration: underline;
+	color: #cc0000;
+	cursor: pointer;
+}
+
+#v5ContentsWrap .linkBlue {
+	text-decoration: underline;
+	color: #0000cc;
+	cursor: pointer;
+}
+
+#v5ContentsWrap .linkGreen {
+	text-decoration: underline;
+	color: #008000;
+	cursor: pointer;
+}
+
+#v5ContentsWrap .paginate {
+	background-color: #fff
+}
+
+#v5ContentsWrap .paginate a, #v5ContentsWrap .paginate strong {
+	position: relative;
+	display: inline-block;
+	margin-right: 1px;
+	padding: 3px 3px 5px 3px;
+	color: #000;
+	text-decoration: none;
+	border: 1px solid #ffffff;
+	font: bold 12px/normal Verdana;
+	_width /**/: 17px;
+}
+
+#v5ContentsWrap .paginate strong {
+	color: #f23219 !important;
+	border: 1px solid #e9e9e9;
+}
+
+#v5ContentsWrap .paginate .pre {
+	margin-right: 9px;
+	padding: 5px 6px 5px 6px;
+	_padding-bottom: 3px;
+}
+
+#v5ContentsWrap .paginate .next {
+	margin-left: 9px;
+	padding: 5px 6px 5px 6px;
+	_padding-bottom: 3px;
+}
+
+#v5ContentsWrap *:first-child+html .paginate .pre, #v5ContentsWrap *:first-child+html .paginate .next
+	{
+	top: -1px;
+	padding-bottom: 3px;
+}
+
+#v5ContentsWrap .paginate .pre, #v5ContentsWrap .paginate .next {
+	display: inline-block;
+	color: #ccc;
+	border: 1px solid #e9e9e9;
+	position: relative;
+	top: 1px;
+	_top: -1px;
+	font: 12px/normal arial;
+	_width /**/: 84px;
+}
+
+#v5ContentsWrap .paginate a.pre, #v5ContentsWrap .paginate a.next {
+	color: #565656;
+}
+
+#v5ContentsWrap .paginate a:hover {
+	background-color: #f7f7f7 !important;
+	border: 1px solid #e9e9e9;
+}

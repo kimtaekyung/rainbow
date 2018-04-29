@@ -1,0 +1,79 @@
+@charset "UTF-8";
+div#loginBox{
+	width: 600px;
+	height: 500px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 20px 5px;
+	border-style: outset;
+    border-width: 2px;
+    border-color: #e5004f;  
+	margin-top: 100px;
+}
+div#loginBox div#loginPageLogo_div{
+	width: 400px;
+	margin: 20px auto;
+	text-align: center;
+	
+}
+div#loginBox div#loginPageLogo_div img{
+	width: 80%;
+}
+div#loginBox > ul{
+	width: auto;
+    margin: 0 auto;
+	text-align: center;
+}
+div#loginBox li{
+	margin: 10px 0px;
+}
+div#loginBox button{
+	width: 426px;
+    height: 56px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #d7d7d7;
+    cursor: pointer;
+}
+div#loginBox button#loginBtn{
+    color: #fff;
+    background-color: #e5004f;
+}
+div#loginBox button#joinBtn{
+    color: #e5004f;
+    background-color: #fff;
+}
+div#loginBox input[type=text],input[type=password]{
+	width: 400px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    border: 1px solid #d7d7d7;
+    background-color: transparent;
+    padding: 12px;
+    outline-color: #e5004f;
+}
+div#loginBox div#save_div{
+	width: 426px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+div#loginBox > ul#loginBoxLink_ul li{
+	display: inline-table;
+	padding: 0 12px;
+}
+div#loginBox > ul#loginBoxLink_ul li:not(:last-child){
+	border-right: 1px solid #f1f1f1;
+}
+div#loginBox > ul#loginBoxLink_ul li a{
+	text-align:center;
+	text-decoration: none;
+	font-weight: 500;
+	color: grey;
+	font-size: 14px;
+}
+
+
+

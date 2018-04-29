@@ -1,0 +1,6 @@
+@charset "UTF-8";
+button#chargeCashButton {
+    width: 139px;
+    height: 38px;
+    border: 0;
+}

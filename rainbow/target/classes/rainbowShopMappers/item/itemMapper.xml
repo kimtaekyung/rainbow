@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.item.dao.ItemDao">
+
+	<!-- 상품 카테고리명 조회 -->
+	<select id="getShopCategoryName" parameterType="hashmap" resultType="string" statementType="PREPARED">
+		SELECT
+			CATE_NAME
+		FROM RB_SHOP_CATEGORY
+		WHERE CATE_CODE = #{cate_code}
+	</select>
+
+	<!-- 상품목록조회 -->
+	<select id="getItemList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.ITEM_SEQ
+			,A.MB_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_KEYWORD
+			,A.CATE_CODE1
+			,A.CATE_CODE2
+			,A.CATE_CODE3
+			,A.ITEM_MAKER
+			,A.ITEM_ORIGIN
+			,A.ITEM_CUST_PRICE
+			,A.ITEM_PRICE
+			,A.ITEM_COUPON_PRICE
+			,A.ITEM_LAST_PRICE
+			,A.ITEM_MODEL_NAME
+			,A.ITEM_STATUS
+			,A.ITEM_SELL_PERIOD_FROM
+			,A.ITEM_SELL_PERIOD_TO
+			,A.ITEM_QTY
+			,A.ITEM_DELIVERY_CHARGE_TYPE
+			,(CASE WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 1 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 2 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 3 THEN '조건부무료'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 4 THEN '유료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 5 THEN '수량별부과'
+					END) AS ITEM_DELIVERY_CHARGE_TYPE_NAME
+			,A.ITEM_DELIVERY_CONDITION
+			,A.ITEM_DELIVERY
+			,A.ITEM_TAG
+			,(CASE WHEN A.ITEM_TAG = 1 THEN '새상품'
+					WHEN A.ITEM_TAG = 2 THEN '미사용전시'
+					WHEN A.ITEM_TAG = 3 THEN '전시시연'
+					WHEN A.ITEM_TAG = 4 THEN '렌탈전시'
+					WHEN A.ITEM_TAG = 5 THEN '터프한중고'
+					END) AS ITEM_TAG_NAME
+			,A.ITEM_TAG_SUB
+			,A.ITEM_CONTENT
+			,A.ITEM_CONTENT_MOBILE
+			,A.ITEM_DTL_INFO
+			,REPLACE(A.ITEM_REPRESENT_IMAGE, '\\', '/') AS ITEM_REPRESENT_IMAGE
+			,REPLACE(A.ITEM_IMG1, '\\', '/') AS ITEM_IMG1
+			,REPLACE(A.ITEM_IMG2, '\\', '/') AS ITEM_IMG2
+			,REPLACE(A.ITEM_IMG3, '\\', '/') AS ITEM_IMG3
+			,REPLACE(A.ITEM_IMG4, '\\', '/') AS ITEM_IMG4
+			,REPLACE(A.ITEM_IMG5, '\\', '/') AS ITEM_IMG5
+			,REPLACE(A.ITEM_IMG6, '\\', '/') AS ITEM_IMG6
+			,REPLACE(A.ITEM_IMG7, '\\', '/') AS ITEM_IMG7
+			,REPLACE(A.ITEM_IMG8, '\\', '/') AS ITEM_IMG8
+			,REPLACE(A.ITEM_IMG9, '\\', '/') AS ITEM_IMG9
+			,REPLACE(A.ITEM_IMG10, '\\', '/') AS ITEM_IMG10
+			,A.ITEM_APPROVAL_MB_SEQ
+			,A.ITEM_RETURN_INFO
+			,A.ITEM_REG_DTTM
+			,A.ITEM_REG_MB_SEQ
+			,A.ITEM_MOD_DTTM
+			,A.ITEM_MOD_MB_SEQ
+		FROM RB_SHOP_ITEM A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE 1 = 1
+		<if test='p_cate_code1 != null and p_cate_code1 != ""'>
+		AND A.CATE_CODE1 = #{p_cate_code1}
+		</if>
+		<if test='p_cate_code2 != null and p_cate_code2 != ""'>
+		AND A.CATE_CODE2 = #{p_cate_code2}
+		</if>
+		<if test='p_start_price != null and p_start_price != ""'>
+		AND A.ITEM_LAST_PRICE >= #{p_start_price}
+		</if>
+		<if test='p_end_price != null and p_end_price != ""'>
+		<![CDATA[AND A.ITEM_LAST_PRICE <= #{p_end_price}]]>
+		</if>
+		<if test='p_search_text != null and p_search_text != ""'>
+			<if test='p_search_type == "상품명"'>
+			AND (A.ITEM_TITLE LIKE CONCAT('%', #{p_search_text}, '%') OR
+				A.ITEM_NAME LIKE CONCAT('%', #{p_search_text}, '%') OR
+				A.ITEM_KEYWORD LIKE CONCAT('%', #{p_search_text}, '%') )
+			</if>
+			<if test='p_search_type == "상품번호"'>
+			AND A.ITEM_SEQ = #{p_search_text}
+			</if>
+			<if test='p_search_type == "판매자ID"'>
+			AND B.MB_ID LIKE CONCAT('%', #{p_search_text}, '%')
+			</if>
+			<if test='p_search_type == "닉네임"'>
+			AND B.MB_NICKNAME LIKE CONCAT('%', #{p_search_text}, '%')
+			</if>
+		</if>
+		AND A.ITEM_STATUS = '2'
+		AND A.ITEM_DISPLAY = '2'
+		<if test='p_sch_order == "1"'>
+		ORDER BY A.ITEM_LAST_PRICE ASC
+		</if>
+		<if test='p_sch_order == "2"'>
+		ORDER BY A.ITEM_LAST_PRICE DESC
+		</if>
+		<if test='p_sch_order == "3"'>
+		ORDER BY A.ITEM_REG_DTTM DESC
+		</if>
+		<if test='p_sch_order == "4"'>
+		ORDER BY A.ITEM_SELL_CNT DESC, A.ITEM_VIEW_CNT DESC
+		</if>
+		LIMIT #{p_page}, #{p_pageSize}
+	</select>
+	
+	<!-- 상품목록 카운트 조회 -->
+	<select id="getItemListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS CNT
+		FROM RB_SHOP_ITEM A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE 1 = 1
+		<if test='p_cate_code1 != null and p_cate_code1 != ""'>
+		AND A.CATE_CODE1 = #{p_cate_code1}
+		</if>
+		<if test='p_cate_code2 != null and p_cate_code2 != ""'>
+		AND A.CATE_CODE2 = #{p_cate_code2}
+		</if>
+		<if test='p_start_price != null and p_start_price != ""'>
+		AND A.ITEM_LAST_PRICE >= #{p_start_price}
+		</if>
+		<if test='p_end_price != null and p_end_price != ""'>
+		<![CDATA[AND A.ITEM_LAST_PRICE <= #{p_end_price}]]>
+		</if>
+		<if test='p_search_text != null and p_search_text != ""'>
+			<if test='p_search_type == "상품명"'>
+			AND (A.ITEM_TITLE LIKE CONCAT('%', #{p_search_text}, '%') OR
+				A.ITEM_NAME LIKE CONCAT('%', #{p_search_text}, '%') OR
+				A.ITEM_KEYWORD LIKE CONCAT('%', #{p_search_text}, '%') )
+			</if>
+			<if test='p_search_type == "상품번호"'>
+			AND A.ITEM_SEQ = #{p_search_text}
+			</if>
+			<if test='p_search_type == "판매자ID"'>
+			AND B.MB_ID LIKE CONCAT('%', #{p_search_text}, '%')
+			</if>
+			<if test='p_search_type == "닉네임"'>
+			AND B.MB_NICKNAME LIKE CONCAT('%', #{p_search_text}, '%')
+			</if>
+		</if>
+		AND A.ITEM_STATUS = '2'
+		AND A.ITEM_DISPLAY = '2'
+	</select>
+	
+	<!-- 상품상세조회 -->
+	<select id="getItem" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.ITEM_SEQ
+			,A.MB_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_KEYWORD
+			,A.CATE_CODE1
+			,(SELECT CATE_NAME 
+				FROM RB_SHOP_CATEGORY 
+				WHERE CATE_DEPTH = 1
+				AND CATE_CODE = A.CATE_CODE1) AS CATE_CODE1_NAME
+			,A.CATE_CODE2
+			,(SELECT CATE_NAME 
+				FROM RB_SHOP_CATEGORY 
+				WHERE CATE_DEPTH = 2
+				AND CATE_CODE = A.CATE_CODE2) AS CATE_CODE2_NAME
+			,A.CATE_CODE3
+			,(SELECT CATE_NAME 
+				FROM RB_SHOP_CATEGORY 
+				WHERE CATE_DEPTH = 3
+				AND CATE_CODE = A.CATE_CODE3) AS CATE_CODE3_NAME
+			,A.ITEM_MAKER
+			,A.ITEM_ORIGIN
+			,A.ITEM_CUST_PRICE
+			,A.ITEM_PRICE
+			,A.ITEM_COUPON_PRICE
+			,A.ITEM_LAST_PRICE
+			,A.ITEM_MODEL_NAME
+			,A.ITEM_STATUS
+			,A.ITEM_DISPLAY
+			,DATE_FORMAT(A.ITEM_SELL_PERIOD_FROM, '%Y%m%d') AS ITEM_SELL_PERIOD_FROM
+			,DATE_FORMAT(A.ITEM_SELL_PERIOD_TO, '%Y%m%d') AS ITEM_SELL_PERIOD_TO
+			,A.ITEM_QTY
+			,A.ITEM_DELIVERY_CHARGE_TYPE
+			,(CASE WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 1 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 2 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 3 THEN '조건부무료'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 4 THEN '유료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 5 THEN '수량별부과'
+					END) AS ITEM_DELIVERY_CHARGE_TYPE_NAME
+			,A.ITEM_DELIVERY_CONDITION
+			,A.ITEM_DELIVERY
+			,A.ITEM_TAG
+			,(CASE WHEN A.ITEM_TAG = 1 THEN '새상품'
+					WHEN A.ITEM_TAG = 2 THEN '미사용전시'
+					WHEN A.ITEM_TAG = 3 THEN '전시시연'
+					WHEN A.ITEM_TAG = 4 THEN '렌탈전시'
+					WHEN A.ITEM_TAG = 5 THEN '터프한중고'
+					END) AS ITEM_TAG_NAME
+			,A.ITEM_TAG_SUB
+			,A.ITEM_CONTENT
+			,A.ITEM_CONTENT_MOBILE
+			,A.ITEM_DTL_INFO
+			,A.ITEM_OPTION_SUBJECT
+			,A.ITEM_SUPPLY_SUBJECT
+			,REPLACE(A.ITEM_REPRESENT_IMAGE, '\\', '/') AS ITEM_REPRESENT_IMAGE
+			,REPLACE(A.ITEM_IMG1, '\\', '/') AS ITEM_IMG1
+			,REPLACE(A.ITEM_IMG2, '\\', '/') AS ITEM_IMG2
+			,REPLACE(A.ITEM_IMG3, '\\', '/') AS ITEM_IMG3
+			,REPLACE(A.ITEM_IMG4, '\\', '/') AS ITEM_IMG4
+			,REPLACE(A.ITEM_IMG5, '\\', '/') AS ITEM_IMG5
+			,REPLACE(A.ITEM_IMG6, '\\', '/') AS ITEM_IMG6
+			,REPLACE(A.ITEM_IMG7, '\\', '/') AS ITEM_IMG7
+			,REPLACE(A.ITEM_IMG8, '\\', '/') AS ITEM_IMG8
+			,REPLACE(A.ITEM_IMG9, '\\', '/') AS ITEM_IMG9
+			,REPLACE(A.ITEM_IMG10, '\\', '/') AS ITEM_IMG10
+			,A.ITEM_APPROVAL_MB_SEQ
+			,A.ITEM_RETURN_INFO
+			,A.ITEM_REG_DTTM
+			,A.ITEM_REG_MB_SEQ
+			,A.ITEM_MOD_DTTM
+			,A.ITEM_MOD_MB_SEQ
+			<if test="mb_seq != null and mb_seq != ''">
+			,IFNULL((SELECT ITEM_SEQ FROM RB_MY_ITEM WHERE ITEM_SEQ = A.ITEM_SEQ AND MB_SEQ = #{mb_seq}), 0) AS IS_FAVORITE
+			</if>
+		FROM RB_SHOP_ITEM A
+		WHERE A.ITEM_SEQ = #{item_seq}
+	</select>
+	
+	<!-- 상품옵션목록 조회 -->
+	<select id="getItemOptionList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			IO_SEQ
+			,IO_GROUP
+			,IO_NAME
+			,IO_TYPE
+			,ITEM_SEQ
+			,IO_PRICE
+			,IO_STOCK_QTY
+			,IO_NOTI_QTY
+			,IO_USE
+			,IO_REG_USER
+			,IO_REG_DTTM
+			,IO_MOD_USER
+			,IO_MOD_DTTM
+		FROM RB_SHOP_ITEM_OPTION
+		WHERE ITEM_SEQ = #{item_seq}
+		<if test="io_name != null and io_name != ''">
+		AND IO_NAME LIKE CONCAT(#{io_name},'%')
+		</if>
+		ORDER BY IO_TYPE ASC, IO_GROUP ASC, IO_NAME ASC
+	</select>
+	
+	<!-- 상품옵션 첫번째 그룹명 조회 -->
+	<select id="getItemOptionGroupList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			DISTINCT SUBSTRING_INDEX(IO_NAME, '^', 1) IO_GROUP_NAME
+		FROM RB_SHOP_ITEM_OPTION
+		WHERE ITEM_SEQ = #{item_seq}
+		AND IO_TYPE = 0
+	</select>
+
+	<!-- 상품 카테고리 목록 조회 -->
+	<select id="getItemCategoryList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			CATE_CODE
+			,CATE_NAME
+			,CATE_ORDER
+			,CATE_DEPTH
+			,CATE_USE_YN
+		FROM RB_SHOP_CATEGORY
+		WHERE CATE_USE_YN = 'Y'
+		ORDER BY CATE_DEPTH, CATE_ORDER
+	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="insertItem" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ITEM(
+			MB_SEQ
+			,ITEM_TITLE
+			,ITEM_NAME
+			,ITEM_KEYWORD
+			,CATE_CODE1
+			,CATE_CODE2
+			<if test="cate_code3 != null and cate_code3 != ''">,CATE_CODE3</if>
+			,ITEM_MAKER
+			,ITEM_ORIGIN
+			,ITEM_CUST_PRICE
+			<if test="item_price != null and item_price != ''">,ITEM_PRICE</if>
+			<if test="item_coupon_price != null and item_coupon_price != ''">,ITEM_COUPON_PRICE</if>
+			,ITEM_LAST_PRICE
+			,ITEM_SALE_RATE
+			,ITEM_MODEL_NAME
+			,ITEM_STATUS
+			,ITEM_DISPLAY
+			,ITEM_SELL_PERIOD_FROM
+			,ITEM_SELL_PERIOD_TO
+			,ITEM_QTY
+			,ITEM_DELIVERY_CHARGE_TYPE
+			<if test="item_delivery_condition != null and item_delivery_condition != ''">,ITEM_DELIVERY_CONDITION</if>
+			,ITEM_TAG
+			,ITEM_TAG_SUB
+			,ITEM_CONTENT
+			<if test="item_option_subject != null and item_option_subject != ''">,ITEM_OPTION_SUBJECT</if>
+			<if test="item_supply_subject != null and item_supply_subject != ''">,ITEM_SUPPLY_SUBJECT</if>
+			,ITEM_REPRESENT_IMAGE
+			<if test="item_img1 != null and item_img1 != ''">,ITEM_IMG1</if>
+			<if test="item_img2 != null and item_img2 != ''">,ITEM_IMG2</if>
+			<if test="item_img3 != null and item_img3 != ''">,ITEM_IMG3</if>
+			<if test="item_img4 != null and item_img4 != ''">,ITEM_IMG4</if>
+			<if test="item_img5 != null and item_img5 != ''">,ITEM_IMG5</if>
+			<if test="item_return_info != null and item_return_info != ''">,ITEM_RETURN_INFO</if>
+			,ITEM_REG_DTTM
+			,ITEM_REG_MB_SEQ
+		) VALUES(
+			#{mb_seq}
+			,#{item_title}
+			,#{item_name}
+			,#{item_keyword}
+			,#{cate_code1}
+			,#{cate_code2}
+			<if test="cate_code3 != null and cate_code3 != ''">,#{cate_code3}</if>
+			,#{item_maker}
+			,#{item_origin}
+			,#{item_cust_price}
+			<if test="item_price != null and item_price != ''">,#{item_price}</if>
+			<if test="item_coupon_price != null and item_coupon_price != ''">,#{item_coupon_price}</if>
+			,#{item_last_price}
+			,#{item_sale_rate}
+			,#{item_model_name}
+			,'1'
+			,'1'
+			,#{item_sell_period_from}
+			,#{item_sell_period_to}
+			,#{item_qty}
+			,#{item_delivery_charge_type}
+			<if test="item_delivery_condition != null and item_delivery_condition != ''">,#{item_delivery_condition}</if>
+			,#{item_tag}
+			,#{item_tag_sub}
+			,#{item_content}
+			<if test="item_option_subject != null and item_option_subject != ''">,#{item_option_subject}</if>
+			<if test="item_supply_subject != null and item_supply_subject != ''">,#{item_supply_subject}</if>
+			,#{item_represent_image}
+			<if test="item_img1 != null and item_img1 != ''">,#{item_img1}</if>
+			<if test="item_img2 != null and item_img2 != ''">,#{item_img2}</if>
+			<if test="item_img3 != null and item_img3 != ''">,#{item_img3}</if>
+			<if test="item_img4 != null and item_img4 != ''">,#{item_img4}</if>
+			<if test="item_img5 != null and item_img5 != ''">,#{item_img5}</if>
+			<if test="item_return_info != null and item_return_info != ''">,#{item_return_info}</if>
+			,NOW()
+			,#{mb_seq}
+		)
+		
+		<selectKey resultType="int" keyProperty="item_seq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+		
+	</insert>
+	
+	<!-- 상품 수정 -->
+	<update id="updateItem" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM
+		SET ITEM_TITLE = #{item_title}
+			,ITEM_NAME = #{item_name}
+			,ITEM_KEYWORD = #{item_keyword}
+			,CATE_CODE1 = #{cate_code1}
+			,CATE_CODE2 = #{cate_code2}
+			<if test="cate_code3 != null and cate_code3 != ''">,CATE_CODE3 = #{cate_code3}</if>
+			,ITEM_MAKER = #{item_maker}
+			,ITEM_ORIGIN = #{item_origin}
+			,ITEM_MODEL_NAME = #{item_model_name}
+			,ITEM_CUST_PRICE = #{item_cust_price}
+			<if test="item_price != null and item_price != ''">,ITEM_PRICE = #{item_price}</if>
+			<if test="item_coupon_price != null and item_coupon_price != ''">,ITEM_COUPON_PRICE = #{item_coupon_price}</if>
+			,ITEM_LAST_PRICE = #{item_last_price}
+			,ITEM_SELL_PERIOD_FROM = #{item_sell_period_from}
+			,ITEM_SELL_PERIOD_TO = #{item_sell_period_to}
+			,ITEM_QTY = #{item_qty}
+			,ITEM_DELIVERY_CHARGE_TYPE = #{item_delivery_charge_type}
+			<if test="item_delivery_condition != null and item_delivery_condition != ''">
+			,ITEM_DELIVERY_CONDITION = #{item_delivery_condition}
+			</if>
+			,ITEM_TAG = #{item_tag}
+			,ITEM_TAG_SUB = #{item_tag_sub}
+			,ITEM_CONTENT = #{item_content}
+			<if test="item_option_subject != null and item_option_subject != ''">
+			,ITEM_OPTION_SUBJECT = #{item_option_subject}
+			</if>
+			<if test="item_supply_subject != null and item_supply_subject != ''">
+			,ITEM_SUPPLY_SUBJECT = #{item_supply_subject}
+			</if>
+			<if test="item_represent_image != null and item_represent_image != ''">
+			,ITEM_REPRESENT_IMAGE = #{item_represent_image}
+			</if>
+			<if test="item_img1 != null and item_img1 != ''">
+			,ITEM_IMG1 = #{item_img1}
+			</if>
+			<if test="item_img2 != null and item_img2 != ''">
+			,ITEM_IMG2 = #{item_img2}
+			</if>
+			<if test="item_img3 != null and item_img3 != ''">
+			,ITEM_IMG3 = #{item_img3}
+			</if>
+			<if test="item_img4 != null and item_img4 != ''">
+			,ITEM_IMG4 = #{item_img4}
+			</if>
+			<if test="item_img5 != null and item_img5 != ''">
+			,ITEM_IMG5 = #{item_img5}
+			</if>
+		WHERE ITEM_SEQ = #{item_seq}
+	</update>
+	
+	<!-- 상품옵션 등록 -->
+	<insert id="insertItemOption" parameterType="list" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ITEM_OPTION(
+			IO_NAME
+			,IO_TYPE
+			,ITEM_SEQ
+			,IO_PRICE
+			,IO_STOCK_QTY
+			,IO_NOTI_QTY
+			,IO_USE
+			,IO_REG_USER
+			,IO_REG_DTTM
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+            (
+            #{item.io_name}
+            ,#{item.io_type}
+            ,#{item.item_seq}
+            ,#{item.io_price}
+            ,#{item.io_stock_qty}
+            ,#{item.io_noti_qty}
+            ,#{item.io_use}
+            ,#{item.mb_seq}
+            ,NOW()
+            )
+        </foreach>
+	</insert>
+	
+	<!-- 상품옵션 삭제 -->
+	<delete id="deleteItemOption" parameterType="hashmap" statementType="PREPARED">
+		DELETE
+		FROM RB_SHOP_ITEM_OPTION
+		WHERE ITEM_SEQ = #{item_seq}
+	</delete>
+	
+	<!-- 상품문의 등록 -->
+	<insert id="insertItemQa" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ITEM_QA(
+			ITEM_SEQ
+			,MB_SEQ
+			,IQA_SUBJECT
+			,IQA_OPEN
+			,IQA_IS_ANSWER
+			,IQA_REG_DTTM
+		) VALUES(
+			#{item_seq}
+			,#{mb_seq}
+			,#{iqa_subject}
+			,#{iqa_open}
+			,0
+			,NOW()
+		)
+		<selectKey resultType="int" keyProperty="iqa_seq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert>
+	
+	<!-- 상품문의 질문(답변) 등록 -->
+	<insert id="insertItemQaContent" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ITEM_QA_CONTENT(
+			IQA_SEQ
+			,MB_SEQ
+			,CONTENT_TYPE
+			,CONTENT
+			<if test='attach_image != null and attach_image != ""'>,ATTACH_IMAGE</if>
+			,CONTENT_ORDER
+			,CONTENT_REG_DTTM
+		) VALUES(
+			#{iqa_seq}
+			,#{mb_seq}
+			,#{content_type}
+			,#{content}
+			<if test='attach_image != null and attach_image != ""'>,#{attach_image}</if>
+			,#{content_order}
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 상품문의 목록 조회 -->
+	<select id="getItemShopQaList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.IQA_SEQ
+			,A.ITEM_SEQ
+			,A.MB_SEQ
+			,B.MB_ID
+			,A.IQA_SUBJECT
+			,A.IQA_OPEN
+			,A.IQA_REG_DTTM
+			,DATE_FORMAT(A.IQA_REG_DTTM, '%y/%m/%d') AS IQA_REG_DTTM_YMD
+			,A.IQA_IS_ANSWER
+		FROM RB_SHOP_ITEM_QA A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE 1 = 1
+		AND A.ITEM_SEQ = #{item_seq}
+		ORDER BY A.IQA_REG_DTTM DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 상품문의 목록 카운트 조회 -->
+	<select id="getItemShopQaListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) CNT
+		FROM RB_SHOP_ITEM_QA A
+		WHERE 1 = 1
+		AND A.ITEM_SEQ = #{item_seq}
+	</select>
+	
+	<!-- 상품문의 한건 조회 -->
+	<select id="getShopItemQa" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.IQA_SEQ
+			,A.ITEM_SEQ
+			,A.MB_SEQ
+			,A.IQA_SUBJECT
+			,A.IQA_OPEN
+			,A.IQA_REG_DTTM
+			,DATE_FORMAT(A.IQA_REG_DTTM, '%y/%m/%d %H:%i:%s') AS IQA_REG_DTTM_YMDHIS
+			,A.IQA_IS_ANSWER
+			,B.MB_ID
+			,B.MB_NICKNAME
+			,C.MB_SEQ AS ITEM_SELLER_SEQ
+		FROM RB_SHOP_ITEM_QA A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+			LEFT OUTER JOIN RB_SHOP_ITEM C ON C.ITEM_SEQ = A.ITEM_SEQ
+		WHERE 1 = 1
+		AND A.IQA_SEQ = #{iqa_seq}
+	</select>
+	
+	<!-- 상품문의 질문(답변)내역 조회 -->
+	<select id="getShopItemQaContentList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.CONTENT_SEQ
+			,A.IQA_SEQ
+			,A.MB_SEQ
+			,A.CONTENT_TYPE
+			,A.CONTENT
+			,A.ATTACH_IMAGE
+			,A.CONTENT_ORDER
+			,A.CONTENT_REG_DTTM
+			,DATE_FORMAT(A.CONTENT_REG_DTTM, '%Y/%m/%d %H:%i:%s') AS CONTENT_REG_DTTM_YMDHIS
+			,B.MB_ID
+			,B.MB_NICKNAME
+		FROM RB_SHOP_ITEM_QA_CONTENT A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE IQA_SEQ = #{iqa_seq}
+		ORDER BY A.CONTENT_ORDER ASC
+	</select>
+	
+	<!-- 상품문의 마스터 답변상태값 변경 -->
+	<update id="updateShopItemQaIsAnswer" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM_QA
+		SET IQA_IS_ANSWER = #{iqa_is_answer}
+		WHERE IQA_SEQ = #{iqa_seq}
+	</update>
+	
+	<!-- 관심상품 목록 조회 -->
+	<select id="getMyItemList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.ITEM_SEQ
+			,A.MB_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_KEYWORD
+			,A.CATE_CODE1
+			,A.CATE_CODE2
+			,A.CATE_CODE3
+			,A.ITEM_MAKER
+			,A.ITEM_ORIGIN
+			,A.ITEM_CUST_PRICE
+			,A.ITEM_PRICE
+			,A.ITEM_COUPON_PRICE
+			,A.ITEM_LAST_PRICE
+			,A.ITEM_MODEL_NAME
+			,A.ITEM_STATUS
+			,A.ITEM_SELL_PERIOD_FROM
+			,A.ITEM_SELL_PERIOD_TO
+			,A.ITEM_QTY
+			,A.ITEM_DELIVERY_CHARGE_TYPE
+			,(CASE WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 1 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 2 THEN '무료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 3 THEN '조건부무료'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 4 THEN '유료배송'
+					WHEN A.ITEM_DELIVERY_CHARGE_TYPE = 5 THEN '수량별부과'
+					END) AS ITEM_DELIVERY_CHARGE_TYPE_NAME
+			,A.ITEM_DELIVERY_CONDITION
+			,A.ITEM_DELIVERY
+			,A.ITEM_TAG
+			,(CASE WHEN A.ITEM_TAG = 1 THEN '새상품'
+					WHEN A.ITEM_TAG = 2 THEN '미사용전시'
+					WHEN A.ITEM_TAG = 3 THEN '전시시연'
+					WHEN A.ITEM_TAG = 4 THEN '렌탈전시'
+					WHEN A.ITEM_TAG = 5 THEN '터프한중고'
+					END) AS ITEM_TAG_NAME
+			,A.ITEM_TAG_SUB
+			,A.ITEM_CONTENT
+			,A.ITEM_CONTENT_MOBILE
+			,A.ITEM_DTL_INFO
+			,REPLACE(A.ITEM_REPRESENT_IMAGE, '\\', '/') AS ITEM_REPRESENT_IMAGE
+			,REPLACE(A.ITEM_IMG1, '\\', '/') AS ITEM_IMG1
+			,REPLACE(A.ITEM_IMG2, '\\', '/') AS ITEM_IMG2
+			,REPLACE(A.ITEM_IMG3, '\\', '/') AS ITEM_IMG3
+			,REPLACE(A.ITEM_IMG4, '\\', '/') AS ITEM_IMG4
+			,REPLACE(A.ITEM_IMG5, '\\', '/') AS ITEM_IMG5
+			,REPLACE(A.ITEM_IMG6, '\\', '/') AS ITEM_IMG6
+			,REPLACE(A.ITEM_IMG7, '\\', '/') AS ITEM_IMG7
+			,REPLACE(A.ITEM_IMG8, '\\', '/') AS ITEM_IMG8
+			,REPLACE(A.ITEM_IMG9, '\\', '/') AS ITEM_IMG9
+			,REPLACE(A.ITEM_IMG10, '\\', '/') AS ITEM_IMG10
+			,A.ITEM_APPROVAL_MB_SEQ
+			,A.ITEM_RETURN_INFO
+			,A.ITEM_REG_DTTM
+			,A.ITEM_REG_MB_SEQ
+			,A.ITEM_MOD_DTTM
+			,A.ITEM_MOD_MB_SEQ
+			,(CASE WHEN DATE_FORMAT(B.REG_DTTM, '%y-%m-%d') = DATE_FORMAT(NOW(), '%y-%m-%d') THEN DATE_FORMAT(B.REG_DTTM, '%H:%i:%s')
+					ELSE DATE_FORMAT(B.REG_DTTM, '%y-%m-%d') END) AS REG_DTTM
+			,DATE_FORMAT(B.REG_DTTM, '%y-%m-%d') AS REG_DTTM_YMD
+			,DATE_FORMAT(B.REG_DTTM, '%H:%i:%s') AS REG_DTTM_HIS
+			,C.MB_ID AS SELLER_ID
+		FROM RB_MY_ITEM B
+			LEFT OUTER JOIN RB_SHOP_ITEM A ON A.ITEM_SEQ = B.ITEM_SEQ
+			LEFT OUTER JOIN RB_MEMBER C ON C.MB_SEQ = A.MB_SEQ
+		WHERE B.MB_SEQ = #{mb_seq}
+		<if test='item_seq != null and item_seq != ""'>
+		AND B.ITEM_SEQ = #{item_seq}
+		</if>
+		<if test='seller_id != null and seller_id != ""'>
+		AND C.MB_ID LIKE CONCAT('%', #{seller_id}, '%')
+		</if>
+		ORDER BY B.REG_DTTM DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 관심상품 카운트 조회 -->
+	<select id="getMyItemListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS CNT
+		FROM RB_MY_ITEM B
+			LEFT OUTER JOIN RB_SHOP_ITEM A ON A.ITEM_SEQ = B.ITEM_SEQ
+			LEFT OUTER JOIN RB_MEMBER C ON C.MB_SEQ = A.MB_SEQ
+		WHERE B.MB_SEQ = #{mb_seq}
+		<if test='item_seq != null and item_seq != ""'>
+		AND B.ITEM_SEQ = #{item_seq}
+		</if>
+		<if test='seller_id != null and seller_id != ""'>
+		AND C.MB_ID LIKE CONCAT('%', #{seller_id}, '%')
+		</if>
+	</select>
+	
+	<!-- 관심상품 등록 -->
+	<insert id="insertMyItem" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_MY_ITEM(
+			ITEM_SEQ
+			,MB_SEQ
+			,REG_DTTM
+		) VALUES(
+			#{item_seq}
+			,#{mb_seq}
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 관심상품 해제 -->
+	<delete id="deleteMyItem" parameterType="hashmap" statementType="PREPARED">
+		DELETE
+		FROM RB_MY_ITEM
+		WHERE MB_SEQ = #{mb_seq}
+		AND ITEM_SEQ = #{item_seq}
+	</delete>
+	
+	<!-- 장바구니 등록 -->
+	<insert id="insertShopCart" parameterType="list" statementType="PREPARED">
+		INSERT INTO RB_SHOP_CART(
+			ORDER_NO
+			,MB_SEQ
+			,ITEM_SEQ
+			,ITEM_TITLE
+			,ITEM_NAME
+			,ITEM_PRICE
+			,CART_QTY
+			,DELIVERY_TYPE
+			,IO_NAME
+			,IO_TYPE
+			,IO_PRICE
+			,CART_IP
+			,ITEM_SELLER_SEQ
+			,CART_STATE
+			,CART_REG_DTTM
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.order_no}
+			,#{item.mb_seq}
+			,#{item.item_seq}
+			,#{item.item_title}
+			,#{item.item_name}
+			,#{item.item_price}
+			,#{item.cart_qty}
+			,#{item.delivery_type}
+			,#{item.io_name}
+			,#{item.io_type}
+			,#{item.io_price}
+			,#{item.cart_ip}
+			,#{item.item_seller_seq}
+			,'1'
+			,NOW()
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 장바구니 목록 조회 -->
+	<select id="getShopCartList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.CART_SEQ
+			,A.ORDER_NO
+			,A.MB_SEQ
+			,A.ITEM_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_PRICE
+			,A.ITEM_POINT
+			,A.CART_QTY
+			,A.IO_NAME
+			,A.IO_TYPE
+			,A.IO_PRICE
+			,A.DELIVERY_TYPE
+			,A.CART_IP
+			,A.ITEM_SELLER_SEQ
+			,A.CART_REG_DTTM
+		FROM RB_SHOP_CART A
+		WHERE A.MB_SEQ = #{mb_seq}
+		<if test="item_seq != null and item_seq != ''">
+		AND A.ITEM_SEQ = #{item_seq}
+		</if>
+		<if test="order_no != null and order_no != ''">
+		AND A.ORDER_NO IN (${order_no})
+		</if>
+		AND A.CART_STATE = '1'
+		ORDER BY A.ORDER_NO ASC, A.CART_SEQ ASC
+	</select>
+	
+	<!-- 장바구니 그룹 목록  -->
+	<select id="getShopCartGroupList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			DISTINCT 
+			A.ORDER_NO
+			,A.MB_SEQ
+			,A.ITEM_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_PRICE
+			,A.DELIVERY_TYPE
+			,A.ITEM_SELLER_SEQ
+			,REPLACE(B.ITEM_REPRESENT_IMAGE, '\\', '/') AS ITEM_REPRESENT_IMAGE
+			,C.MB_ID AS SELLER_ID
+			,C.MB_BIZ_NAME AS SELLER_BIZ_NAME
+		FROM RB_SHOP_CART A
+			LEFT OUTER JOIN RB_SHOP_ITEM B ON B.ITEM_SEQ = A.ITEM_SEQ
+			LEFT OUTER JOIN RB_MEMBER C ON C.MB_SEQ = A.ITEM_SELLER_SEQ
+		WHERE A.MB_SEQ = #{mb_seq}
+		<if test="order_no != null and order_no != ''">
+		AND A.ORDER_NO IN (${order_no})
+		</if>
+		AND A.CART_STATE = '1'
+		ORDER BY A.ORDER_NO ASC
+	</select>
+	
+	<!-- 장바구니 삭제(그룹삭제 또는 옵션일부 삭제) -->
+	<delete id="deleteShopCart" parameterType="hashmap" statementType="PREPARED">
+		DELETE
+		FROM RB_SHOP_CART
+		WHERE 1 = 1
+		AND MB_SEQ = #{mb_seq}
+		AND ORDER_NO = #{order_no}
+		<if test="item_seq != null and item_seq != ''">
+		AND ITEM_SEQ = #{item_seq}
+		</if>
+		<if test="cart_seq != null and cart_seq != ''">
+		AND CART_SEQ = #{cart_seq}
+		</if>
+	</delete>
+	
+	<!-- 장바구니 삭제(선택삭제 또는 전체삭제) -->
+	<delete id="deleteShopCartAll" parameterType="hashmap" statementType="PREPARED">
+		DELETE
+		FROM RB_SHOP_CART
+		WHERE 1 = 1
+		AND MB_SEQ = #{mb_seq}
+		<if test="order_no_str != null and order_no_str != ''">
+		AND ORDER_NO IN (${order_no_str})
+		</if>
+	</delete>
+	
+	<!-- 장바구니 주문수량 변경 -->
+	<update id="updateShopCartQty" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_CART
+		SET CART_QTY = #{cart_qty}
+		WHERE CART_SEQ = #{cart_seq}
+		AND ORDER_NO = #{order_no}
+		AND MB_SEQ = #{mb_seq}
+	</update>
+	
+	<!-- 주문(마스터) 등록 -->
+	<insert id="insertShopOrder" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ORDER(
+			MB_SEQ
+			,ORDER_PRICE
+			,DELIVERY_PRICE
+			,PAY_TYPE
+			,ORDER_DTTM
+		) VALUES(
+			#{mb_seq}
+			,#{order_price}
+			,#{delivery_price}
+			,#{pay_type}
+			,NOW()
+		)
+		<selectKey resultType="long" keyProperty="order_seq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert>
+	
+	<!-- 주문내역 등록 -->
+	<insert id="insertShopOrderInfo" parameterType="list" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ORDER_INFO(
+			MB_SEQ
+			,ORDER_SEQ
+			,ITEM_SEQ
+			,ORDER_NO
+			,ORDER_NAME
+			,ORDER_PRICE
+			,ORDER_QTY
+			,ORDER_IP
+			,RECV_NAME
+			,RECV_HP
+			,RECV_ZIP_CODE
+			,RECV_ADDRESS
+			,RECV_ADDRESS_DTL
+			,RECV_MESSAGE
+			,SEND_REQ_DATE
+			,ORDER_STATE
+			,DELIVERY_TYPE
+			,DELIVERY_CHARGE
+			,ITEM_SELLER_SEQ
+			,ORDER_REG_DTTM
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.mb_seq}
+			,#{item.order_seq}
+			,#{item.item_seq}
+			,#{item.order_no}
+			,#{item.order_name}
+			,#{item.order_price}
+			,#{item.order_qty}
+			,#{item.order_ip}
+			,#{item.recv_name}
+			,#{item.recv_hp}
+			,#{item.recv_zip_code}
+			,#{item.recv_address}
+			,#{item.recv_address_dtl}
+			,#{item.recv_message}
+			,#{item.send_req_date}
+			,1
+			,#{item.delivery_type}
+			,#{item.delivery_charge}
+			,#{item.item_seller_seq}
+			,NOW()
+		)
+        </foreach>
+	</insert>
+	
+	<!-- 주문내역 상태변경 -->
+	<update id="updateShopOrderInfoState" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ORDER_INFO
+		SET ORDER_STATE = #{order_state}
+		WHERE MB_SEQ = #{mb_seq}
+		AND ORDER_SEQ = #{order_seq}
+	</update>
+	
+	<!-- 주문내역 장바구니 상태 변경 -->
+	<update id="updateShopCartState" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_CART
+		SET CART_STATE = '2'
+		WHERE MB_SEQ = #{mb_seq}
+		AND ORDER_NO IN (${order_no})
+	</update>
+	
+	<!-- 회원캐쉬정보 수정 -->
+	<insert id="updateMemberCashByOrder" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_MEMBER
+		SET MB_CASH = MB_CASH - ${cash_amount}
+		WHERE MB_SEQ = #{mb_seq}
+		<selectKey resultType="int" keyProperty="mb_cash" order="AFTER">
+	        SELECT MB_CASH as mb_cash FROM RB_MEMBER WHERE MB_SEQ = #{mb_seq}
+	    </selectKey>
+	</insert>
+	
+	<!-- 회원캐쉬로그 등록 -->
+	<insert id="insertCashLog" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_CASH_LOG(
+			MB_SEQ
+			,CASH_AMOUNT
+			,MB_CASH
+			,CL_TITLE
+			,CL_TYPE
+			,ORDER_SEQ
+			,CL_REG_DTTM
+		) VALUES(
+			#{mb_seq}
+			,#{cash_amount}
+			,#{mb_cash}
+			,#{cl_title}
+			,#{cl_type}
+			,#{order_seq}
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 캐쉬로그 등록 프로시저 -->
+	<select id="insertCashLogProcedure" parameterType="hashmap" resultType="hashmap" statementType="CALLABLE">
+		{ call PROC_INSERT_RB_CASH_LOG
+			(
+            #{mb_seq, mode=IN, jdbcType=INTEGER}
+			,#{cash_amount, mode=IN, jdbcType=INTEGER}
+			,#{cl_type, mode=IN, jdbcType=CHAR}
+			,#{order_seq, mode=IN, jdbcType=INTEGER}
+			,#{return_query, mode=OUT, jdbcType=INTEGER}
+			,#{return_result_text, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+	</select>
+	
+	<!-- 주문상품의 합계금액 조회 -->
+	<select id="getOrderItemTotalPrice" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+	    	SUM(AMOUNT) AS ITEM_AMOUNT
+	    	,SUM(DELIVERY_AMOUNT) AS DELIVERY_AMOUNT
+	    	,SUM(AMOUNT) + SUM(DELIVERY_AMOUNT) AS TOTAL_AMOUNT
+		FROM (
+	        SELECT
+	            ORDER_NO
+	            ,ITEM_PRICE
+	            ,IO_PRICE
+	            ,CART_QTY
+	            ,IO_TYPE
+	            ,DELIVERY_TYPE
+	            ,(CASE WHEN IO_TYPE = '0' THEN (ITEM_PRICE+IO_PRICE)*CART_QTY
+	                ELSE IO_PRICE*CART_QTY END) AS AMOUNT
+	            ,(CASE WHEN DELIVERY_TYPE = '1' THEN 0
+	                ELSE 2500 END) AS DELIVERY_AMOUNT
+			FROM RB_SHOP_CART
+			WHERE MB_SEQ = #{mb_seq}
+			AND ORDER_NO IN (${order_no})
+	        ) A
+	</select>
+	
+	<!-- 주문내역 로그 등록(상품주문시 등록) -->
+	<insert id="insertShopOrderInfoLog" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ORDER_INFO_LOG(
+			INFO_SEQ
+			,MB_SEQ
+			,ITEM_SEQ
+			,ORDER_SEQ
+			,ORDER_NO
+			,ORDER_NAME
+			,ORDER_PRICE
+			,ORDER_QTY
+			,ORDER_IP
+			,RECV_NAME
+			,RECV_HP
+			,RECV_ZIP_CODE
+			,RECV_ADDRESS
+			,RECV_ADDRESS_DTL
+			,RECV_MESSAGE
+			,SEND_REQ_DATE
+			,ORDER_STATE
+			,DELIVERY_TYPE
+			,DELIVERY_CHARGE
+			,DELIVERY_COMPANY
+			,DELIVERY_NO
+			,DELIVERY_DTTM
+			,ITEM_SELLER_SEQ
+			,ORDER_REG_DTTM
+			,ORDER_MOD_DTTM
+		)
+		SELECT
+			INFO_SEQ
+			,MB_SEQ
+			,ITEM_SEQ
+			,ORDER_SEQ
+			,ORDER_NO
+			,ORDER_NAME
+			,ORDER_PRICE
+			,ORDER_QTY
+			,ORDER_IP
+			,RECV_NAME
+			,RECV_HP
+			,RECV_ZIP_CODE
+			,RECV_ADDRESS
+			,RECV_ADDRESS_DTL
+			,RECV_MESSAGE
+			,SEND_REQ_DATE
+			,ORDER_STATE
+			,DELIVERY_TYPE
+			,DELIVERY_CHARGE
+			,DELIVERY_COMPANY
+			,DELIVERY_NO
+			,DELIVERY_DTTM
+			,ITEM_SELLER_SEQ
+			,ORDER_REG_DTTM
+			,ORDER_MOD_DTTM
+		FROM RB_SHOP_ORDER_INFO
+		WHERE ORDER_SEQ = #{order_seq}
+	</insert>
+	
+	<!-- 상품 조회수 업데이트 -->
+	<update id="updateShopItemViewCnt" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM
+		SET ITEM_VIEW_CNT = ITEM_VIEW_CNT + 1
+		WHERE ITEM_SEQ = #{item_seq}
+	</update>
+	
+	<!-- 상품 판매수 업데이트(주문시 판매수증가) -->
+	<update id="updateShopItemSellCnt" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM A
+		LEFT JOIN (SELECT ITEM_SEQ, CART_QTY
+					FROM RB_SHOP_CART
+		            WHERE ORDER_NO = #{order_no}
+		            AND IO_TYPE = '0') B ON A.ITEM_SEQ = B.ITEM_SEQ
+		SET A.ITEM_SELL_CNT = (A.ITEM_SELL_CNT+B.CART_QTY)
+		WHERE A.ITEM_SEQ = #{item_seq}
+	</update>
+
+</mapper>

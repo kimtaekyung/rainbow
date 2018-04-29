@@ -1,0 +1,47 @@
+@charset "UTF-8";
+div#cert_icon_area_div{
+	width: 100%;
+    text-align: center;
+    margin: 20px 0px;
+}
+
+div#cert_icon_area_div ul{
+	display: table;
+    margin: 0 auto;
+    height: 150px;
+    border: 3px solid #cccccc;
+}
+
+div#cert_icon_area_div li{
+	display: table-cell;
+    vertical-align: me;
+    vertical-align: middle;
+    
+}
+div#cert_icon_area_div li:first-child{
+	background: url(/images/myPage/boxSh2.png) no-repeat left;
+}
+div#cert_icon_area_div li div{
+	background: url(/images/myPage/boxSh.png) no-repeat right;
+	padding: 25px;
+	position: relative;
+}
+
+div#cert_icon_area_div li div img.certType{
+	width: 70%;
+}
+
+div#cert_icon_area_div li div img.certOk{
+	position: absolute;
+    width: 50%;
+    left: 25%;
+}
+div#cert_state_desc{
+	text-align: center;
+}
+div#cert_state_desc p{
+	color: #333333;
+}
+div#cert_state_desc b{
+	color: #000;
+}

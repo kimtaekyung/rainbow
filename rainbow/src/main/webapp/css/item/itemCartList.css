@@ -1,0 +1,1778 @@
+@charset "UTF-8";
+
+
+/* 장바구니 상단 */
+#cartWrap
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	color				: #333;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#cartWrap h2
+{
+	clear				: both;
+	overflow			: hidden;
+	width				: 980px;
+	height				: 67px;
+	margin-bottom		: 25px;
+	padding				: 0;
+	background-image	: url('/images/item/cart/ttl_orderCart.png');
+	text-indent			: -5000px;
+}
+#cartWrap .total
+{
+	padding				: 8px;
+	text-align			: left;
+	color				: #333;
+	font-size			: 12pt;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#cartWrap .limit
+{
+	float				: left;
+	color				: #1b1b1b;
+	font-size			: 9pt;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#cartWrap .clean
+{
+	position			: relative;
+	float				: left;
+	right				: 0px;
+	width				: 82px;
+	height				: 20px;
+	margin				: 0px 3px 5px 3px;
+}
+
+/* 장바구니 테이블 */
+#cartWrap table#tblCart
+{
+	table-layout		: fixed;
+	border-collapse		: collapse;
+}
+#cartWrap table#tblCart thead th
+{
+	padding				: 6px 0 8px 0 ;
+	border-top			: 2px solid #646464;
+	border-bottom		: 1px solid #aaa;
+	background-color	: #ffffff;
+	font-weight			: 100;
+	line-height			: 12px;
+}
+#cartWrap table#tblCart tbody td
+{
+	padding				: 47px 4px 20px 4px;
+	border-bottom		: 1px solid #ddd;
+	background-color	: #ffffff;
+	font-weight			: 100;
+	text-align			: center;
+}
+#cartWrap table#tblCart tbody td.deli
+{
+	border-right		: 1px solid #ddd;
+	background-color	: #f0f0f0;
+}
+#cartWrap table#tblCart tbody td.pay
+{
+	background-color	: #f0f0f0;
+}
+#cartWrap table#tblCart tbody td.buttons
+{
+}
+#cartWrap table#tblCart tfoot td
+{
+	padding				: 10px 7px 6px 7px;
+	border-bottom		: 1px solid #aaa;
+	background-color	: #ffffff;
+}
+#cartWrap .confirm
+{
+	padding				: 30px;
+	font-size			: 0;
+	text-align			: center;
+}
+#cartWrap .confirm input
+{
+	height				: 50px;
+	margin-right		: 12px;
+	font-size			: 16px;
+	cursor				: pointer;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#cartWrap .confirm input.domestic
+{
+	width				: 160px;
+	color				: #fff;
+	background-color	: #1ec400;
+	border				: 1px solid #1ec400;
+}
+#cartWrap .confirm input.outbound
+{
+	width				: 170px;
+	color				: #fff;
+	background-color	: #55c1c1;
+	border				: 1px solid #55c1c1;
+}
+#cartWrap .confirm input.continue
+{
+	width				: 150px;
+	color				: #333;
+	background-color	: #fff;
+	border				: 1px solid #333;
+}
+#cartWrap .eventBnrs
+{
+	margin-bottom		: 30px;
+}
+#cartWrap table#tblCart th.checkbox
+{
+	border-right		: 0;
+	text-align			: right;
+}
+#cartWrap table#tblCart td.checkbox
+{
+	padding				: 0;
+	padding-top			: 17px;
+	border-right		: 0;
+	text-align			: right;
+}
+#cartWrap table#tblCart th.elements
+{
+	border-left			: 0;
+}
+#cartWrap table#tblCart td.elements
+{
+	padding-top			: 17px;
+	border-left			: 0;
+	text-align			: left;
+}
+#cartWrap table#tblCart td.forbidden
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+}
+#cartWrap table#tblCart tfoot input
+{
+	vertical-align		: -2px;
+}
+.common_table_max .checkedTotal
+{
+	text-align			: right;
+}
+.common_table_max tfoot #checkedTotal
+{
+	color				: #f63700;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 14pt;
+	font-weight			: 700;
+}
+#cartWrap table#tblCart td .normal
+{
+	display				: block;
+}
+#cartWrap table#tblCart td .addFee
+{
+	display				: none;
+}
+#cartWrap table#tblCart td.addFee .addFee
+{
+	display				: block;
+	margin-top			: 5px;
+	color				: #cc0000;
+	font-size			: 11px;
+	line-height			: 15px;
+}
+.common_table_max .totalAmt
+{
+	color				: #ff643c;
+	font-weight			: 700;
+}
+.common_table_normal .totalAmt
+{
+	color				: #ff643c;
+	font-weight			: 700;
+}
+#cartWrap table#tblCart .noCard
+{
+	margin-top			: 4px;
+	color				: #cc0000;
+	font-weight			: 100;
+	font-size			: 11px;
+	line-height			: 13px;
+	letter-spacing		: -1px;
+}
+
+/* 장바구니 테이블 내 구성요소 */
+.itemElements
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	margin				: 4px;
+	text-align			: left;
+	z-index				: 0;
+}
+.itemElements .leftArea
+{
+	float				: left;
+	width				: 77px;
+}
+#cartWrap table#tblCart .icoSample,
+#cartWrap table#tblCart .icoSupply
+{
+	display				: inline-block;
+	width				: 50px;
+	height				: 11px;
+	padding				: 3px 0 1px 0;
+	font-family			: 'Dotum', '돋움';
+	font-size			: 11px;
+	font-weight			: 100;
+	line-height			: 11px;
+	letter-spacing		: -1px;
+	text-align			: center;
+	vertical-align		: 0;
+	*padding-top		: 25px;
+}
+@media screen\0
+{
+	/* IE8+ CSS Hack */
+	#cartWrap table#tblCart .icoSample,
+	#cartWrap table#tblCart .icoSupply
+	{
+		padding-top			: 4px;
+		padding-bottom		: 0;
+	}
+}
+#cartWrap table#tblCart .icoSample
+{
+	border				: 1px solid #95989a;
+	color				: #95989a;
+}
+#cartWrap table#tblCart .icoSupply
+{
+	border				: 1px solid #F46720;
+	color				: #F46720;
+}
+.itemElements .title
+{
+	float				: right;
+	width				: 458px;
+	padding-bottom		: 2px;
+}
+.itemElements .title a
+{
+	color				: #333;
+	font-size			: 13px;
+	font-weight			: 700;
+	text-decoration		: none;
+	letter-spacing		: -1px;
+}
+.itemElements .title a:hover
+{
+	text-decoration		: underline;
+}
+#cartWrap table#tblCart .tax
+{
+	padding				: 8px 0;
+	text-align			: center;
+}
+.itemElements .opt,
+#cartWrap table#tblCart .consumer
+{
+	float				: right;
+	clear				: right;
+	width				: 465px;
+	padding				: 2px 4px 0 4px;
+	border				: 1px solid #dddddd;
+	background-color	: #fff;
+}
+#cartWrap table#tblCart .opt b,
+#cartWrap table#tblCart .consumer b
+{
+	display				: inline-block;
+	font-weight			: 700;
+	padding				: 4px 4px 0 6px;
+}
+#cartWrap table#tblCart .consumer
+{
+	margin-top			: 8px;
+	border				: 1px solid #DDDDDD;
+	background-color	: #DDDDDD;
+}
+#cartWrap table#tblCart .consumer a
+{
+	position			: relative;
+	top					: -1px;
+	left				: 0;
+	color				: #117CF6;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 11px;
+	line-height			: 11px;
+	letter-spacing		: -1px;
+	text-decoration		: none;
+}
+.itemElements .tblSelectOpts tr{
+	height				: 25px;
+}
+.itemElements .tblSelectOpts td
+{
+	padding				: 4px;
+	border				: 0;
+	background-color	: #fff;
+	text-align			: left;
+}
+.itemElements .tblSelectOpts tr:first-child td
+{
+	padding-top			: 6px;
+}
+.itemElements .tblSelectOpts tr:last-child td
+{
+	padding-bottom		: 6px;
+}
+.itemElements .tblSelectOpts td.unit,
+.itemElements .tblSelectOpts td.qty,
+.itemElements .tblSelectOpts td.amt
+{
+	text-align			: right;
+}
+.itemElements .tblSelectOpts td.qty input
+{
+	width				: 20px;
+	height				: 10px;
+	border				: 1px solid #95989A;
+	color				: #646464;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 12px;
+	line-height			: 10px;
+	text-align			: right;
+}
+.itemElements .tblSelectOpts td.qty input.btn
+{
+	position			: relative;
+	top					: -1px;
+	left				: 0;
+	width				: 30px;
+	height				: 20px;
+	padding				: 0;
+	border				: 1px solid #aaa;
+	background-color	: #aaa;
+	color				: #fff;
+	font-size			: 11px;
+	cursor				: pointer;
+}
+.itemElements .tblSelectOpts td.amt input
+{
+	margin-left			: 3px;
+	vertical-align		: -3px;
+}
+#cartWrap table#tblCart a.linkEditOpt
+{
+	clear				: right;
+	display				: inline-block;
+	float				: right;
+	width				: 86px;
+	margin				: 6px 426px 8px 0;
+	color				: #e5004f;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 11px;
+	line-height			: 11px;
+	letter-spacing		: -1px;
+}
+*+html body #cartWrap table#tblCart a.linkEditOpt
+{
+	display		: inline;
+}
+#cartWrap table#tblCart .descSampleDC
+{
+	float				: right;
+	width				: 500px;
+	margin-bottom		: 8px;
+	padding				: 6px;
+	border				: 1px solid #ddd;
+	background-color	: #dddddd;
+	font-size			: 11px;
+	letter-spacing		: -1px;
+}
+#cartWrap table#tblCart .descSampleDC b
+{
+	font-weight			: 700;
+	color				: #cc0000;
+}
+#cartWrap table#tblCart .descSampleDC span
+{
+	float				: left;
+	color				: #646464;
+}
+#cartWrap table#tblCart .descSampleDC a
+{
+	float				: right;
+	color				: #117CF6;
+}
+#cartWrap table#tblCart .warning,
+#cartWrap table#tblCart .nego
+{
+	float				: right;
+	width				: 500px;
+	padding				: 6px;
+	margin-top			: 8px;
+	margin-bottom		: 8px;
+	border				: 1px solid #ddd;
+	font-size			: 12px;
+	color				: #cc0000;
+	background-color	: #dddddd;
+}
+.memo
+{
+	overflow			: hidden;
+	position			: relative;
+	float				: left;
+	width				: 100%;
+	margin-top			: 5px;
+	font-size			: 0;
+	border				: 1px solid #dddddd;
+}
+.memo table tr{
+	height				: 25px;
+}
+.memo table td{
+	padding				: 0px 6px;
+	background-color	: #fff;
+}
+#cartWrap table#tblCart .memo form
+{
+	padding				: 0;
+}
+#cartWrap table#tblCart .memo p
+{
+	color				: #888888;
+	font-size			: 11px;
+	line-height			: 11px;
+	letter-spacing		: -1px;
+}
+#cartWrap table#tblCart .memo b
+{
+	color				: #ff643c;
+	font-weight			: 700;
+}
+#cartWrap table#tblCart .memo textarea
+{
+	width				: 495px;
+	height				: 50px;
+	padding				: 8px;
+	overflow-y			: scroll;
+	margin-top			: 5px;
+	border				: 1px solid #ccc;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 12px;
+	color				: #646464;
+	vertical-align		: 0;
+	letter-spacing		: -1px;
+}
+/* #cartWrap table#tblCart .memo input
+{
+	position			: absolute;
+	bottom				: 0;
+	right				: 0;
+	width				: 48px;
+	height				: 28px;
+	border				: 1px solid #1ec400;
+	background-color	: #1ec400;
+	color				: #fff;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 13px;
+	line-height			: 13px;
+	cursor				: pointer;
+} */
+#cartWrap table#tblCart .buttons
+{
+	text-align			: center;
+}
+#cartWrap table#tblCart .buttons img,
+#cartWrap table#tblCart .buttons form
+{
+	margin-bottom		: 3px;
+}
+#cartWrap table#tblCart .buttons a
+{
+	display				: block;
+	width				: 48px;
+	height				: 13px;
+	margin				: auto;
+	margin-bottom		: 8px;
+	padding				: 7px 0;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 13px;
+	text-decoration		: none;
+	line-height			: 13px;
+}
+.common_table_max .buttons .order
+{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #e5004f;
+    color: #fff;
+    vertical-align: middle;
+    margin: 2px;
+}
+.common_table_max .buttons .edit
+{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #0f2c53;
+    color: #fff;
+    vertical-align: middle;
+    margin: 2px;
+}
+#cartWrap table#tblCart .buttons input
+{
+	width				: 50px;
+	height				: 30px;
+	border				: 1px solid #aaa;
+	background-color	: #fff;
+	color				: #aaa;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 13px;
+	line-height			: 13px;
+	cursor				: pointer;
+}
+
+#cartWrap table#tblCart #txtSelectAll
+{
+	float				: left;
+	padding				: 0px 8px;
+}
+#cartWrap table#tblCart #cartSelectBtnWrap
+{
+}
+#cartWrap table#tblCart #cartSelectBtnWrap input[type=button]
+{
+	width				: 80px;
+	height				: 20px;
+	border				: 1px solid #aaa;
+	background-color	: #fff;
+	color				: #646464;
+	font-size			: 11px;
+	letter-spacing		: -1px;
+	line-height			: 11px;
+	text-align			: center;
+	cursor				: pointer;
+}
+
+
+/* 장바구니 주문불가상품 */
+#cartWrap .coverBlock
+{
+	position			: absolute;
+	top					: -1px;
+	bottom				: -1px;
+	left				: -25px;
+	width				: 978px;
+	border				: 1px solid #dfdfdf;
+	z-index				: 1;
+}
+#cartWrap .coverBlock .bg
+{
+	position			: absolute;
+	top					: 0;
+	left				: 0;
+	bottom				: 0;
+	right				: 0;
+	background-color	: #000;
+	opacity				: 0.127;
+	filter				: alpha(opacity=12);
+	z-index				: 150;
+}
+#cartWrap .coverBlock .opt
+{
+	position			: absolute;
+	top					: 41px;
+	left				: 122px;
+	z-index				: 160;
+	background-color	: #dfdfdf;
+}
+#cartWrap .coverBlock .buttons
+{
+	position			: absolute;
+	top					: 40px;
+	right				: 0;
+	width				: 96px;
+	text-align			: center;
+	z-index				: 200;
+}
+
+/* 주문화면 */
+#orderInfoForm h2
+{
+	clear				: both;
+	overflow			: hidden;
+	width				: 980px;
+	height				: 67px;
+	margin-bottom		: 25px;
+	padding				: 0;
+	background-image	: url('/images/item/cart/ttl_orderInfoForm.png');
+	text-indent			: -5000px;
+}
+#orderInfoForm h4
+{
+	height				: 23px;
+	margin				: 30px 0 6px 0;
+	padding				: 0;
+	background-repeat	: no-repeat;
+	text-indent			: -5000px;
+}
+#orderInfoForm #frmOrder select
+{
+	padding				: 1px;
+	font-size			: 9pt;
+	border				: 1px solid #bbb;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#orderInfoForm #frmOrder input
+{
+	font-size			: 9pt;
+}
+#orderInfoForm #frmOrder input.input
+{
+	padding				: 1px;
+	border				: 1px solid #bbb;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+}
+#orderInfoForm #frmOrder .dvOrderItem
+{
+	position		: relative;
+	top				: 0;
+	left			: 0;
+}
+#orderInfoForm #frmOrder .dvChangeScr
+{
+	position		: absolute;
+	top				: 0;
+	left			: 0;
+	bottom			: 0;
+	width			: 980px;
+	background-color: #000; 
+	opacity			: 0.4;
+	filter			: alpha(opacity=40);
+}
+#orderInfoForm #frmOrder .dvChangeBtn
+{
+	position		: absolute;
+	top				: 0;
+	left			: 0;
+	bottom			: 0;
+	right			: 0;
+	padding			: 9px;
+	text-align		: right;
+	font-size		: 9pt
+}
+#orderInfoForm #frmOrder .dvChangeBtn a
+{
+	text-decoration	: none;
+}
+#orderInfoForm #tblOrdBenefit
+{
+	position		: relative;
+	top				: 0;
+	left			: 0;
+}
+#orderInfoForm #tblOrdBenefit .icoPlus
+{
+	position		: absolute;
+	top				: 50px;
+	left			: 235px;
+}
+#orderInfoForm #tblOrdBenefit .icoMinus
+{
+	position		: absolute;
+	top				: 50px;
+	left			: 480px;
+}
+#orderInfoForm #tblOrdBenefit .icoEqual
+{
+	position		: absolute;
+	top				: 50px;
+	left			: 725px;
+}
+#orderInfoForm #tblOrdBenefit table
+{
+	margin			: 0 2px;
+	border-collapse	: collapse;
+	font-family		: 'Malgun Gothic', '맑은 고딕';
+}
+#orderInfoForm #tblOrdBenefit thead td
+{
+	padding			: 10px 0 6px 0;
+	background-color: #ebebeb; 
+	border			: 1px solid #bbb;
+	border-bottom	: 1px dotted #bbb;
+	color			: #333;
+	font-size		: 11pt;
+	font-weight		: 700;
+	text-align		: center;
+}
+#orderInfoForm #tblOrdBenefit thead th
+{
+	position		: relative;
+	top				: 0;
+	left			: 0;
+	height			: 70px;
+	background-color: #ebebeb; 
+	border-left		: 1px solid #bbb;
+	border-right	: 1px solid #bbb;
+	border-bottom	: 1px solid #bbb;
+	z-index			: -1;
+}
+#orderInfoForm #tblOrdBenefit thead th small
+{
+	position		: absolute;
+	top				: 12px;
+	left			: 22px;
+	display			: block;
+	color			: #888;
+	font-size		: 9pt;
+	font-weight		: 100;
+	text-align		: left;
+	letter-spacing	: -1px;
+}
+#orderInfoForm #tblOrdBenefit thead th div
+{
+	position		: absolute;
+	bottom			: 6px;
+	right			: 22px;
+	color			: #333;
+	text-align		: right;
+	line-height		: 26px;
+}
+#orderInfoForm #tblOrdBenefit thead th div sup
+{
+	font-size		: 22pt;
+	font-family		: 'Malgun Gothic', '맑은 고딕';
+	font-weight		: 700;
+	vertical-align	: 0;
+}
+#orderInfoForm #tblOrdBenefit thead th div sub
+{
+	font-size		: 12pt;
+	font-family		: 'Malgun Gothic', '맑은 고딕';
+	vertical-align	: 0;
+}
+#orderInfoForm #tblOrdBenefit thead th div.cartAmountTotal
+{
+	color			: #cc0000;
+}
+#orderInfoForm #tblOrdBenefit tbody td
+{
+	padding			: 12px 10px 8px 10px;
+	background-color: #f7f7f7; 
+	border-left		: 1px solid #bbb;
+	border-right	: 1px solid #bbb;
+	border-bottom	: 1px solid #bbb;
+	color			: #888;
+}
+#orderInfoForm #tblOrdBenefit tbody td table
+{
+	border			: 0;
+}
+#orderInfoForm #tblOrdBenefit tbody td table th
+{
+	padding-top		: 6px;
+	font-size		: 9pt;
+	font-weight		: 700;
+	text-align		: left;
+}
+#orderInfoForm #tblOrdBenefit tbody td table td
+{
+	padding			: 5px 0;
+	border			: 0;
+	line-height		: 12px;
+}
+#orderInfoForm #tblOrdBenefit tbody td table td .amt
+{
+	color			: #cc0000;
+	font-weight		: 700;
+	font-size		: 12px;
+	vertical-align	: 0;
+}
+#orderInfoForm #tblOrdBenefit tbody td table td .unit
+{
+	padding-left	: 2px;
+	color			: #cc0000;
+	font-weight		: 700;
+	font-size		: 10px;
+	vertical-align	: 0;
+}
+#orderInfoForm #tblOrdBenefit tbody td table td .desc
+{
+	padding-left	: 3px;
+	color			: #aaa;
+	font-size		: 11px;
+	letter-spacing	: -1px;
+	vertical-align	: -2px;
+}
+#orderInfoForm #tblOrdBenefit tbody td table td img
+{
+	vertical-align	: -7px;
+}
+#orderInfoForm #tblOrdBenefit input
+{
+	width			: 40px;
+	margin-right	: 2px;
+	margin-bottom	: 2px;
+	padding			: 3px 2px 0 2px;
+	border			: 1px solid #ccc;
+	color			: #000;
+	font-size		: 11px;
+	letter-spacing	: 0;
+	text-align		: right;
+	vertical-align	: 0;
+}
+#orderInfoForm #giftList .itemOptionSelect
+{
+	border-bottom		: 1px solid #888;
+	padding				: 5px 0;
+}
+#orderInfoForm #giftList .itemOptionSelect th
+{
+	width				: 90px;
+	color				: #333;
+	text-align			: left;
+	letter-spacing		: -1px;
+}
+#orderInfoForm #giftList .itemOptionSelect select
+{
+	width				: 100%;
+	color				: #333;
+	font-size			: 9pt;
+}
+#orderInfoForm #giftList .itemOptionSelect option.invalid
+{
+	color				: #aaa;
+}
+#orderInfoForm #giftList .itemOptionResult
+{
+	border-bottom		: 1px solid #888;
+	padding				: 0 0 5px 0;
+}
+#orderInfoForm #giftList .itemOptionResult table
+{
+	width				: 100%;
+	table-layout		: fixed;
+	border-collapse		: collapse;
+}
+#orderInfoForm #giftList .itemOptionResult th, #giftList .itemOptionResult td
+{
+	height				: 23px;
+}
+#orderInfoForm #giftList .itemOptionResult th
+{
+	padding-top			: 7px;
+	border-bottom		: 1px solid #ccc;
+	color				: #333;
+	text-align			: left;
+	font-weight			: 100;
+	letter-spacing		: -1px;
+}
+#orderInfoForm #giftList .itemOptionResult td
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 50px;
+	border-bottom		: 1px solid #ccc;
+}
+#orderInfoForm #giftList .itemOptionResult td input
+{
+	position			: absolute;
+	top					: 3px;
+	left				: 0;
+	padding				: 5px 4px;
+	width				: 28px;
+	height				: 13px;
+	border				: 1px solid #ccc;
+	color				: #000;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 9pt;
+}
+#orderInfoForm #giftList .itemOptionResult td button
+{
+	position			: absolute;
+	left				: 30px;
+	width				: 16px;
+	height				: 13px;
+	padding				: 0;
+	border				: 1px solid #aaa;
+	cursor				: pointer;
+	color				: #333;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 8pt;
+	line-height			: 10px;
+	text-align			: center;
+}
+#orderInfoForm #giftList .itemOptionResult td button.btnUp
+{
+	top					: 3px;
+}
+#orderInfoForm #giftList .itemOptionResult td button.btnDown
+{
+	top					: 15px;
+}
+#orderInfoForm #giftList .itemOptionResult td.amt
+{
+	width				: 60px;
+	padding-top			: 5px;
+	padding-right		: 18px;
+	text-align			: right;
+	font-weight			: 700;
+}
+#orderInfoForm #giftList .itemOptionResult td.amt button
+{
+	top					: 9px;
+	left				: auto;
+	right				: 0px;
+	width				: 14px;
+	height				: 14px;
+	color				: #333;
+	background-color	: #fff;
+	font-size			: 7pt;
+}
+#orderInfoForm #giftList .itemOptionResult div
+{
+	padding-top			: 6px;
+	color				: #333;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 9pt;
+	text-align			: right;
+}
+#orderInfoForm #giftList .itemOptionResult div input
+{
+	margin-right		: 2px;
+	padding				: 3px 3px 0 3px;
+	border				: 1px solid #ccc;
+	color				: #333;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 9pt;
+}
+#orderInfoForm #giftList .itemOptionResult div input.qty
+{
+	width				: 30px;
+	font-weight			: 700;
+	text-align			: right;
+}
+#orderInfoForm #giftList .itemOptionResult div input.amt
+{
+	width				: 60px;
+	font-weight			: 700;
+	color				: #cc0000;
+	text-align			: right;
+}
+#orderInfoForm #giftList .clearB
+{
+	clear				: both;
+}
+#orderInfoForm #giftList .giftListUl
+{
+	max-height			: 350px;
+	overflow-y			: scroll;
+	border				: 1px solid #ebebeb;
+	padding				: 20px;
+	margin				: 10px 0;
+}		
+#orderInfoForm #giftList .giftListUl li
+{
+	float				: left;
+	margin				: 30px 0;
+	min-height			: 133px;
+}
+#orderInfoForm #giftList .giftListUl li .imageBox a img
+{
+	width				: 120px;
+	height				: 120px;
+	border				: 1px solid #dddddd;
+}
+#orderInfoForm #giftList .imageBox
+{
+	float				: left;
+	width				: 130px;
+	text-align			: center;
+	height				: 100%;
+}
+#orderInfoForm #giftList .giftOptSet
+{
+	float				: left;
+	width				: 330px;
+}
+/*text*/
+#orderInfoForm #giftList .giftInfoWrap
+{
+	background			: #EBEBEB;
+	font-size			: 12px;
+	padding				: 5px 20px;
+}
+#orderInfoForm #giftList .giftListWrap
+{
+	min-height			: 150px;
+	border				: 3px solid #D9D9D9;
+	margin				: 2px;
+	max-height			: 510px;
+	overflow			: auto;
+}
+#orderInfoForm #giftList .itemTitle
+{
+	font-size			: 12px;
+	line-height			: 16px;
+}
+#orderInfoForm #giftList .giftSelectOpt
+{
+	top					: 3px;
+	left				: 0;
+	padding				: 5px 4px;
+	width				: 28px;
+	height				: 13px;
+	border				: 1px solid #ccc;
+	color				: #000;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 9pt;
+}
+#orderInfoForm #giftList .giftAmt
+{
+	font-size			: 12pt;
+	text-align			: center;
+	color				: #cc0000;
+	font-weight			: 700;
+}
+#orderInfoForm #giftList .giftSelectOpt
+{
+	position			: absolute;
+	top					: 3px;
+	left				: 0;
+	padding				: 5px 4px;
+	width				: 28px;
+	height				: 13px;
+	border				: 1px solid #ccc;
+	color				: #000;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 9pt;
+}
+#orderInfoForm #giftList .noOptWrap
+{
+	width				: 100%;
+	table-layout		: fixed;
+	border-collapse		: collapse;
+}
+#orderInfoForm #giftList .noOptWrap th
+{
+	padding-top			: 7px;
+	border-bottom		: 1px solid #ccc;
+	color				: #333;
+	text-align			: left;
+	font-weight			: 100;
+	letter-spacing		: -1px;
+}
+#orderInfoForm #giftList .noOptWrap td
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 50px;
+	border-bottom		: 1px solid #ccc;
+}
+#orderInfoForm #giftList .itemSetInfo
+{
+	float				: left;
+}
+#orderInfoForm #giftList .itemSetInfo input
+{
+	margin				: 9px;
+}
+#orderInfoForm #giftList .viewAmt
+{
+	position			: relative;
+	width				: 50px;
+	height				: 30px;
+	float				: left;
+	font-weight			: 700;
+	font-size			: 9pt;
+	line-height			: 30px;
+}
+#orderInfoForm #giftList .btnUp, #giftList .btnDown
+{
+	position			: absolute;
+	padding				: 0;
+	border				: 1px solid #aaa;
+	cursor				: pointer;
+	color				: #333;
+	font-family			: 'Malgun Gothic', '맑은 고딕';
+	font-size			: 8pt;
+	line-height			: 10px;
+	text-align			: center;
+	width				: 16px;
+}
+#orderInfoForm #giftList .btnUp
+{
+	left				: 30px;
+	height				: 13px;
+	top					: 3px;
+}
+#orderInfoForm #giftList .btnDown
+{
+	left				: 30px;
+	height				: 13px;
+	top					: 15px;
+}
+#orderInfoForm h4#h4discount
+{
+	background-image	: url('/images/item/order/ttl_discount.png');
+}
+#orderInfoForm h4#h4deliInfo
+{
+	background-image	: url('/images/item/order/ttl_deliInfo.png');
+}
+#orderInfoForm h4#h4payInfo
+{
+	background-image	: url('/images/item/order/ttl_paymentInfo.png');
+}
+#orderInfoForm #tblDeliInfo,
+#orderInfoForm #tblPayInfo
+{
+	margin				: 0 2px;
+}
+#orderInfoForm #tblDeliInfo table,
+#orderInfoForm #tblPayInfo table
+{
+	border-collapse		: collapse;
+	color				: #333;
+	font-family			: 'dotum', '돋움';
+	font-size			: 12px;
+}
+#orderInfoForm #tblDeliInfo th,
+#orderInfoForm #tblPayInfo th
+{
+	padding				: 10px;
+	background-color	: #f3f3f3; 
+	border				: 1px solid #ddd;
+	font-weight			: 100;
+	text-align			: left;
+}
+#orderInfoForm #tblDeliInfo td,
+#orderInfoForm #tblPayInfo td
+{
+	padding				: 10px;
+	background-color	: #ffffff;
+	border				: 1px solid #ddd;
+}
+#orderInfoForm #tblDeliInfo td div input[type=text]
+{
+	width				: 500px;
+	margin-top			: 6px;
+	vertical-align		: 0;
+}
+#orderInfoForm #tblDeliInfo input[readonly=readonly]
+{
+	background-color	: #f3f3f3;
+}
+#orderInfoForm #tblDeliInfo .addrEditable
+{
+	position			: relative;
+	top					: 5px;
+	left				: 170px;
+}
+#orderInfoForm #tblDeliInfo .addrEditable input[type=checkbox]
+{
+	vertical-align		: -2px;
+}
+#orderInfoForm #tblDeliInfo .setAddressBook li
+{
+	float				: left;
+	padding-right		: 12px;
+}
+#orderInfoForm #tblDeliInfo .setAddressBook input
+{
+	margin-right	: 1px;
+	vertical-align	: -2px;
+}
+#orderInfoForm #tblDeliInfo .setAddressBook div
+{
+	float			: right;
+	padding-top		: 2px;
+}
+#orderInfoForm #tblDeliInfo .addressBookOpt input
+{
+	margin-right	: 1px;
+}
+#orderInfoForm #tblDeliInfo .addressBookOpt label
+{
+	cursor			: pointer;
+}
+#orderInfoForm .desc
+{
+	color			: gray;
+	margin-top		: 4px
+}
+#orderInfoForm #agreeChkWrap
+{
+	border				: 1px solid #bfbfbf;
+	margin				: 0px 2px 25px 2px;
+	padding				: 15px;
+}
+#orderInfoForm #agreeChkWrap label
+{
+	display				: block;
+	margin-bottom		: 5px; 
+	font-size			: 12px;
+}
+#orderInfoForm #agreeChkWrap label input
+{
+	margin				: 0 3px -2px 0;
+	padding				: 0;
+}
+#orderInfoForm #agreeChkWrap table
+{
+	border-collapse		: collapse;
+}
+#orderInfoForm #agreeChkWrap table th,
+#orderInfoForm #agreeChkWrap table td
+{
+	border				: 1px solid #ccc;
+}
+#orderInfoForm #agreeChkWrap table th
+{
+	padding				: 6px 0 1px 0;
+	background-color	: #f3f3f3;
+}
+#orderInfoForm #agreeChkWrap table td
+{
+	padding				: 8px;
+	vertical-align		: top;
+}
+#orderInfoForm #agreeChkWrap table li
+{
+	list-style-type		: disc;
+	list-style-position	: outside;
+	margin-left			: 20px;
+}
+/* 소비자정보 및 옵션/수량수정 */
+#lOptQty,
+#lPayConsumer
+{
+	display				: none;
+	position			: fixed;
+	top					: 0;
+	left				: 0;
+	bottom				: 0;
+	right				: 0;
+	background-color	: rgba(0, 0, 0, 0.3);
+	z-index				: 9999999;
+}
+#lOptQty .frm,
+#lPayConsumer .frm
+{
+    position			: absolute;
+    top					: 50%;
+    left				: 50%;
+    margin-top			: -326px;
+    margin-left			: -335px;
+	width				: 622px;
+	height				: 610px;
+	padding				: 24px 26px;
+	background-color	: #fff;
+	color				: #1b1b1b;
+	text-align			: center;
+}
+#lOptQty .frm h3,
+#lPayConsumer .frm h3
+{
+	height				: 20px;
+	margin				: 0;
+	margin-bottom		: 9px;
+	padding				: 0;
+	padding-bottom		: 9px;
+	border-bottom		: 1px solid #aaa;
+	font-size			: 20px;
+	font-weight			: 700;
+	letter-spacing		: -1px;
+	line-height			: 20px;
+	text-align			: left;
+}
+#lOptQty .frm .desc,
+#lPayConsumer .frm .desc
+{
+	height				: 13px;
+	margin-bottom		: 32px;
+	font-size			: 13px;
+	letter-spacing		: -1px;
+	line-height			: 13px;
+	text-align			: left;
+}
+#lPayConsumer .frm table
+{
+	width				: 100%;
+	margin-bottom		: 23px;
+	border-top			: 2px solid #646464;
+	border-bottom		: 2px solid #646464;
+	border-collapse		: collapse;
+	table-layout		: fixed;
+}
+#lPayConsumer .frm table th
+{
+	width				: 135px;
+	padding-top			: 17px;
+	border-bottom		: 1px solid #ddd;
+	color				: #1b1b1b;
+	font-size			: 13px;
+	font-weight			: 100;
+	text-align			: left;
+	letter-spacing		: -1px;
+	text-indent			: 15px;
+	line-height			: 13px;
+}
+#lPayConsumer .frm table td
+{
+	min-height			: 38px;
+	padding-top			: 8px;
+	border-bottom		: 1px solid #ddd;
+	letter-spacing		: -1px;
+	text-align			: left;
+}
+#lPayConsumer .frm table tr:first-child th,
+#lPayConsumer .frm table tr:first-child td
+{
+	border-bottom		: 1px solid #aaa;
+}
+#lPayConsumer .frm input,
+#lPayConsumer .frm select,
+#lPayConsumer .frm textarea
+{
+	height				: 13px;
+	padding				: 8px 0;
+	margin-bottom		: 8px;
+	border				: 1px solid #aaa;
+	color				: #1b1b1b;
+	font-family			: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size			: 13px;
+	font-weight			: 100;
+	line-height			: 13px;
+}
+#lPayConsumer .frm select
+{
+	height				: 30px;
+	padding				: 0;
+}
+#lPayConsumer .frm input[type='radio'],
+#lPayConsumer .frm input[type='checkbox']
+{
+	border				: 0;
+}
+#lPayConsumer .frm .lenfull
+{
+	width				: 450px;
+	text-indent			: 8px;
+}
+#lPayConsumer .frm .lenpost
+{
+	width				: 68px;
+	text-indent			: 8px;
+}
+#lPayConsumer .frm input.lenshort
+{
+	width				: 80px;
+	text-indent			: 8px;
+}
+#lPayConsumer .frm select.lenshort
+{
+	width				: 100px;
+	padding-left		: 8px;
+}
+#lPayConsumer .frm textarea
+{
+	width				: 450px;
+	height				: 55px;	
+	resize				: none;
+}
+#lPayConsumer .frm input.inputBtn
+{
+	height				: 31px;
+	padding				: 0 4px;
+	border				: 1px solid #aaa;
+	color				: #fff;
+	background-color	: #aaa;
+	cursor				: pointer;
+}
+#lPayConsumer .frm #lPayAddrCheck
+{
+	position			: relative;
+	top					: 8px;
+	right				: 30px;
+	float				: right;	
+}
+#lPayConsumer .frm #lPayAddrOpt input,
+#lPayConsumer .frm #lPayAddrCheck input
+{
+	width				: auto;
+	height				: auto;
+	vertical-align		: -2px;
+	cursor				: pointer;
+}
+#lOptQty .frm button,
+#lPayConsumer .frm button
+{
+	border				: 0;
+	color				: #fff;
+	font-family			: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size			: 13px;
+	font-weight			: 100;
+	line-height			: 13px;
+	cursor				: pointer;
+}
+#lOptQty .frm button.submit{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #e5004f;
+    color: #fff;
+    vertical-align: middle;
+}
+#lPayConsumer .frm button.submit
+{
+	width				: 50px;
+	height				: 30px;
+	background-color	: #1ec400;
+}
+#lOptQty .frm button.close{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #0f2c53;
+    color: #fff;
+    vertical-align: middle;
+}
+#lPayConsumer .frm button.close
+{
+	width				: 50px;
+	height				: 30px;
+	background-color	: #aaa;
+}
+#lOptQty #itemOptSelect
+{
+	padding-bottom		: 8px;
+}
+#lOptQty #itemOptSelect table
+{
+	width				: 100%;
+	border-collapse		: collapse;
+	border				: 0;
+}
+/* #lOptQty #itemOptSelect th
+{	
+	width				: 98px;
+	height				: 26px;
+	padding				: 2px 0;
+	border				: 0;
+	font-weight			: 700;
+	text-align			: left;
+}
+#lOptQty #itemOptSelect td
+{
+	height				: 26px;
+	padding				: 6px 0;
+	border				: 0;
+} */
+#lOptQty #itemOptSelect select
+{
+	width				: 100%;
+	display: inline-block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    margin: 2px;
+    vertical-align: middle;
+}
+#lOptQty #itemOptResult
+{
+	overflow-y			: scroll;
+	height				: 320px;
+	margin-top			: -1px;
+	margin-bottom		: 10px;
+	border				: 1px solid #aaa;
+}
+#lOptQty #itemOptResult table
+{
+	width				: 100%;
+	border-collapse		: collapse;
+}
+#lOptQty #itemOptResult th, #lOptQty #itemOptResult td
+{
+	overflow			: hidden;
+	height				: 30px;
+	border				: 0;
+	border-bottom			: 1px solid #ddd;
+	color				: #1b1b1b;
+	font-family			: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size			: 12px;
+	font-weight			: 100;
+	line-height			: 16px;
+	text-align			: left;
+}
+#lOptQty #itemOptResult th
+{
+	padding				: 10px 0 10px 10px;
+}
+#lOptQty #itemOptResult td.qty
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 121px;
+	padding				: 10px 0;
+}
+#lOptQty #itemOptResult td.qty input
+{
+	position			: absolute;
+	top					: 10px;
+	left				: 29px;
+	width				: 45px;
+	height				: 24px;
+	padding				: 2px 8px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	font-family			: 'Arial';
+	font-size			: 16px;
+	font-weight			: 700;
+	text-align			: right;
+	line-height			: 22px;
+}
+#lOptQty #itemOptResult td.qty button
+{
+	overflow			: hidden;
+	position			: absolute;
+	top					: 10px;
+	width				: 30px;
+	height				: 30px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	font-size			: 18px;
+	text-indent			: -5000px;
+	line-height			: 2px;
+	cursor				: pointer;
+}
+#lOptQty #itemOptResult td.qty button.btnUp
+{
+	left				: 91px;
+	background-image	: url('/images/item/view/btn_qtyPlus.png');
+}
+#lOptQty #itemOptResult td.qty button.btnDown
+{
+	left				: 0;
+	background-image	: url('/images/item/view/btn_qtyMinus.png');
+}
+#lOptQty #itemOptResult td.amt
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 92px;
+	padding				: 10px 39px 10px 0;
+	color				: #1b1b1b;
+	text-align			: right;
+}
+#lOptQty #itemOptResult td.amt button
+{
+	overflow			: hidden;
+	position			: absolute;
+	top					: 11px;
+	right				: 12px;
+	border				: 1px solid #fff;
+	background-color	: #fff;
+	background-image	: url('/images/item/view/ico_closeSmall.png');
+	background-position	: right 10px;
+	background-repeat	: no-repeat;
+	color				: #646464;
+	font-size			: 10px;
+	text-indent			: -50px;
+	line-height			: 26px;
+	cursor				: pointer;
+}
+#lOptQty #itemOptResult .res
+{
+	visibility			: hidden;
+	overflow			: hidden;
+	height				: 0;
+}
+
+#lOptQty #lPayRes
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	margin-bottom		: 14px;
+	padding-bottom		: 10px;
+	border-bottom		: 1px solid #aaa;
+	color				: #666;
+	font-size			: 12px;
+	text-align			: right;
+}
+#lOptQty #lPayRes .amt
+{
+	font-weight			: 700;
+}
+#lOptQty #lPayRes .amt strong
+{
+	position			: relative;
+	top					: 2px;
+	left				: 0;
+	margin-left			: 10px;
+	margin-right		: 2px;
+	color				: #f63700;
+	font-family			: 'Verdana';
+	font-size			: 27px;;
+	font-weight			: 100;
+	letter-spacing		: -2px;
+}
+#lOptQty #lPayRes .amt b
+{
+	color				: #1b1b1b;
+	font-size			: 17px;;
+	font-weight			: 100;
+}
+#lOptQty #lPayRes .qty strong
+{
+	color				: #f63700;
+}
+#lOptQty #lPayRes .sample
+{
+	position			: absolute;
+	top					: 37px;
+	right				: 0;
+	padding				: 3px 12px 5px 12px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	font-size			: 12px;
+	text-align			: center;
+}
+#lOptQty #lPayRes .sample b
+{
+	color				: #f63700;
+}
+#lOptQty #lPayRes .sample img
+{
+	position			: absolute;
+	top					: -5px;
+	right				: 5px;
+}
+
+/* 카트안의 주소입력 영역 */
+.addressInCart
+{
+	overflow			: hidden;
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	float				: right;
+	width				: 514px;
+	margin-top			: 18px;
+	font-size			: 0;
+}
+
+.addressInCart .addressTable
+{
+	width				:100%;
+	border-collapse		:collapse;
+	color				:#333;
+	font-family			:'dotum', '돋움';
+	font-size			:11px;
+}
+
+.addressInCart .addressTable th
+{
+	padding				:5px;
+	background-color	:#f3f3f3;
+	border				:1px solid #ddd;
+	font-weight			:100;
+	text-align			:left;
+	width				:70px;
+}
+
+.addressInCart .addressTable td
+{
+	padding				:5px;
+	background-color	:#ffffff;
+	border				:1px solid #ddd;
+	text-align			:left;
+	height				:15px;
+	width				:440px;
+}

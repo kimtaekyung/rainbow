@@ -1,0 +1,841 @@
+@charset "UTF-8";
+
+.orangeBold
+{
+	color			: #FE9D12;
+	font-weight		: 700;
+}
+.orangeColor
+{
+	color			: #FE9D12;
+}
+.greenBold
+{
+	color			: #99ce38;
+	font-weight		: 700;
+}
+.redColor
+{
+	color			: #E40001;
+}
+
+/*-----------------------------------------------------------------
+	반갑습니다. (영역)
+-----------------------------------------------------------------*/
+.userWelcome
+{
+	color			: #272727;
+}
+/*-----------------------------------------------------------------
+	나의 쿠폰 영역
+-----------------------------------------------------------------*/
+#myCouponWrap
+{
+	border			: #cccccc 1px solid;
+	width			: 770px;
+	background		: #e6e7e9;
+	margin-top		: 15px;
+	padding			: 0;
+}
+#myCoupon
+{
+	color			: #686868;
+	margin-left		: 15px;
+	height			: 40px;
+	line-height		: 40px;
+}
+#myCoupon a
+{
+	text-decoration	: none;
+	color			: #999999;
+}
+#myCoupon a:hover
+{
+	text-decoration	: underline;
+}
+#helpWrap
+{
+	float			: right;
+	height			: 30px;
+	padding-top		: 10px;
+	padding-right	: 10px;
+	font-size		: 0;
+}
+#helpWrap a
+{
+	text-decoration	: none;
+}
+#helpWrap img.padded
+{
+	margin-left		: 10px;
+}
+/*-----------------------------------------------------------------
+	contents 운세알리미
+-----------------------------------------------------------------*/
+.myBuyFortune
+{
+	position				: relative;
+	top						: 0;
+	left					: 0;
+	width					: 770px;
+	height					: 31px;
+	margin-top				: 10px;
+	margin-bottom			: 0px;
+	background-image		: url('http://211.43.195.137/image/partner/bgi_fortuneMessenger.gif');
+}
+.myBuyFortune a
+{
+	color					: #0000cc;
+}
+.myBuyFortune .wrap
+{
+	display					: block;
+	position				: absolute;
+	top						: 10px;
+	left					: 113px;
+	width					: 590px;
+	height					: 12px;
+	cursor					: pointer;
+	overflow				: hidden;
+}
+.myBuyFortune .wrap #todayFortune
+{
+	text-indent				: 590px;
+}
+.myBuyFortune .conf
+{
+	display					: block;
+	position				: absolute;
+	top						: 10px;
+	right					: 15px;
+}
+/*-----------------------------------------------------------------
+	구매상태 영역
+-----------------------------------------------------------------*/
+#buyStatusWrap
+{
+	width			: 770px;
+	margin			: 30px 0;
+}
+#buyStatusWrap h2
+{
+	overflow			: hidden;
+	width				: 770px;
+	height				: 23px;
+	margin-bottom		: 15px;
+	background-image	: url('"http://211.43.195.137/image/v6/elements/my/mybuy/main/img_headDomestic.jpg');
+	background-repeat	: no-repeat;
+	text-indent			: -5000px;
+}
+#orderDomestic
+{
+	position		: relative;
+	width			: 541px;
+}
+#orderDomestic .sellStrWrap
+{
+	position		: absolute;
+	top				: 3px;
+	left			: 340px;
+}
+#orderDomestic div.bgRound
+{
+	background-image: url("http://211.43.195.137/image/v6/elements/my/common/img_bgRound.jpg");
+	width			: 86px;
+	height			: 145px;
+	text-align		: center;
+}
+#orderDomestic div.arrow
+{
+	margin			: 75px 20px 0 20px;
+}
+#orderDomestic a
+{
+	font-size		: 17px;
+	font-family		: 'tahoma';
+	letter-spacing	: -1px;
+}
+#orderDomestic #depositWrap img
+{
+	display			: block;
+	margin			: 20px auto 7px auto;
+}
+#orderDomestic #paymentCompleteWrap img, #deliveryReadyWrap img
+{
+	display			: block;
+	margin			: 50px auto 7px auto;
+}
+#orderDomestic #deliveryWrap img
+{
+	display			: block;
+	margin			: 35px auto 7px auto;
+}
+#orderDomestic #deliveryWrap img.clear
+{
+	display			: block;
+	margin			: 50px auto 7px auto;
+}
+#orderDomestic #deliveryWrap img.receiptBtn
+{
+	margin			: 10px auto;
+}
+#buying
+{
+	position		: relative;
+	width			: 541px;
+}
+#buying .sellStrWrap
+{
+	position		: absolute;
+	top				: 3px;
+	left			: 340px;
+}
+#buying div
+{
+	margin-top		: 20px;
+}
+#buying div.bgRound
+{
+	background-image: url("http://211.43.195.137/image/v6/elements/my/common/img_bgRound.jpg");
+	width			: 86px;
+	height			: 145px;
+	text-align		: center;
+}
+#buying div.arrow
+{
+	margin			: 75px 20px 0 20px;
+}
+#buying a
+{
+	font-size		: 17px;
+	font-family		: 'tahoma';
+	letter-spacing	: -1px;
+}
+#buying #depositWrap img
+{
+	display			: block;
+	margin			: 20px auto 7px auto;
+}
+#buying #paymentCompleteWrap img, #deliveryReadyWrap img
+{
+	display			: block;
+	margin			: 50px auto 7px auto;
+}
+#buying #deliveryWrap img
+{
+	display			: block;
+	margin			: 35px auto 7px auto;
+}
+#buying #deliveryWrap img.clear
+{
+	display			: block;
+	margin			: 50px auto 7px auto;
+}
+#buying #deliveryWrap img.receiptBtn
+{
+	margin			: 10px auto;
+}
+/*-----------------------------------------------------------------
+	진행중인 해외주문 영역
+-----------------------------------------------------------------*/
+#myBuyOutboundWrap
+{
+	width				: 770px;
+	margin				: 30px 0;
+	overflow			: hidden;
+}
+#myBuyOutboundWrap h2
+{
+	overflow			: hidden;
+	width				: 770px;
+	height				: 23px;
+	margin-bottom		: 15px;
+	background-image	: url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_headOutbound.jpg');
+	background-repeat	: no-repeat;
+	text-indent			: -5000px;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep
+{
+	overflow			: hidden;
+	margin-left			: -30px;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep li
+{
+	float				: left;
+	width				: 100px;
+	height				: 139px;
+	background-image	: url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_arrowOutbound.jpg');
+	background-repeat	: no-repeat;
+	background-position	: 10px center;
+	text-align			: center;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep li div
+{
+	display				: block;
+	float				: right;
+	width				: 67px;
+	height				: 39px;
+	padding-top			: 100px;
+	background-repeat	: no-repeat;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep li a
+{
+	color				: #fe9d12;
+	font-size			: 13pt;
+	font-family			: 'tahoma', 'dotum';
+	font-weight			: 700;
+	letter-spacing		: -1px;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep li div
+{
+	cursor				: pointer;
+}
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step1 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound1a.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step2 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound2b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step3 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound3b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step4 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound4b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step5 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound5b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step6 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound6b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step7 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound7b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step8 div	{ background-image : url('http://211.43.195.137/image/v6/elements/my/mybuy/main/img_stepOutbound8b.jpg') }
+#myBuyOutboundWrap ul#myBuyOutboundStep li.step8		{ padding : 0; }
+
+
+#guideTriangle
+{
+	padding-left		: 27px;
+}
+
+#myBuyOutboundDesc
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+}
+#myBuyOutboundDesc ul li
+{
+	display				: none;
+	background-color	: rgb(241, 241, 241);
+	padding				: 15px;
+	line-height			: 18px;
+}
+#myBuyOutboundDesc ul li strong
+{
+	color				: #fb9200;
+	font-weight			: 100;
+}
+
+
+/*-----------------------------------------------------------------
+	최근 아웃바운드 구매정보 영역
+-----------------------------------------------------------------*/
+#recentOutBoundBuyWrap
+{
+	margin-top		: 35px;
+	position		: relative;
+	margin-bottom	: 35px;
+}
+#recentOutBoundBuyWrap #recentOutBoundBuyStr
+{
+	position		: absolute;
+	top				: 3px;
+	left			: 415px;
+	width			: 354px;
+	color			: #a7a7a7;
+	text-align		: right;
+}
+#recentOutBoundBuyTable
+{
+	margin-top		: 15px;
+}
+#recentOutBoundBuyTable thead th
+{
+	font-size		: 11px;
+	color			: #737373;
+	background		: #efefef;
+	height			: 35px;
+	border-bottom	: 1px solid #e7e7e7;
+	border-right	: 1px solid #e7e7e7;
+}
+#recentOutBoundBuyTable tbody td
+{
+	padding			: 8px 0;
+	border-bottom	: 1px solid #d3d3d3;
+}
+#recentOutBoundBuyTable tbody .orderItem
+{
+	text-align		: left;
+	padding-left	: 5px;
+}
+#recentOutBoundBuyTable tbody .orderItem a
+{
+	color			: #737373;
+	text-decoration	: none;
+}
+#recentOutBoundBuyTable img
+{
+	margin-top		: 5px;
+}
+
+/*-----------------------------------------------------------------
+	구매종료/취소현황 영역
+-----------------------------------------------------------------*/
+#buyCancel
+{
+	margin-left		: 15px;
+}
+#buyCancel img
+{
+	margin			: 0;
+	padding			: 0;
+}
+#buyCancel ul
+{
+	border			: 2px solid #d2d2d2;
+	padding			: 10px 0 10px 0;
+	width			: 110px;
+	height			: 141px;
+	text-align		: left;
+	font-size		: 0;
+}
+#buyCancel ul li
+{
+	height			: 24px;
+	margin			: 1px 0;
+	font-size		: 9pt;
+	cursor			: pointer;
+}
+#buyCancel ul li span.name
+{
+	float			: left;
+}
+#buyCancel ul li span.cnt
+{
+	float			: right;
+	font-weight		: 700;
+	text-decoration	: underline;
+}
+#buyCancel ul li a
+{
+	display			: block;
+	height			: 12px;
+	padding			: 4px 8px;
+	color			: #8b8b8b;
+	text-decoration	: none;
+}
+#buyCancel ul a:hover
+{
+	background		: #eaeaea;
+}
+/*-----------------------------------------------------------------
+	흥정현황 영역
+-----------------------------------------------------------------*/
+#bargain
+{
+	margin-left		: 15px;
+	width			: 85px;
+	text-align		: center;
+}
+#bargainWrap
+{
+	float			: right;
+	border-top		: 2px solid #d2d2d2;
+	border-right	: 2px solid #d2d2d2;
+	border-left		: 2px solid #d2d2d2;
+	border-bottom	: 1px solid #d2d2d2;
+	width			: 80px;
+	height			: 162px;
+}
+#bargainWrap div
+{
+	padding			: 19px 0 15px 0;
+	border-bottom	: 1px solid #d2d2d2;
+}
+#bargainWrap div span
+{
+	margin-bottom	: 4px;
+	display			: block;
+}
+#bargainWrap div a
+{
+	color			: #8b8b8b;
+}
+/*-----------------------------------------------------------------
+	최근 구매정보 영역
+-----------------------------------------------------------------*/
+#recentBuyWrap
+{
+	margin-top		: 35px;
+	position		: relative;
+	margin-bottom	: 35px;
+}
+#recentBuyWrap #recentBuyStr
+{
+	position		: absolute;
+	top				: 3px;
+	left			: 415px;
+	width			: 354px;
+	color			: #a7a7a7;
+	text-align		: right;
+}
+#recentBuyTable
+{
+	margin-top		: 15px;
+}
+#recentBuyTable thead th
+{
+	font-size		: 11px;
+	color			: #737373;
+	background		: #efefef;
+	height			: 35px;
+	border-bottom	: 1px solid #e7e7e7;
+	border-right	: 1px solid #e7e7e7;
+}
+#recentBuyTable tbody td
+{
+	text-align		: center;
+	padding			: 8px 0;
+	border-bottom	: 1px solid #d3d3d3;
+}
+#recentBuyTable tbody .orderItem
+{
+	text-align		: left;
+	padding-left	: 5px;
+}
+#recentBuyTable tbody .orderItem a
+{
+	color			: #737373;
+	text-decoration	: none;
+}
+#recentBuyTable img
+{
+	margin-top		: 5px;
+}
+/*-----------------------------------------------------------------
+	판매자 공지사항
+-----------------------------------------------------------------*/
+.etcWrap
+{
+	margin-top			: 20px;
+	margin-bottom		: 30px;
+	overflow			: hidden;
+}
+/* 판매자 공지사항 */
+.buyerNotice 
+{
+	width				: 285px;
+	height				: 178px;
+	float				: left;
+	font-size			: 0;
+}
+.buyerNotice img
+{
+	vertical-align		: middle;
+}
+.buyerNotice ul li
+{
+	overflow			: hidden;
+	padding				: 7px 0 4px 5px;
+	border-bottom		: 1px solid #d3d3d3;
+}
+.buyerNotice ul li .new
+{
+	float				: right;
+	padding-top			: 0;
+	padding-right		: 4px;
+}
+.buyerNotice ul li a
+{
+	display				: block;
+	float				: left;
+	color				: #a6a6a6;
+	text-decoration		: none;
+	letter-spacing		: -1px;
+	font-size			: 12px;
+}
+.buyerNotice ul li a:hover
+{
+	color				: #3333cc;
+	text-decoration		: underline;
+}
+.noticeTitle
+{
+	height				: 17px;
+	padding-bottom		: 2px;
+	border-bottom		: 1px solid #818181;
+	font-size			: 13px;
+	font-weight			: 700;
+	margin-bottom		: 2px;
+}
+.noticeTitle .left
+{
+	float				: left;
+}
+.noticeTitle .noticeMore
+{
+	float				: right;
+	color				: #999999;
+	letter-spacing		: -2px;
+	text-decoration		: none;
+}
+/* 상품문의현황 */
+.itemQState
+{
+	float				: left;
+	margin-left			: 17px;
+}
+.itemQState .qStateList
+{
+	border				: 2px solid #cdcdcd;
+	margin-top			: 5px;
+	width				: 164px;
+	height				: 138px;
+}
+.itemQState .qStateList ul
+{
+	padding				: 14px 0px 5px 0px;
+}
+.itemQState .qStateList ul li
+{
+	height				: 22px;
+	margin-bottom		: 6px;
+}
+.itemQState .qStateList ul li.orange a
+{
+	color				: #ffaa33;
+}
+.itemQState .qStateList ul li a
+{
+	display				: block;
+	height				: 13px;
+	padding				: 5px 15px 4px 15px;
+	color				: #8b8b8b;
+	text-decoration		: none;
+}
+.itemQState .qStateList ul li a:hover
+{
+	background-color	: #eeeeee;
+}
+.itemQState .qStateList ul li .left
+{
+	float				: left;
+}
+.itemQState .qStateList ul li .right
+{
+	float				: right;
+	font-weight			: 700;
+	text-decoration		: underline;
+}
+/* 매출내역 & 대금정산현황 */
+.supportCenter
+{
+	float				: right;
+	width				: 284px;
+	margin-left			: 15px;
+}
+/*-----------------------------------------------------------------
+	나의 관심상품, 오늘 본 상품
+-----------------------------------------------------------------*/
+#myBuyTabWrap
+{
+	width				: 770px;
+	height				: 380px;
+	overflow			: hidden;
+}
+.myItemWrap
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 770px;
+	height				: 330px;
+}
+.myItemWrap ul#tapMenu
+{
+	margin				: 0;
+	padding				: 0;
+	height				: 31px;
+	border-bottom		: 1px solid #9bcd38;
+}
+.myItemWrap ul#tapMenu li
+{
+	float				: left;
+	height				: 30px;
+	line-height			: 30px;
+	width				: 195px;
+	margin-right		: 3px;
+	text-align			: center;
+	background			: #f3f3f3;
+	border-top			: 1px solid #dfdfdf;
+	border-left			: 1px solid #dfdfdf;
+	border-right		: 1px solid #dfdfdf;
+	color				: #8e8e8e;
+	cursor				: pointer;
+}
+.myItemWrap ul#tapMenu li.tapSelect
+{
+	background			: #9bcd38;
+	color				: #ffffff;
+	font-weight			: 700;
+}
+#myItemContent
+{
+	clear				: both;
+	margin				: 0;
+	padding				: 0;
+	width				: 826px;
+}
+#myItemContent .myItemEmpty
+{
+	width				: 770px;
+	padding-top			: 140px;
+	text-align			: center;
+}
+.myItemInfo
+{
+	width				: 150px;
+	float				: left;
+	margin-right		: 56px;
+}
+.myItemInfo a
+{
+	color				: #8e8e8e;
+	text-decoration		: none;
+}
+.itemImg
+{
+	margin				: 15px 0 15px 0;
+}
+.itemStatus
+{
+	margin-bottom		: 5px;
+}
+.itemStatus img
+{
+	vertical-align		: top;
+}
+.itemStatus b
+{
+	color				: #737373;
+}
+.itemPrice
+{
+	margin				: 10px 0 5px 0;
+}
+.itemDate
+{
+	background			: #9bcd38;
+	color				: #ffffff;
+	text-align			: center;
+	height				: 17px;
+	line-height			: 20px;
+	margin-bottom		: 5px;
+}
+.itemName
+{
+	height				: 48px;
+}
+.sellerInfo
+{
+	height				: 24px;
+}
+.sellerInfo a
+{
+	color				: #8b8b8b;
+	font-weight			: 700;
+	float				: left;
+}
+.sellerInfo span.sellerId
+{
+	float				: left;
+	font-weight			: 700;
+	text-decoration		: underline;
+}
+.sellerInfo span.sellerLv
+{
+	float				: right;
+}
+.sellerInfo img
+{
+	vertical-align		: top;
+}
+.myItemWrap table
+{
+	margin-top			: 8px;
+	border-collapse		: collapse;
+	border				: 1px solid #dddddd;
+}
+.myItemWrap table th
+{
+	padding				: 4px 0;
+	background-color	: #e7e7e7;
+	border				: 1px solid #dddddd;
+	text-align			: center;
+}
+.myItemWrap table td
+{
+	padding				: 4px 0 0 0;
+	border				: 1px solid #dddddd;
+	text-align			: center;
+}
+/*-----------------------------------------------------------------
+	광고 영역
+-----------------------------------------------------------------*/
+
+#advertiseArea a
+{
+	text-decoration	: none;
+}
+
+/*-----------------------------------------------------------------
+	고객센터
+-----------------------------------------------------------------*/
+#customerService
+{
+	width			: 770px;
+	margin-top		: 15px;
+}
+
+.lMyCouponWrap
+{
+	background-color	: #FFF;
+	height				: 70px;
+	margin-top			: 18px;
+	border				: 1px solid #CCC;
+	clear				: both;
+}
+.lMyCouponWrap .gFloatLeft
+{
+	padding				: 15px 0 0 20px;
+	float				: left;
+	line-height			: 10px;
+}
+#myCoupon
+{
+	margin-left			: 0;
+	line-height			: 18px;
+	color				: #8B8B8B;
+}
+#myCoupon a
+{
+	color				: #8B8B8B;
+}
+.lMyCouponWrap #helpWrap
+{
+	padding				: 10px;
+	float				: right;
+	font-size			: 0;
+}
+.lMyCouponWrap a
+{
+	color				: #8B8B8B;
+	text-decoration		: none;
+}
+.lMyCouponWrap a:hover
+{
+	text-decoration		: underline;
+}
+.lMyCouponWrap .red
+{
+	color				: #CC0000;
+}

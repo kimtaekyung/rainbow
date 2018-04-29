@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+.regFloatLeft
+{
+	float					: left;
+}
+
+.regFloatRight
+{
+	float					: right;
+}
+
+.regClearBoth
+{
+	clear					: both;
+}
+
+.errorBackground
+{
+	background				: #F4F4F4;
+}
+#regFrmWrap
+{
+	color					: #888888 !important;
+}
+
+#regFrmWrap .regTitleNotice
+{
+	margin-top				: 20px;
+	margin-bottom			: 5px;
+}
+
+#regFrmWrap .regProcessInfo
+{
+	margin-top				: 20px;
+}
+
+#regFrmWrap .regNoticeCon
+{
+	border					: 2px solid #D3D3D3;
+	padding					: 10px;
+	list-style-type			: disc;
+	margin-bottom			: 20px;
+}
+
+#regFrmWrap .noticeRedColor
+{
+	color					: #CC0000;
+	font-weight				: 700;
+}
+
+#regFrmWrap .regRedColor
+{
+	color					: #CC0000;
+	font-size				: 14px;
+	font-family				: "Century Gothic";
+	font-weight				: 700;
+}
+
+#regFrmWrap .regUploadCon
+{
+	border					: 2px solid #D3D3D3;
+	padding					: 10px;
+	color					: #888888;
+	margin					: 10px 0 20px 0;
+}
+
+#regFrmWrap .regUploadCon ul
+{
+	list-style-type			: disc;
+	margin-bottom			: 20px;
+	margin-top				: 5px;
+	margin-bottom			: 10px;
+}
+
+#regFrmWrap .regUploadCon a
+{
+	text-decoration			: underline;
+	color					: #888888;
+	font-weight				: bold;
+}
+
+#regFrmWrap .regUploadCon div
+{
+	text-align				: center;
+	margin					: 20px 0 10px 0;
+}
+
+#regFrmWrap .regUploadCon div span
+{
+	color					: #888888;
+}
+
+#regFrmWrap .regFileUpload
+{
+	margin-top				: 10px;
+	border-top				: 1px solid #D5D5D5;
+	border-bottom			: 1px solid #D5D5D5;
+	padding					: 10px 20px;
+	background				: #E6E6E6;
+}
+
+#regFrmWrap .regFileUpload b
+{
+	color					: #474747;
+}
+
+#regFrmWrap .regFileUpload .regFileInput
+{
+	background				: #ffffff;
+	border					: 1px solid #cccccc;
+	height					: 20px;
+}
+
+#regFrmWrap .regFileUpload img
+{
+	cursor					: pointer;
+}
+
+#regFrmWrap .regUploadListTitle
+{
+	margin-top				: 30px;
+}
+
+#regFrmWrap .regHelpTitle
+{
+	margin-top				: 30px;
+}
+
+#regFrmWrap .regUploadList
+{
+	border-top				: 1px solid #D3D3D3;
+	border-bottom			: 1px solid #D3D3D3;
+	padding					: 10px;
+	list-style-type			: disc;
+	margin-top				: 5px;
+	margin-bottom			: 10px;
+	background				: #F7F7F7;
+	color					: #888888;
+}
+
+#regFrmWrap .regHelpList
+{
+	border-top				: 1px solid #D3D3D3;
+	border-bottom			: 1px solid #D3D3D3;
+	padding					: 10px;
+	list-style-type			: disc;
+	margin-top				: 5px;
+	margin-bottom			: 10px;
+	background				: #F7F7F7;
+	color					: #888888;
+}
+
+#regFrmWrap .regItemsCnt
+{
+	margin-top				: 25px;
+	margin-bottom			: 10px;
+}
+
+#regFrmWrap .regItemsCnt div span
+{
+	color					: #888888;
+}
+
+#regFrmWrap .tblItemWrap
+{
+	overflow-y				: scroll;
+	/* position				: relative; */
+	max-height				: 800px;
+	color					: #737373;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap
+{
+	border-collapse			: collapse;
+	border					: 0px solid #DCDCDC;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap th
+{
+	border					: 1px solid #DCDCDC;
+	text-align				: center;
+	background				: #EFEFEF;
+	padding					: 5px 0;
+	color					: #747474;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap tr td
+{
+	color					: #6D6D6D;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap tr td.borderBottom
+{
+	border-bottom			: 1px solid #D3D3D3;
+	padding					: 5px 0;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap .regImage
+{
+	text-align				: center;
+}
+
+#regFrmWrap .tblItemWrap .tblWrap .regItemPrice
+{
+	text-align				: center;
+	font-weight				: 700;
+}
+
+#regFrmWrap .regBtnSave
+{
+	width					: 114px;
+	margin					: auto;
+}
+#regFrmWrap .regBtnSave img
+{
+	margin					: 30px 0;
+	cursor					: pointer;
+}

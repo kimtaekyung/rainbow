@@ -1,0 +1,6 @@
+@charset "UTF-8";
+button#cashOutButton {
+    width: 189px;
+    height: 38px;
+    border: 0;
+}

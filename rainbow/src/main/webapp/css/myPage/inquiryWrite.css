@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#captchaImage {
+	border: 1px solid #cdcdcd;
+}
+
+.reloadBtn {
+	cursor: pointer;
+	display: inline-block;
+	width: 23px;
+	height: 23px;
+	vertical-align: middle;
+	background-image:
+		url("/images/myPage/img_btnReload.gif");
+	background-size: 100% 100%;
+	background-position: 0 0;
+}
+
+button#insertInquiryButton {
+    width: 123px;
+    height: 38px;
+    border: 0;
+}

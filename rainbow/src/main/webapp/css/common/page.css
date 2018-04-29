@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+/*-----------------------------------------------------------------
+페이지네이션
+-----------------------------------------------------------------*/
+#lPage {
+	clear: both;
+	margin: 30px 0;
+	font-size: 0;
+	text-align: center;
+}
+
+#lPage .btn {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	top: 1px;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	margin-right: 2px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	text-indent: -500px;
+	cursor: pointer;
+	line-height: 100px;
+}
+
+#lPage .bf10 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageBefore10.png');
+}
+
+#lPage .bf1 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageBefore1.png');
+}
+
+#lPage .af1 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageAfter1.png');
+}
+
+#lPage .af10 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageAfter10.png');
+}
+
+#lPage ol {
+	display: inline-block;
+	margin-right: 2px;
+}
+
+#lPage li {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 28px;
+	height: 28px;
+	margin: 0 10px;
+	border: 1px solid #fff;
+	background-color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 14px;
+	cursor: pointer;
+}
+
+#lPage li.curr {
+	border: 1px solid #ddd;
+	background-color: #66c009;
+	font-size: 14px;
+	text-align: center;
+}
+
+#lPage li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding-top: 6px;
+	color: #1b1b1b;
+}
+
+#lPage li.curr a {
+	color: #fff;
+}
+
+#lPage form {
+	display: inline-block;
+	position: relative;
+	top: -10px;
+	left: 0;
+	margin-left: 37px;
+}
+
+#lPage form input[type="text"] {
+	width: 48px;
+	height: 12px;
+	padding: 8px 6px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#lPage form input[type="submit"] {
+	display: inline-block;
+	width: 46px;
+	height: 30px;
+	margin-left: -1px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#lPage form span {
+	padding-left: 10px;
+	color: #646464;
+	font-size: 12px;
+}
+
+IE7 Hack 
+*+html body #lPage .btn, *+html body #lPage ol, *+html body #lPage li, *+html body #lPage form,
+	*+html body #lPage form input[type="submit"] {
+	display: inline;
+}
+
+*+html body #lPage .bf10 {
+	margin-left: 480px;
+}
+
+*+html body #lPage input, *+html body #lPage input {
+	position: relative;
+	top: 6px;
+	left: 0;
+}

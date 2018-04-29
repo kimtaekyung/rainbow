@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.seller.dao.SellerDao">
+
+	<!-- 등록상품 상태별 카운트 조회(판매자 기준) -->
+	<select id="getShopItemStatusGroupCount" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS ITEM_TOTAL
+			,IFNULL(SUM(IF(A.ITEM_STATUS = '1', 1, 0)), 0) AS ITEM_STATUS_1
+		    ,IFNULL(SUM(IF(A.ITEM_STATUS = '2', 1, 0)), 0) AS ITEM_STATUS_2
+		    ,IFNULL(SUM(IF(A.ITEM_STATUS = '3', 1, 0)), 0) AS ITEM_STATUS_3
+		    ,IFNULL(SUM(IF(A.ITEM_STATUS = '4', 1, 0)), 0) AS ITEM_STATUS_4
+		    ,IFNULL(SUM(IF(A.ITEM_STATUS = '5', 1, 0)), 0) AS ITEM_STATUS_5
+		FROM RB_SHOP_ITEM A
+		WHERE A.MB_SEQ = #{mb_seq}
+	</select>
+	
+	<!-- 주문내역 상태별 카운트 조회 -->
+	<select id="getShopOrderInfoStateGroupCount" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+	        COUNT(T.ORDER_STATE) AS TOTAL
+			,IFNULL(SUM(IF(T.ORDER_STATE = '1', 1, 0)), 0) AS STATE_1
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '2', 1, 0)), 0) AS STATE_2
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '3', 1, 0)), 0) AS STATE_3
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '4', 1, 0)), 0) AS STATE_4
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '5', 1, 0)), 0) AS STATE_5
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '6', 1, 0)), 0) AS STATE_6
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '7', 1, 0)), 0) AS STATE_7
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '8', 1, 0)), 0) AS STATE_8
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '9', 1, 0)), 0) AS STATE_9
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '10', 1, 0)), 0) AS STATE_10
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '11', 1, 0)), 0) AS STATE_11
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '12', 1, 0)), 0) AS STATE_12
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '13', 1, 0)), 0) AS STATE_13
+		    ,IFNULL(SUM(IF(T.ORDER_STATE = '14', 1, 0)), 0) AS STATE_14
+	    FROM RB_SHOP_ORDER_INFO T
+	    WHERE T.ITEM_SELLER_SEQ = #{mb_seq}
+	</select>
+	
+	<!-- 판매자가 등록한 상품목록 조회 -->
+	<select id="getSellRegistItemList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			ITEM_SEQ
+			,MB_SEQ
+			,ITEM_TITLE
+			,ITEM_NAME
+			,ITEM_KEYWORD
+			,CATE_CODE1
+			,CATE_CODE2
+			,CATE_CODE3
+			,ITEM_MAKER
+			,ITEM_ORIGIN
+			,ITEM_PRICE
+			,ITEM_CUST_PRICE
+			,ITEM_COUPON_PRICE
+			,ITEM_MODEL_NAME
+			,ITEM_STATUS
+			,(CASE WHEN ITEM_STATUS = '1' THEN '승인대기'
+					WHEN ITEM_STATUS = '2' THEN '판매중'
+					WHEN ITEM_STATUS = '3' THEN '재고없음'
+					WHEN ITEM_STATUS = '4' THEN '판매종료'
+					WHEN ITEM_STATUS = '5' THEN '기간종료'
+					WHEN ITEM_STATUS = '6' THEN '승인거부' END) AS ITEM_STATUS_NAME
+			,ITEM_DISPLAY
+			,DATE_FORMAT(ITEM_SELL_PERIOD_FROM, '%y-%m-%d') AS ITEM_SELL_PERIOD_FROM
+			,DATE_FORMAT(ITEM_SELL_PERIOD_TO, '%y-%m-%d') AS ITEM_SELL_PERIOD_TO
+			,ITEM_QTY
+			,ITEM_REPRESENT_IMAGE
+			,(CASE WHEN ITEM_DELIVERY_CHARGE_TYPE = '1' THEN '업체기본설정'
+					WHEN ITEM_DELIVERY_CHARGE_TYPE = '2' THEN '무료배송'
+					WHEN ITEM_DELIVERY_CHARGE_TYPE = '3' THEN '조건부무료'
+					WHEN ITEM_DELIVERY_CHARGE_TYPE = '4' THEN '유료배송'
+					WHEN ITEM_DELIVERY_CHARGE_TYPE = '5' THEN '수량별부과' END) AS ITEM_DELIVERY_CHARGE_TYPE_NAME
+			,ITEM_REG_DTTM
+			,DATE_FORMAT(ITEM_REG_DTTM, '%y-%m-%d') AS ITEM_REG_DTTM_YMD
+		FROM RB_SHOP_ITEM
+		WHERE MB_SEQ = #{mb_seq}
+		<if test="item_status != null and item_status != ''">
+		AND ITEM_STATUS = #{item_status}
+		</if>
+		<if test="cate_code1 != null and cate_code1 != ''">
+		AND CATE_CODE1 = #{cate_code1}
+		</if>
+		<if test="cate_code2 != null and cate_code2 != ''">
+		AND CATE_CODE2 = #{cate_code2}
+		</if>
+		<if test="cate_code3 != null and cate_code3 != ''">
+		AND CATE_CODE3 = #{cate_code3}
+		</if>
+		<if test="search_word != null and search_word != ''">
+			<if test="search_type == 'NAME'">
+			AND ITEM_NAME LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'TITLE'">
+			AND ITEM_TITLE LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'KEYWORD'">
+			AND ITEM_KEYWORD LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+		</if>
+		<if test="item_display != null and item_display != ''">
+		AND ITEM_DISPLAY = #{item_display}
+		</if>
+		<if test='item_qty != null and item_qty != ""'>
+		<![CDATA[AND ITEM_QTY <= #{item_qty}]]>
+		</if>
+		ORDER BY ITEM_SEQ DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 판매자가 등록한 상품목록 카운트 조회 -->
+	<select id="getSellRegistItemListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS CNT
+		FROM RB_SHOP_ITEM
+		WHERE MB_SEQ = #{mb_seq}
+		<if test="item_status != null and item_status != ''">
+		AND ITEM_STATUS = #{item_status}
+		</if>
+		<if test="cate_code1 != null and cate_code1 != ''">
+		AND CATE_CODE1 = #{cate_code1}
+		</if>
+		<if test="cate_code2 != null and cate_code2 != ''">
+		AND CATE_CODE2 = #{cate_code2}
+		</if>
+		<if test="cate_code3 != null and cate_code3 != ''">
+		AND CATE_CODE3 = #{cate_code3}
+		</if>
+		<if test="search_word != null and search_word != ''">
+			<if test="search_type == 'NAME'">
+			AND ITEM_NAME LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'TITLE'">
+			AND ITEM_TITLE LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'KEYWORD'">
+			AND ITEM_KEYWORD LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+		</if>
+		<if test="item_display != null and item_display != ''">
+		AND ITEM_DISPLAY = #{item_display}
+		</if>
+		<if test='item_qty != null and item_qty != ""'>
+		<![CDATA[AND ITEM_QTY <= #{item_qty}]]>
+		</if>
+		ORDER BY ITEM_SEQ DESC
+	</select>
+	
+	<!-- 판매자 상품 진열여부 수정 -->
+	<update id="updateShopItemDisplay" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM
+		SET ITEM_DISPLAY = #{item_display}
+		WHERE MB_SEQ = #{mb_seq}
+		AND ITEM_SEQ IN (${item_seq})
+	</update>
+	
+	<!-- 판매자 상품 상태변경 -->
+	<update id="updateShopItemStatus" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ITEM
+		SET ITEM_STATUS = #{item_status}
+		WHERE MB_SEQ = #{mb_seq}
+		AND ITEM_SEQ = #{item_seq}
+	</update>
+	
+	<!-- (판매자기준)판매된 상품목록 조회-->
+	<select id="getSellItemList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			INFO_SEQ
+			,A.MB_SEQ
+			,B.MB_ID
+			,A.ORDER_SEQ
+			,A.ORDER_NO
+			,A.ORDER_NAME
+			,A.ORDER_PRICE
+			,A.ORDER_QTY
+			,A.ORDER_IP
+			,A.RECV_NAME
+			,A.RECV_HP
+			,A.RECV_ZIP_CODE
+			,A.RECV_ADDRESS
+			,A.RECV_ADDRESS_DTL
+			,A.RECV_MESSAGE
+			,DATE_FORMAT(A.SEND_REQ_DATE, '%y/%m/%d') AS SEND_REQ_DATE
+			,A.ORDER_STATE
+			,(CASE WHEN A.ORDER_STATE = 1 THEN '결제대기'
+					WHEN A.ORDER_STATE = 2 THEN '결제완료'
+					WHEN A.ORDER_STATE = 3 THEN '배송대기'
+					WHEN A.ORDER_STATE = 4 THEN '배송중'
+					WHEN A.ORDER_STATE = 5 THEN '구매완료'
+					WHEN A.ORDER_STATE = 6 THEN '결제대기취소'
+					WHEN A.ORDER_STATE = 7 THEN '결제취소'
+					WHEN A.ORDER_STATE = 8 THEN '판매취소'
+					WHEN A.ORDER_STATE = 9 THEN '반품요청'
+					WHEN A.ORDER_STATE = 10 THEN '교환요청'
+					WHEN A.ORDER_STATE = 11 THEN '반품승인'
+					WHEN A.ORDER_STATE = 12 THEN '교환승인'
+					WHEN A.ORDER_STATE = 13 THEN '반품완료'
+					WHEN A.ORDER_STATE = 14 THEN '교환완료' END) AS ORDER_STATE_NAME
+			,A.DELIVERY_TYPE
+			,A.DELIVERY_CHARGE
+			,A.DELIVERY_COMPANY
+			,A.DELIVERY_NO
+			,A.DELIVERY_DTTM
+			,A.ITEM_SELLER_SEQ
+			,DATE_FORMAT(A.ORDER_REG_DTTM, '%y/%m/%d') AS ORDER_REG_DTTM
+		FROM RB_SHOP_ORDER_INFO A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE A.ITEM_SELLER_SEQ = #{item_seller_seq}
+		<if test="order_state != null and order_state != ''">
+		AND A.ORDER_STATE = #{order_state}
+		</if>
+		<if test='day_type == "1"'>
+		<![CDATA[
+		AND A.ORDER_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		AND A.ORDER_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		</if>
+		<if test='day_type == "2"'>
+		<![CDATA[
+		AND A.SEND_REQ_DATE >= REPLACE(#{sch_sdate}, '-', '')
+		AND A.SEND_REQ_DATE <= REPLACE(#{sch_edate}, '-', '')
+		]]>
+		</if>
+		<if test="order_no != null and order_no != ''">
+		AND A.ORDER_NO LIKE CONCAT('%', #{order_no}, '%')
+		</if>
+		<if test="order_name != null and order_name != ''">
+		AND A.ORDER_NAME LIKE CONCAT('%', #{order_name}, '%')
+		</if>
+		<if test="buyer_id != null and buyer_id != ''">
+		AND B.MB_ID LIKE CONCAT('%', #{buyer_id}, '%')
+		</if>
+		<if test="order_qty != null and order_qty != ''">
+		AND A.ORDER_QTY = #{order_qty}
+		</if>
+		<if test="order_price != null and order_price != ''">
+		AND A.ORDER_PRICE = #{order_price}
+		</if>
+		ORDER BY A.ORDER_SEQ DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- (판매자기준)판매상품목록 카운트 -->
+	<select id="getSellItemListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS CNT
+		FROM RB_SHOP_ORDER_INFO A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE A.ITEM_SELLER_SEQ = #{item_seller_seq}
+		<if test="order_state != null and order_state != ''">
+		AND A.ORDER_STATE = #{order_state}
+		</if>
+		<if test='day_type == "1"'>
+		<![CDATA[
+		AND A.ORDER_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		AND A.ORDER_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		</if>
+		<if test='day_type == "2"'>
+		<![CDATA[
+		AND A.SEND_REQ_DATE >= REPLACE(#{sch_sdate}, '-', '')
+		AND A.SEND_REQ_DATE <= REPLACE(#{sch_edate}, '-', '')
+		]]>
+		</if>
+		<if test="order_no != null and order_no != ''">
+		AND A.ORDER_NO LIKE CONCAT('%', #{order_no}, '%')
+		</if>
+		<if test="order_name != null and order_name != ''">
+		AND A.ORDER_NAME LIKE CONCAT('%', #{order_name}, '%')
+		</if>
+		<if test="buyer_id != null and buyer_id != ''">
+		AND B.MB_ID LIKE CONCAT('%', #{buyer_id}, '%')
+		</if>
+		<if test="order_qty != null and order_qty != ''">
+		AND A.ORDER_QTY = #{order_qty}
+		</if>
+		<if test="order_price != null and order_price != ''">
+		AND A.ORDER_PRICE = #{order_price}
+		</if>
+	</select>
+	
+	<!-- 주문내역 한건에 대한 옵션 조회 -->
+	<select id="getOrderInfoOption" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.CART_SEQ
+			,A.ORDER_NO
+			,A.MB_SEQ
+			,A.ITEM_SEQ
+			,A.ITEM_TITLE
+			,A.ITEM_NAME
+			,A.ITEM_PRICE
+			,A.ITEM_POINT
+			,A.CART_QTY
+			,A.IO_NAME
+			,A.IO_TYPE
+			,A.IO_PRICE
+			,A.DELIVERY_TYPE
+			,A.CART_IP
+			,A.ITEM_SELLER_SEQ
+			,A.CART_REG_DTTM
+		FROM RB_SHOP_CART A
+		WHERE A.ORDER_NO = #{order_no}
+		AND A.ITEM_SELLER_SEQ = #{item_seller_seq}
+	</select>
+	
+	<!-- 주문상세내용 조회 -->
+	<select id="getShopOrderInfoOne" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			INFO_SEQ
+			,A.MB_SEQ
+			,C.MB_ID
+			,C.MB_EMAIL
+			,C.MB_NAME
+			,A.ITEM_SEQ
+			,A.ORDER_SEQ
+			,A.ORDER_NO
+			,A.ORDER_NAME
+			,A.ORDER_PRICE
+			,A.ORDER_QTY
+			,A.ORDER_IP
+			,A.RECV_NAME
+			,A.RECV_HP
+			,A.RECV_ZIP_CODE
+			,A.RECV_ADDRESS
+			,A.RECV_ADDRESS_DTL
+			,A.RECV_MESSAGE
+			,DATE_FORMAT(A.SEND_REQ_DATE, '%y/%m/%d') AS SEND_REQ_DATE
+			,A.ORDER_STATE
+			,(CASE WHEN A.ORDER_STATE = 1 THEN '결제대기'
+					WHEN A.ORDER_STATE = 2 THEN '결제완료'
+					WHEN A.ORDER_STATE = 3 THEN '배송대기'
+					WHEN A.ORDER_STATE = 4 THEN '배송중'
+					WHEN A.ORDER_STATE = 5 THEN '구매완료'
+					WHEN A.ORDER_STATE = 6 THEN '결제대기취소'
+					WHEN A.ORDER_STATE = 7 THEN '결제취소'
+					WHEN A.ORDER_STATE = 8 THEN '판매취소'
+					WHEN A.ORDER_STATE = 9 THEN '반품요청'
+					WHEN A.ORDER_STATE = 10 THEN '교환요청'
+					WHEN A.ORDER_STATE = 11 THEN '반품승인'
+					WHEN A.ORDER_STATE = 12 THEN '교환승인'
+					WHEN A.ORDER_STATE = 13 THEN '반품완료'
+					WHEN A.ORDER_STATE = 14 THEN '교환완료' END) AS ORDER_STATE_NAME
+			,A.DELIVERY_TYPE
+			,A.DELIVERY_CHARGE
+			,A.DELIVERY_COMPANY
+			,A.DELIVERY_NO
+			,A.DELIVERY_DTTM
+			,A.ITEM_SELLER_SEQ
+			,DATE_FORMAT(A.ORDER_REG_DTTM, '%Y-%m-%d %H:%m:%d') AS ORDER_REG_DTTM
+			,B.ORDER_PRICE AS TOTAL_ITEM_PRICE
+			,B.DELIVERY_PRICE AS TOTAL_DELIVERY_PRICE
+			,B.PAY_TYPE
+			,(CASE WHEN B.PAY_TYPE = '1' THEN '현금성 e-money'
+					WHEN B.PAY_TYPE = '2' THEN '카드성 e-money'
+					WHEN B.PAY_TYPE = '3' THEN '무통장입금'
+					WHEN B.PAY_TYPE = '4' THEN '카드결제' END) AS PAY_TYPE_NAME
+		FROM RB_SHOP_ORDER_INFO A
+			LEFT OUTER JOIN RB_SHOP_ORDER B ON B.ORDER_SEQ = A.ORDER_SEQ
+			LEFT OUTER JOIN RB_MEMBER C ON C.MB_SEQ = A.MB_SEQ
+		WHERE A.ORDER_SEQ = #{order_seq}
+		AND A.ORDER_NO = #{order_no}
+	</select>
+	
+	<!-- 상품문의목록 조회 -->
+	<select id="getItemQaList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.IQA_SEQ
+			,A.ITEM_SEQ
+			,A.MB_SEQ
+			,A.IQA_SUBJECT
+			,A.IQA_OPEN
+			,DATE_FORMAT(A.IQA_REG_DTTM, '%Y/%m/%d %H:%i:%s') AS IQA_REG_DTTM
+			,DATE_FORMAT(A.IQA_REG_DTTM, '%y/%m/%d') AS IQA_REG_DT
+			,A.IQA_IS_ANSWER
+			,B.MB_NICKNAME
+			,C.ITEM_NAME
+			,C.ITEM_REPRESENT_IMAGE
+		FROM RB_SHOP_ITEM_QA A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+			LEFT OUTER JOIN RB_SHOP_ITEM C ON C.ITEM_SEQ = A.ITEM_SEQ
+		WHERE C.MB_SEQ = #{mb_seq} 
+		<![CDATA[
+		AND A.IQA_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		AND A.IQA_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		<if test='is_answer != null and is_answer != ""'>
+		AND A.IQA_IS_ANSWER = #{is_answer}
+		</if>
+		<if test="search_word != null and search_word != ''">
+			<if test="search_type == 'TITLE'">
+			AND A.IQA_SUBJECT LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'NICKNAME'">
+			AND B.MB_NICKNAME LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'ITEM_SEQ'">
+			AND A.ITEM_SEQ LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+		</if>
+		ORDER BY A.IQA_REG_DTTM DESC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 상품문의목록 카운트 조회 -->
+	<select id="getItemQaListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*) AS CNT
+		FROM RB_SHOP_ITEM_QA A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+			LEFT OUTER JOIN RB_SHOP_ITEM C ON C.ITEM_SEQ = A.ITEM_SEQ
+		WHERE C.MB_SEQ = #{mb_seq}
+		<![CDATA[
+		AND A.IQA_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+		AND A.IQA_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+		]]>
+		<if test='is_answer != null and is_answer != ""'>
+		AND A.IQA_IS_ANSWER = #{is_answer}
+		</if>
+		<if test="search_word != null and search_word != ''">
+			<if test='search_type == "TITLE"'>
+			AND A.IQA_SUBJECT LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'NICKNAME'">
+			AND B.MB_NICKNAME LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+			<if test="search_type == 'ITEM_SEQ'">
+			AND A.ITEM_SEQ LIKE CONCAT('%', #{search_word}, '%')
+			</if>
+		</if>
+	</select>
+	
+	<!-- 상품문의 질문(답변) 목록 조회 -->
+	<select id="getShopItemQaContentList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			A.CONTENT_SEQ
+			,A.IQA_SEQ
+			,A.MB_SEQ
+			,A.CONTENT_TYPE
+			,A.CONTENT
+			,A.ATTACH_IMAGE
+			,A.CONTENT_ORDER
+			,A.CONTENT_REG_DTTM
+			,DATE_FORMAT(A.CONTENT_REG_DTTM, '%Y-%m-%d %H:%i:%s') AS CONTENT_REG_DTTM_YMDHIS
+			,B.MB_ID
+			,B.MB_NICKNAME
+		FROM RB_SHOP_ITEM_QA_CONTENT A
+			LEFT OUTER JOIN RB_MEMBER B ON B.MB_SEQ = A.MB_SEQ
+		WHERE IQA_SEQ = #{iqa_seq}
+		ORDER BY A.CONTENT_ORDER ASC
+	</select>
+	
+	<!-- 반품/교환요청 조회 -->
+	<select id="getShopItemBackExchange" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			BE_SEQ
+			,MB_SEQ
+			,ORDER_SEQ
+			,ORDER_NO
+			,BE_TYPE
+			,(CASE WHEN BE_TYPE = '1' THEN '반품요청'
+					WHEN BE_TYPE = '2' THEN '교환요청' END) AS BE_TYPE_NAME
+			,BE_SUBJECT
+			,BE_CONTENT
+			,BE_REG_DTTM
+			,DATE_FORMAT(BE_REG_DTTM, '%Y/%m/%d %H:%i:%s') AS BE_REG_DTTM_YMDHIS
+			,BE_ANSWER
+			,BE_IS_ANSWER
+			,BE_ANSWER_MB_SEQ
+			,BE_ANSWER_DTTM
+			,BE_ATTACH_IMG_PATH_1
+			,BE_ATTACH_IMG_PATH_2
+		FROM RB_SHOP_ORDER_BACK_EXCHANGE
+		WHERE ORDER_SEQ = #{order_seq}
+		AND ORDER_NO = #{order_no}
+	</select>
+	
+	<!-- 반품/교환요청 답변등록 -->
+	<update id="updateShopItemBackExchangeAnswer" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ORDER_BACK_EXCHANGE
+		SET BE_ANSWER = #{be_answer}
+			,BE_IS_ANSWER = 1
+			,BE_ANSWER_MB_SEQ = #{be_answer_mb_seq}
+			,BE_ANSWER_DTTM = NOW()
+		WHERE BE_SEQ = #{be_seq}
+	</update>
+	
+	<!-- 주문내역 상태변경 -->
+	<update id="updateShopOrderState" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ORDER_INFO
+		SET ORDER_STATE = #{order_state}
+			,ORDER_MOD_DTTM = NOW()
+		WHERE ORDER_SEQ = #{order_seq}
+		AND ORDER_NO = #{order_no}
+	</update>
+	
+	<!-- 주문내역 로그 등록 -->
+	<insert id="insertShopOrderInfoLog" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_SHOP_ORDER_INFO_LOG(
+			INFO_SEQ
+			,MB_SEQ
+			,ITEM_SEQ
+			,ORDER_SEQ
+			,ORDER_NO
+			,ORDER_NAME
+			,ORDER_PRICE
+			,ORDER_QTY
+			,ORDER_IP
+			,RECV_NAME
+			,RECV_HP
+			,RECV_ZIP_CODE
+			,RECV_ADDRESS
+			,RECV_ADDRESS_DTL
+			,RECV_MESSAGE
+			,SEND_REQ_DATE
+			,ORDER_STATE
+			,DELIVERY_TYPE
+			,DELIVERY_CHARGE
+			,DELIVERY_COMPANY
+			,DELIVERY_NO
+			,DELIVERY_DTTM
+			,ITEM_SELLER_SEQ
+			,ORDER_REG_DTTM
+			,ORDER_MOD_DTTM
+		)
+		SELECT
+			INFO_SEQ
+			,MB_SEQ
+			,ITEM_SEQ
+			,ORDER_SEQ
+			,ORDER_NO
+			,ORDER_NAME
+			,ORDER_PRICE
+			,ORDER_QTY
+			,ORDER_IP
+			,RECV_NAME
+			,RECV_HP
+			,RECV_ZIP_CODE
+			,RECV_ADDRESS
+			,RECV_ADDRESS_DTL
+			,RECV_MESSAGE
+			,SEND_REQ_DATE
+			,ORDER_STATE
+			,DELIVERY_TYPE
+			,DELIVERY_CHARGE
+			,DELIVERY_COMPANY
+			,DELIVERY_NO
+			,DELIVERY_DTTM
+			,ITEM_SELLER_SEQ
+			,ORDER_REG_DTTM
+			,ORDER_MOD_DTTM
+		FROM RB_SHOP_ORDER_INFO
+		WHERE INFO_SEQ = #{info_seq}
+	</insert>
+	
+	<!-- 배송정보 저장 -->
+	<update id="updateDeliveryInfo" parameterType="hashmap" statementType="PREPARED">
+		UPDATE RB_SHOP_ORDER_INFO
+		SET DELIVERY_COMPANY = #{delivery_company}
+			,DELIVERY_NO = #{delivery_no}
+			,ORDER_MOD_DTTM = NOW()
+		WHERE INFO_SEQ = #{info_seq}
+	</update>
+
+</mapper>

@@ -1,0 +1,1038 @@
+@charset "UTF-8";
+/*-----------------------------------------------------------------
+	최상단메뉴바 부분의 CSS입니다.
+	-----------------------------------------------------------------*/
+#wrap #lHeaderTop #headerMenubar {
+	width: 980px;
+	height: 30px;
+	margin: 0px auto;
+	display: block;
+}
+
+/* 좌측 메뉴바(공통) 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#leftMenu {
+	float: left;
+	position: relative;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li {
+	padding: 8px 9px 8px 0;
+	float: left;
+	font-size: 11px;
+	color: #1B1B1B;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li.leftMenuBar {
+	color: #AAA;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li a {
+	color: #1B1B1B;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 좌측 메뉴바(앱다운로드 레이어) 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li#appDownload a img {
+	vertical-align: -2px;
+}
+
+/* 우측 메뉴바 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#rightMenu {
+	float: right;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li {
+	padding: 8px 0 8px 20px;
+	float: left;
+	font-size: 11px;
+	color: #1B1B1B;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li a {
+	color: #1B1B1B;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li a b {
+	color: #F63700;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuMsg {
+	padding: 9px 5px 0 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuMsg img {
+	cursor: pointer;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuName {
+	padding: 8px 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuName a:hover {
+	text-decoration: underline;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.login {
+	padding-left: 5px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu {
+	position: relative;
+	z-index: 9999;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu a {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	position: absolute;
+	top: 30px;
+	display: none;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li {
+	width: 90px;
+	height: 13px; /* 객체의 사이 간격 8px 감안한 숫자임 */
+	border-top: 1px solid #DDD;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li:first-child
+	{
+	border-top: 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li:hover {
+	background-color: #DDD;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li a {
+	font-size: 9pt;
+	line-height: 11px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li a.lastSubMenu
+	{
+	color: #AAA;
+	text-align: right;
+}
+
+#wrap #lHeaderSearch {
+	width: 100%;
+	height: 100px;
+	border-bottom: 1px solid #aaaaaa;
+	position: relative;
+}
+
+#wrap #lHeaderSearch .lHeaderSearch {
+	width: 980px;
+	margin: 0 auto;
+}
+
+#wrap #lHeaderSearch .clearBoth {
+	clear: both;
+}
+
+#wrap #lHeaderSearch .hLogo {
+	width: 245px;
+	float: left;
+	margin-top: 25px;
+}
+
+#wrap #lHeaderSearch .hSearch {
+	width: 490px;
+	float: left;
+	position: relative;
+}
+
+#wrap #lHeaderSearch .hSearch ul#searchSuggestion {
+	display: none;
+	position: absolute;
+	top: 68px;
+	left: 40px;
+	z-index: 5000;
+	width: 406px;
+	height: 196px;
+	padding: 2px 0;
+	border-left: 2px solid #b1b1b1;
+	border-right: 2px solid #b1b1b1;
+	border-bottom: 2px solid #b1b1b1;
+	border-top: 0;
+	background-color: #ffffff;
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: #555555;
+	font-size: 9pt;
+}
+
+#wrap #lHeaderSearch .hSearch ul#searchSuggestion li {
+	padding: 2px 5px;
+	cursor: pointer;
+}
+
+#wrap #lHeaderSearch .hSearch ul#searchSuggestion li.selected {
+	color: #ffffff;
+	background-color: #9bcd38;
+}
+
+#wrap #lHeaderSearch .hSearch .hPopular {
+	width: 410px;
+	margin: 0 auto;
+	text-align: right;
+	font-size: 11px;
+	padding-top: 5px;
+	position: relative;
+}
+#wrap #lHeaderSearch .hSearch .hPopular:hover #hPopularTitleList_area_div ul{
+	display: block;
+}
+
+
+#wrap #lHeaderSearch .hSearch .hPopular .conetnt {
+	position: relative;
+	display: inline-block;
+}
+
+#wrap #lHeaderSearch .hSearch .hPopular .title {
+	display: inline-block;
+	color: #b1b1b1;
+	font-weight: bold;
+	vertical-align: 6px;
+	float: left;
+	padding: 2px;
+}
+
+#wrap #lHeaderSearch .hSearch .hPopular #hPopularTitle_area_div {
+	float: left;
+	width: 100px;
+	text-align: left;
+	left: 20px;
+	font-weight: bold;
+	width: 297px;
+}
+#wrap #lHeaderSearch .hSearch .hPopular #hPopularTitleList_area_div{
+	position: relative;
+    z-index: 1;
+    background: #fff;
+    width: 297px;
+    text-align: left;
+	z-index: 999;
+}
+#wrap #lHeaderSearch .hSearch .hPopular #hPopularTitleList_area_div ul{
+	position: absolute;
+    border: 1px solid #ddd;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.3);
+    z-index: 999;
+    background-color: #fff;
+    display: none;
+    left: 78px;
+    top: 10px;
+    width: 297px;
+}
+#wrap #lHeaderSearch .hSearch .hPopular #hPopularTitleList_area_div li{
+	margin: 0px; padding: 2px; list-style: none; font-weight: bold; cursor: pointer;
+}
+#wrap #lHeaderSearch .hSearch .hPopular #hPopularTitleList_area_div li:hover a{
+	color: #e5004f;
+}
+div.searchTextRoll_div_red {
+    display: inline-block;
+    width: 24px;
+    height: 20px;
+    background-color: #e5004f;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    
+}
+div.searchTextRoll_div_grey {
+	display: inline-block;
+    width: 24px;
+    height: 20px;
+    background-color: #f1f1f1;
+    font-weight: bold;
+    color: #e5004f;
+    text-align: center;
+}
+a.searchTextRoll_a{
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+
+#wrap #lHeaderSearch #searchPopularBox {
+	background-color: #FFFFFF;
+	position: absolute;
+	width: 238px;
+	z-index: 3005;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	padding: 13px 0px;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li {
+	height: 22px;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popMark {
+	width: 12px;
+	float: left;
+	padding: 0px 2px;
+	background-color: #aaaaaa;
+	color: #ffffff;
+	font-size: 11px;
+	text-align: center;
+	margin-top: 4px;
+	margin-left: 13px;
+	font-weight: bold;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popKwd {
+	float: left;
+	font-size: 13px;
+	line-height: 21px;
+	padding: 0px 10px;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popKwd a {
+	color: #646464;
+	text-decoration: none;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popKwd a:hover {
+	text-decoration: underline;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popRank {
+	float: right;
+	height: 21px;
+	padding: 0px 10px;
+	text-align: center;
+	position: relative;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popRank .popRanks {
+	position: absolute;
+	width: 30px;
+	top: 3px;
+	left: -22px;
+	text-align: right;
+	font-weight: bold;
+}
+
+#wrap #lHeaderSearch #searchPopularBox li .popRank font {
+	color: #1b1b1b;
+	font-size: 11px;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox {
+	width: 406px;
+	height: 36px;
+	border: 2px solid #1b1b1b;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect {
+	font-size: 12px;
+	display: inline-block;
+	margin-top: 10px;
+	cursor: pointer;
+	float: left;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect div {
+	padding: 0px 10px;
+	padding-bottom: 10px;
+	position: relative;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect div span {
+	width: 65px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect ul {
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 5001;
+	border: 1px solid #dddddd;
+	display: none;
+	width: 95px;
+    left: 0px;
+    top: 22px;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect ul li {
+	cursor: pointer;
+	padding: 5px 10px;
+	border-bottom: 1px solid #dddddd;
+}
+
+#wrap #lHeaderSearch .hSearch .hSearchBox .hSearchBoxSelect ul li:hover
+	{
+	background-color: #dddddd;
+}
+
+#wrap #lHeaderSearch .hSearchBoxInput {
+	float: left;
+	background-color: #DEDEDE;
+	margin-top: 5px;
+	position: relative;
+}
+
+#wrap #lHeaderSearch .hSearchBoxInput input {
+	position: absolute;
+	width: 245px;
+	height: 25px;
+	border: 0px;
+	top: 4px;
+	left: 0px;
+}
+
+#wrap #lHeaderSearch .hSearchBoxInput input {
+	position: absolute;
+	width: 245px;
+	height: 25px;
+	border: 0px;
+	top: 0px;
+	left: 0px;
+	outline: none;
+}
+
+#wrap #lHeaderSearch .hSearchBoxSearch {
+	float: right;
+	width: 60px;
+	height: 36px;
+	background-color: #fff;
+	text-align: center;
+}
+
+#wrap #lHeaderSearch .hSearchBoxSearch input {
+	border: 0px;
+	background-image:
+		url("/images/common/header/search.png");
+	background-repeat: no-repeat;
+	background-color: #fff;
+	width: 60px;
+	height: 35px;
+	cursor: pointer;
+	background-position: 20px 7px;
+}
+
+#wrap #lHeaderSearch .hLink {
+	width: 245px;
+	float: left;
+	font-size: 14px;
+}
+
+#wrap #lHeaderSearch .hLinkMenu {
+	overflow: hidden;
+	margin-top: 40px;
+}
+
+#wrap #lHeaderSearch .hLinkMenu li {
+	float: left;
+	padding: 0px 4px;
+}
+
+#wrap #lHeaderSearch .hLinkMenu li.bar {
+	color: #aaaaaa;
+}
+
+#wrap #lHeaderSearch .hLinkMenu li a {
+	text-decoration: none;
+	color: #1b1b1b;
+}
+
+#wrap #lHeaderMenuWrap {
+	height: 40px;
+	font-size: 14px;
+	width: 100%;
+	border-bottom: 3px solid #1b1b1b;
+	color: #1b1b1b;
+	padding: 0;
+	margin: 0;
+}
+
+#lHeaderMenuWrap .lHeaderClearBoth {
+	clear: both;
+}
+
+#lHeaderMenuWrap .lHeaderMenu {
+	width: 980px;
+	margin: auto;
+	height: 40px;
+}
+
+#lHeaderMenuWrap #lHeaderMenuAllcate {
+	border-right: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	width: 155px;
+	padding: 10px 0;
+	text-align: center;
+	float: left;
+	position: relative;
+	height: 20px;
+	z-index: 10;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#lHeaderMenuWrap #lHeaderMenuAllcate img {
+	vertical-align: -2px;
+	margin-right: 10px;
+}
+
+#lHeaderMenuWrap .lHeaderMenuList {
+	float: left;
+	height: 40px;
+}
+
+#lHeaderMenuWrap .lHeaderMenuList ul li.lMenuList {
+	float: left;
+	padding: 11px 0px 0px 15px;
+}
+
+#lHeaderMenuWrap .lHeaderMenuList ul li.lMenuList a {
+	color: #1b1b1b;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+#lHeaderMenuWrap .lHeaderMenuList .lHeaderMenuListLineBar {
+	color: #aaaaaa;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder {
+	font-size: 11px;
+	float: right;
+	display: block;
+	height: 16px;
+	background-color: #ffffff;
+	z-index: 1;
+	overflow: hidden;
+	position: relative;
+	top: 0px;
+	left: 0px;
+	margin-top: 14px;
+	width: 150px;
+	color: #aaaaaa;
+}
+
+#lHeaderMenuWrap .lHeaderItemOrderTitle {
+	float: right;
+	font-size: 11px;
+	margin-top: 14px;
+	color: #aaaaaa;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .lHeaderItemOrderDate {
+	float: right;
+	padding: 0 10px;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .lHeaderItemOrderCnt {
+	float: right;
+	font-size: 11px;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .lHeaderItemOrderCnt .orderCnt {
+	font-size: 12px;
+	line-height: 15px;
+	color: #f63700;
+	font-weight: 700;
+	float: left;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .lHeaderItemOrderCnt .orderText {
+	float: left;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .dvCmSlide {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 150px;
+	height: 18px;
+	overflow: hidden;
+}
+
+#lHeaderMenuWrap #lHeaderItemOrder .dvCmSlide .slideElm {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+/*********카테고리***********/
+div#lHeaderMenuWrap div#lHeaderMenuAllcate > div.lMainTopCate {
+	position: absolute;
+    width: 190px;
+    height: 300px;
+    top: 40px;
+    left: -1px;
+    display: none;
+    border: 1px solid #ddd;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.3);
+    z-index: 1;
+    background: #fff;
+}
+
+div#lHeaderMenuWrap div#lHeaderMenuAllcate > div.lMainTopCate > div.lMainTopCate1 {
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    margin: 0 auto;
+    width: 150px;
+    height: 29px;
+	text-align: left;
+	display: table;
+}
+
+
+div#lHeaderMenuWrap div#lHeaderMenuAllcate > div.lMainTopCate > div.lMainTopCate1  > div.lMainTopCate1Sel {
+	display: inline-block;
+    height: 20px;
+    color: #333;
+    font-size: 12px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+div.lMainTopCate1:hover div.lMainTopCate1Sel a.lMainTopCate1Sel_a {
+	color:#e5004f;	
+	font-weight:bold;
+}
+
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate1 .lMainTopCate1Sel img.lMainTopCate1Sel_img{
+	width: 10px;
+    height: 17px;
+    float: right;
+}
+
+
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 {
+	position: absolute;
+    width: 600px;
+    height: auto;
+    top: -1px;
+    left: 0;
+    display: none;
+    border: 1px solid #ddd;
+    z-index: 1;
+    background: #fff;
+    left: 165px;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.3);
+    min-height: 300px;
+}
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 > div.lMainTopCate2_menu{
+	float: left;
+    text-align: center;
+    width: 250px
+}
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 > div.adItemImage_div{
+	text-align: center;
+    float: left;
+    width: 350px;
+}
+
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 >  div.adItemImage_div > img.adItemImage_img{
+	height: 290px;
+    width: 300px;
+    margin: auto;
+}
+
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 > div.lMainTopCate2_menu > div.lMainTopCate2_inner{
+	cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    margin: 0 auto;
+	width: 200px;
+    height: 29px;
+    text-align: left;
+}
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 div.lMainTopCate2_inner:hover .lMainTopCate2List{
+	color:#e5004f;	
+	font-weight:bold;
+}
+#lHeaderMenuWrap #lHeaderMenuAllcate .lMainTopCate2 div.lMainTopCate2_inner > div.lMainTopCate2List{
+	display: inline-block;
+    height: 20px;
+    color: #333;
+    font-size: 12px;
+    line-height:29px;
+    vertical-align: middle;
+}
+/*********카테고리***********/
+
+/*** 상품 페이징 ***/
+.PageN
+	{
+	width:100%;
+	overflow:hidden;
+	margin:0 auto 15px auto;
+}
+.PageN .Num 
+	{
+	height:18px;
+	float:left;
+	margin-right:8px;
+}
+.PageN strong
+{
+	font-size:12px;
+	font-weight:bold;
+	color:#333;
+	vertical-align:3px;
+}
+.PageN span
+{
+	font-size:12px;
+	font-weight:bold;
+	color:#999;
+	font-weight:normal;
+	vertical-align:3px;
+}
+.PageN .BottonA
+	{
+	float:left;
+}
+/******** 퀵메뉴 시작 ********/
+#wrap #lHeaderQuickWrap
+	{
+	position: relative;
+    top: 0;
+    left: 0;
+    width: 980px;
+    height: 0;
+    margin: auto;
+    z-index: 10;
+}
+/*** 좌측 퀵 ***/
+#lHeaderQuickWrap .IHeaderQL
+	{
+	position:absolute;
+	left:-124px;
+	top:10px;
+	}
+#lHeaderQuickWrap .IHeaderQL .IH_Price
+	{
+	position:fixed;
+	width:104px;
+	text-align:center;
+	}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  span
+	{
+		display:inline-block;
+		font-size:14px;
+		color:#e5004f;
+		font-weight:bold;
+		line-height:14px;
+		vertical-align:super;
+	}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul
+	{
+	background:#e5e5e5;
+	text-align:center;
+	padding:4px 0;
+}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul  li 
+	{
+	margin-top:2px;	
+}
+
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul  li:first-child
+	{
+	margin-top:0;	
+}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul  li a
+	{
+		display:inline-block;
+		width:94px;
+		height:32px;
+		background:#fff;		
+		font-size:12px;
+		color:#666;
+		text-decoration:none;
+		line-height:30px;
+		border:1px solid  #d4d4d4;
+	}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul  li a:hover
+	{
+	border:1px solid  #e5004f;
+	color:#e5004f;	
+	font-weight:bold;
+}
+#lHeaderQuickWrap .IHeaderQL .IH_Price  ul  li.on a
+	{
+	width:96px;
+	height:34px;
+	color:#ffea00;
+	font-weight:bold;
+	background:#e5004f;
+}
+
+/*** 우측 퀵 ***/
+#lHeaderQuickWrap .IHeaderQR
+	{
+	position:absolute;
+	right:-20px;
+	top:0;
+}
+#lHeaderQuickWrap .IHeaderQR .IH_Recent
+	{	
+	position:fixed;
+	width:98px;
+	border:1px solid #c8c8c8;
+	text-align:center;
+	background:#fff;
+}
+.IHeaderQR .IH_Recent p
+	{	
+	width:100%;
+	height:40px;
+	font-size:13px;
+	color:#333;
+	line-height:38px;
+	border-bottom:1px solid #c8c8c8;	
+}
+.IHeaderQR .IH_Recent ul
+	{
+	padding:15px;
+}
+.IHeaderQR .IH_Recent ul li
+	{
+	text-align:center;
+	margin-top:4px;
+	font-size:12px;
+	color:#999;
+}
+.IHeaderQR .IH_Recent ul li:first-child 
+	{
+	margin-top:0;
+}
+.IHeaderQR .IH_Recent ul li a
+	{
+	display:block;
+	width:66px;
+	height:66px;
+	border:1px solid #f0f0f0;
+}
+.IHeaderQR .IH_Recent ul li a:hover
+	{
+	border:1px solid #333;
+}
+.IHeaderQR .IH_Recent ul li a img
+	{
+	width:66px;
+	height:66px;
+}
+.IHeaderQR .IH_Recent div.PageN
+	{
+	width:66px;
+	overflow:hidden;
+	margin:0 auto 15px auto;
+}
+
+/******** 우측 관심상품 ********/
+#wrap #IHeaderWishBox
+	{
+	position:fixed;
+	top:0;
+	right:0;
+	width:340px;
+	height:100%;
+	background:#fff;
+	z-index: 11;
+	right:-340px;
+}
+#wrap #IHeaderWishBox button.WishBtn
+	{
+	position:absolute;
+	left:-45px;
+	top:180px;
+	background:#fff;
+	border:1px solid #777;
+	font-size:12px;
+	padding:15px 10px 17px 10px;
+	cursor:pointer;
+}
+#wrap #IHeaderWishBox button.WishBtn.on
+	{
+	border:1px solid #e5004f;
+	color:#e5004f;
+}
+#wrap #IHeaderWishBox button.WishBtn:hover
+	{
+	border:1px solid #333;
+	font-weight:bold;
+}
+#IHeaderWishBox .IHeaderWishList
+	{
+	width:339px;
+	border-left:1px solid #c3c3c3;
+	height:100%;	
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn
+	{
+	padding:20px;
+	height:112px;
+	background:#f7f7f7;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn ul 
+	{
+	width:294px;	
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn ul li 
+	{
+	float:left;
+	margin:0 2px 2px 0;
+}
+
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn ul li a 
+	{
+	display:inline-block;
+	width:94px;
+	height:34px;
+	background:#fff;		
+	font-size:12px;
+	color:#555;
+	text-decoration:none;
+	text-align:center;
+	line-height:30px;
+	border:1px solid  #d4d4d4;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn ul li a:hover
+	{
+	border:1px solid  #e5004f;
+	color:#e5004f;	
+	font-weight:bold;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishPriceBtn ul li.on a 
+	{
+	border:1px solid  #e5004f;
+	color:#e5004f;	
+	font-weight:bold;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList
+	{
+	padding:20px;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul
+	{
+	overflow:hidden;
+}
+
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li
+	{
+	width:90px;
+	position:relative;
+	float:left;
+	margin:0 9px 10px 0;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li button
+	{
+	position:absolute;
+	right:0;top:0;
+	width:18px;
+	height:18px;
+	background:url(/images/common/header/close.png) no-repeat 0 0;
+	border:0;
+	font-size:0;
+	cursor:pointer;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li a 
+	{
+	display: block;
+    width:88px;
+    height: 88px;
+    border: 1px solid #f0f0f0;	
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li:hover a
+	{
+	border: 1px solid #333;	
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li a img
+	{	
+	width:88px;
+	height:88px;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li p
+	{
+	margin-top:5px;
+	font-size:12px;
+	line-height:12px;
+	white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#IHeaderWishBox .IHeaderWishList .IH_WishList ul li span
+	{
+	margin-top:4px;
+	display:block;
+	font-size:12px;
+	color:	#cc2323;
+	line-height:12px;
+}
+
+.IHeaderWishList div.PageN	
+	{
+	width:64px;
+	margin:10px auto 0 auto;
+}
+
+#IHeaderWishBox .IHeaderWishList .IH_NoWishList 
+	{
+	width:100%;
+	height:80px;
+	margin-top:15px;
+}
+#IHeaderWishBox .IHeaderWishList .IH_NoWishList p
+	{
+	width:294px;
+	height:80px;
+	margin:0 auto;
+	font-size:13px;
+	color:#888;
+	line-height:60px;
+	text-align:center;
+}
+
+/** TOP버튼**/
+#lHeaderQuickWrap .IHeaderQR .IH_TOP
+	{
+	    width: 98px;
+    height: 28px;
+	/* position:fixed;
+	top:485px;	
+	width:98px;
+	height:10px;
+	text-align:center; */
+}
+#lHeaderQuickWrap .IHeaderQR .IH_TOP a
+	{
+	display:inline-block;
+	background:url(/images/common/header/bullet_Top.png) no-repeat right 10px;
+	padding-right:14px;
+	font-size:17px;
+	text-decoration:none;
+	color:#333;
+}

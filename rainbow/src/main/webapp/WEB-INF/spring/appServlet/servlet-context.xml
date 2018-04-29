@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- 자동으로 등록할 컴포넌트가 있는 패키지를 지정한다. -->
+	<!-- Enables the Spring MVC @Controller programming model -->
+	
+	<annotation-driven />
+	<!-- 자동으로 등록할 컴포넌트가 있는 패키지를 지정한다. -->
+	<context:component-scan base-package="com.rainbow" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/css/**" location="/css/" /> 
+	<resources mapping="/images/**" location="/images/" /> 
+	<resources mapping="/js/**" location="/js/" /> 
+
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<beans:property name="prefix" value="/WEB-INF/views" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<!-- MultipartResolver -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="100000000"/>
+        <beans:property name="maxInMemorySize" value="100000000"/>
+    </beans:bean>
+	
+	<!-- 인터셉터 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/myPage/**"/>
+			<mvc:mapping path="/auth/logout.do"/>
+			<mvc:mapping path="/item/insert**"/>
+			<mvc:mapping path="/item/update**"/>
+			<mvc:mapping path="/item/delete**"/>
+			<mvc:mapping path="/item/itemCart**"/>
+			<mvc:mapping path="/item/itemOrder**"/>
+			<mvc:mapping path="/item/itemForm.do"/>
+			<mvc:mapping path="/seller/**"/>
+			<mvc:mapping path="/buyer/**"/>
+			<mvc:mapping path="/excel/**"/>
+			<beans:bean id="loginInterceptor" class="com.rainbow.shop.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<beans:bean id="exceptionMapping" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<!-- <beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="SQLException">error/db_error</beans:prop>
+				<beans:prop key="IOException">error/error</beans:prop>
+			</beans:props>
+		</beans:property> -->
+		<!-- value(경로)는 viewResolver prefix 하위폴더부터 설정 -->
+		<beans:property name="defaultErrorView" value="error/errorPage" />
+	</beans:bean>
+
+	
+</beans:beans>

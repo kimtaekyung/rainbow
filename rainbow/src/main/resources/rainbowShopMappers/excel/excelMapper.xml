@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.excel.dao.ExcelDao">
+	<!-- 이머니 사용내역 리스트 가져오기-->
+	<select id="getEmoneyUseList" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			T2.CL_SEQ
+			,T2.MB_SEQ
+			,T2.CASH_CHANGE_AMOUNT
+			,T2.CASH_CARD_CHANGE_AMOUNT
+			,T2.MB_CASH
+			,T2.MB_CASH_CARD
+			,T2.CL_TITLE
+			,T2.CL_TYPE
+			,T2.ORDER_SEQ
+			,T2.CL_REG_DTTM
+			,T2.ROWNUM
+			,(T2.MB_CASH + T2.MB_CASH_CARD) AS MB_TOTAL_CASH
+       		,(CASE 
+	       		WHEN T2.ORDER_SEQ IS NULL THEN T2.CL_TITLE
+	            ELSE 
+	            	(
+	                CASE 
+	                	WHEN T2.CL_TYPE = '5' THEN CONCAT('현금성 이머니 상품구매[',T2.ORDER_SEQ,']')
+	                	WHEN T2.CL_TYPE = '6' THEN CONCAT('카드성 이머니 상품구매[',T2.ORDER_SEQ,']')
+	                    WHEN T2.CL_TYPE = '7' THEN CONCAT('현금성 이머니 상품구매취소[',T2.ORDER_SEQ,']')
+	                    WHEN T2.CL_TYPE = '8' THEN CONCAT('카드성 이머니 상품구매취소[',T2.ORDER_SEQ,']')
+	                END)
+	        END) as CL_TYPE_STR
+			FROM
+			(
+			SELECT 
+				T1.CL_SEQ
+				,T1.MB_SEQ
+				,T1.CASH_CHANGE_AMOUNT
+				,T1.CASH_CARD_CHANGE_AMOUNT
+				,T1.MB_CASH
+				,T1.MB_CASH_CARD
+				,T1.CL_TITLE
+				,T1.CL_TYPE
+				,T1.ORDER_SEQ
+				,DATE_FORMAT(T1.CL_REG_DTTM, '%Y-%m-%d %T') CL_REG_DTTM
+				,(@ROWNUM:=@ROWNUM +1) AS ROWNUM
+			FROM RB_CASH_LOG T1 
+			,(SELECT @ROWNUM:=0) R
+			WHERE 1=1
+			AND T1.MB_SEQ = #{mb_seq}
+			<![CDATA[
+			AND T1.CL_REG_DTTM >= STR_TO_DATE(#{sch_sdate}, '%Y-%m-%d')
+			]]>
+			<![CDATA[
+			AND T1.CL_REG_DTTM < DATE_ADD(STR_TO_DATE(#{sch_edate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+			]]>
+		) T2
+	ORDER BY T2.CL_REG_DTTM DESC
+	</select>
+</mapper>

@@ -1,0 +1,648 @@
+
+DROP PROCEDURE `rainbow`.`PROC_DEFAULT`;
+CREATE PROCEDURE `rainbow`.`PROC_DEFAULT`(
+	IN  param varchar(20)
+	,OUT return_query  int(1)
+)
+BEGIN
+
+   	DECLARE error INT DEFAULT '0';
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET error = -1;
+
+    SET return_query = 0;
+    
+    START TRANSACTION;
+
+    -- 쿼리 에러
+   	IF error < 0 THEN
+      	SET return_query = -1;
+      	ROLLBACK;
+
+   	ELSE
+      	COMMIT;
+   	END IF;
+
+	SELECT return_query;
+    
+END;
+
+
+
+
+
+
+
+
+
+DROP PROCEDURE `rainbow`.`PROC_INSERT_RB_CASH_LOG`;
+CREATE PROCEDURE `rainbow`.`PROC_INSERT_RB_CASH_LOG`(
+IN param_mb_seq int(11) unsigned
+,IN param_cash_amount int(1) 
+,IN param_cl_type char(2)
+,IN param_order_seq bigint(1)
+,OUT return_query  int(1)
+,OUT return_result_text varchar(128)
+)
+BEGIN
+
+
+   
+    SET @mb_cash = 0;
+    SET @mb_cash_card = 0;
+    SET @insert_data_cash_change_amount = 0;          -- 이머니 변동 량
+    SET @insert_data_cash_card_change_amount = 0;
+    SET @insert_data_mb_cash = 0;               -- 처리후 남은 현금성 이머니
+    SET @insert_data_mb_cash_card = 0;         -- 처리후 남은 카드성 이머니
+    SET @insert_data_cl_title = '';                     -- 내용
+    
+    SET @insert_row_count = 0;
+    
+    SET @query_continue = true;
+    SET return_result_text = '';
+    
+    SELECT mb_cash,mb_cash_card INTO @mb_cash,@mb_cash_card FROM RB_MEMBER WHERE MB_SEQ = param_mb_seq;
+   
+    -- 현금성 충전
+    IF param_cl_type = '1' THEN
+       SET @insert_data_mb_cash = @mb_cash+param_cash_amount;
+       SET @insert_data_mb_cash_card = @mb_cash_card;
+       SET @insert_data_cash_change_amount = param_cash_amount *1;
+       SET @insert_data_cl_title = '현금성 e-money 충전';
+        
+    -- 카드성 충전
+    ELSEIF param_cl_type = '2' THEN
+    
+       
+       SET @insert_data_mb_cash_card = @mb_cash_card+param_cash_amount;
+        SET @insert_data_mb_cash = @mb_cash;
+        SET @insert_data_cash_card_change_amount = param_cash_amount *1;
+       SET @insert_data_cl_title = '카드성 e-money 충전';
+        
+    -- 현금성 출금
+    ELSEIF param_cl_type = '3' THEN
+    
+       IF param_cash_amount > @mb_cash THEN 
+           SET @query_continue = false;
+            SET return_result_text = '현금성 e-money 출금 가능 금액이 적거나 없습니다.'; 
+            SET return_query = 2;
+        ELSE 
+          SET @insert_data_mb_cash = @mb_cash-param_cash_amount;
+            SET @insert_data_mb_cash_card = @mb_cash_card;
+            SET @insert_data_cash_change_amount = param_cash_amount *-1;
+            SET @insert_data_cl_title = '현금성 e-money 출금';
+        END IF;
+        
+    -- 현금성  출금 취소
+    ELSEIF param_cl_type = '4' THEN
+         SET @insert_data_mb_cash = @mb_cash+param_cash_amount;
+          SET @insert_data_mb_cash_card = @mb_cash_card;
+            SET @insert_data_cash_change_amount = param_cash_amount *1;
+            SET @insert_data_cl_title = '현금성 e-money 출금 취소';    
+    -- 현금성 상품 구매
+    ELSEIF param_cl_type = '5' THEN
+    
+       IF param_cash_amount > @mb_cash THEN 
+           SET @query_continue = false;
+            SET return_result_text = '현금성 e-money 금액이 부족합니다.'; 
+            SET return_query = 4;
+        
+        
+        ELSE 
+           SET @insert_data_mb_cash = @mb_cash-param_cash_amount;
+            SET @insert_data_mb_cash_card = @mb_cash_card;
+            SET @insert_data_cash_change_amount = param_cash_amount *-1;
+            SET @insert_data_cl_title = '현금성 e-money 상품 구매';
+        END IF;
+       
+        
+        
+    -- 카드성 상품구매
+    ELSEIF param_cl_type = '6' THEN
+       IF param_cash_amount > @mb_cash_card THEN 
+           SET @query_continue = false;
+            SET return_result_text = '카드성 e-money 금액이 부족합니다.'; 
+            SET return_query = 5;
+        ELSE 
+           SET @insert_data_mb_cash_card = @mb_cash_card-param_cash_amount;
+             SET @insert_data_mb_cash = @mb_cash;
+          SET @insert_data_cash_card_change_amount = param_cash_amount *-1;
+           SET @insert_data_cl_title = '카드성 e-money 상품 구매';
+        END IF;
+       
+    
+    -- 현금성 상품구매 취소
+    ELSEIF param_cl_type = '7' THEN
+       SET @insert_data_mb_cash = @mb_cash+param_cash_amount;
+        SET @insert_data_mb_cash_card = @mb_cash_card;
+        SET @insert_data_cash_change_amount = param_cash_amount *1;
+        SET @insert_data_cl_title = '현금성 e-money 상품 구매 취소';
+        
+    -- 카드성 상품구매 취소
+    ELSEIF param_cl_type = '8' THEN
+       SET @insert_data_mb_cash_card = @mb_cash_card+param_cash_amount;
+        SET  @insert_data_mb_cash = @mb_cash;
+        SET @insert_data_cash_card_change_amount = param_cash_amount *1;
+        SET @insert_data_cl_title = '카드성 e-money 상품 구매 취소';
+        
+    -- 관리자 현금성 이머니  지급
+    ELSEIF param_cl_type = '9' THEN
+       SET @insert_data_mb_cash = @mb_cash+param_cash_amount;
+        SET @insert_data_mb_cash_card = @mb_cash_card;   
+       SET @insert_data_cash_change_amount = param_cash_amount *1;
+        SET @insert_data_cl_title = '현금성 e-money 관리자 지급';
+        
+    -- 관리자 현금성 이머니  차감
+    ELSEIF param_cl_type = '10' THEN
+       
+       IF param_cash_amount > @mb_cash THEN 
+           SET @query_continue = false;
+            SET return_result_text = '입력한 현금성 e-money 보다 적거나 없습니다.'; 
+            SET return_query = 6;
+        ELSE 
+           SET @insert_data_mb_cash = @mb_cash-param_cash_amount;
+            SET @insert_data_mb_cash_card = @mb_cash_card;
+            SET @insert_data_cash_change_amount = param_cash_amount *-1;
+            SET @insert_data_cl_title = '현금성 e-money 관리자 차감';
+        END IF;
+    
+     -- 관리자 카드성 이머니  지급
+    ELSEIF param_cl_type = '11' THEN
+       SET @insert_data_mb_cash_card = @mb_cash_card+param_cash_amount;
+        SET @insert_data_mb_cash = @mb_cash;
+       SET @insert_data_cash_card_change_amount = param_cash_amount *1;
+        SET  @insert_data_cl_title = '카드성 e-money 관리자 지급';
+        
+    -- 관리자 카드성  이머니  차감
+    ELSEIF param_cl_type = '12' THEN
+       
+       IF param_cash_amount > @mb_cash_card THEN 
+           SET @query_continue = false;
+            SET return_result_text = '입력한 카드성 e-money 보다 적거나 없습니다.'; 
+            SET return_query = 7;
+            
+        ELSE 
+           SET @insert_data_mb_cash_card = @mb_cash_card-param_cash_amount;
+           SET @insert_data_mb_cash = @mb_cash;
+          SET @insert_data_cash_card_change_amount = param_cash_amount *-1;
+           SET @insert_data_cl_title = '카드성 e-money 관리자 차감';
+        END IF;   
+    
+    -- 카드성 이머니 결제후 취소 ( 취소 가능 기간 옵션이 있어야 할듯 )
+    ELSEIF param_cl_type = '13' THEN
+    
+        IF param_cash_amount > @mb_cash_card THEN 
+             SET @query_continue = false;
+            SET return_result_text = '결제 취소 가능한 카드성 이머니가 부족 합니다..'; 
+            SET return_query = 10;
+         
+         ELSE 
+             SET @insert_data_mb_cash_card = @mb_cash_card-param_cash_amount;
+              SET @insert_data_mb_cash = @mb_cash;
+              SET @insert_data_cash_card_change_amount = param_cash_amount *-1;
+             SET @insert_data_cl_title = '카드성 e-money 결제 취소';
+         END IF;
+	-- 현금성 이머니 입금 후 취소
+	ELSEIF param_cl_type = '14' THEN
+    
+        IF param_cash_amount > @mb_cash THEN 
+             SET @query_continue = false;
+            SET return_result_text = '결제 취소 가능한 현금성  이머니가 부족 합니다..'; 
+            SET return_query = 11;
+         
+         ELSE 
+             SET @insert_data_mb_cash = @mb_cash-param_cash_amount;
+              SET @insert_data_mb_cash_card = @mb_cash_card;
+              SET @insert_data_cash_change_amount = param_cash_amount *-1;
+             SET @insert_data_cl_title = '현금성 e-money 결제 취소';
+         END IF;
+
+     END IF;
+    
+    
+    
+    IF @query_continue =  TRUE THEN
+          -- 상품 주문이 아님
+      IF (param_order_seq is NULL) OR (param_order_seq = -1) THEN 
+      
+           INSERT INTO RB_CASH_LOG(
+              mb_seq
+              ,cash_change_amount
+              ,cash_card_change_amount
+              ,mb_cash
+              ,mb_cash_card
+              ,cl_title
+              ,cl_type
+              ,cl_reg_dttm
+          )VALUES(
+              param_mb_seq
+              ,@insert_data_cash_change_amount
+              ,@insert_data_cash_card_change_amount
+              ,@insert_data_mb_cash
+              ,@insert_data_mb_cash_card
+              ,@insert_data_cl_title
+              ,param_cl_type
+              ,NOW()
+          );         
+      
+      ELSE 
+         
+          INSERT INTO RB_CASH_LOG(
+              mb_seq
+              ,cash_change_amount
+              ,cash_card_change_amount
+              ,mb_cash
+              ,mb_cash_card
+              ,cl_title
+              ,cl_type
+              ,order_seq
+              ,cl_reg_dttm
+          )VALUES(
+              param_mb_seq
+              ,@insert_data_cash_change_amount
+              ,@insert_data_cash_card_change_amount
+              ,@insert_data_mb_cash
+              ,@insert_data_mb_cash_card
+              ,@insert_data_cl_title
+              ,param_cl_type
+              ,param_order_seq
+              ,NOW()
+          );
+
+      END IF;
+      
+      SELECT ROW_COUNT() INTO @insert_row_count;
+      
+      IF @insert_row_count  = 1 THEN
+         
+          SET @insert_row_count = 0;
+          
+          UPDATE RB_MEMBER 
+          SET 
+              mb_cash =  @insert_data_mb_cash
+              ,mb_cash_card = @insert_data_mb_cash_card
+          WHERE
+          MB_SEQ = param_mb_seq;
+      
+          SELECT ROW_COUNT() INTO @insert_row_count;
+           
+          IF @insert_row_count  = 1 THEN
+              SET return_query = 1;
+          ELSE
+              SET return_query = 8;
+              SET return_result_text = '멤버정보 업데이트 실패';
+          END IF;
+      ELSE 
+          SET return_query = 9;
+          SET return_result_text = '캐쉬로그  인서트 실패';
+      END IF;
+    END IF;
+
+    
+    SELECT return_query,return_result_text;
+END;
+
+
+DROP PROCEDURE `rainbow`.`PROC_LOGIN_SUCCESS`;
+CREATE PROCEDURE `rainbow`.`PROC_LOGIN_SUCCESS`(
+IN  param_mb_id varchar(20)
+,IN param_mb_password varchar(512)
+,IN param_mb_session_id varchar(255)
+,IN param_lo_type char(1) 
+,IN param_lo_device_type  char(1)
+,IN param_lo_url varchar(255)
+,IN param_lo_ip varchar(255)
+,IN param_lo_device_env varchar(255)
+,OUT return_query  int(1)
+,OUT return_mb_seq  int(11) unsigned
+)
+BEGIN
+
+   DECLARE error INT DEFAULT '0';
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET error = -1;
+
+    SET return_query = 0;
+    SET return_mb_seq = 0;
+    SET @insert_row_count = 0;
+
+     START TRANSACTION;
+
+     
+    
+    SELECT mb_seq INTO return_mb_seq FROM RB_MEMBER WHERE mb_id = param_mb_id;
+   
+    
+    SET@nowtime = now();
+    
+   
+   IF return_mb_seq > 0 THEN
+      INSERT INTO RB_MEMBER_LOGIN(
+           mb_seq
+            ,lo_type
+            ,lo_device_type
+            ,lo_ip
+            ,lo_url
+            ,lo_dttm
+            ,mb_session_id
+            ,lo_device_env
+        )VALUES(
+           return_mb_seq
+            ,param_lo_type
+            ,param_lo_device_type
+            ,param_lo_ip
+            ,param_lo_url
+            ,@nowtime
+            ,param_mb_session_id
+            ,param_lo_device_env
+       );
+        
+      SELECT ROW_COUNT() INTO @insert_row_count;
+       
+        
+        IF @insert_row_count > 0 THEN
+           SET @insert_row_count = 0;
+        
+           UPDATE RB_MEMBER
+            
+            SET 
+               mb_password = param_mb_password
+                ,mb_session_id = param_mb_session_id
+                ,mb_login_ip = param_lo_ip
+                ,mb_is_login = '1'
+                ,mb_login_device_type = param_lo_device_type
+            WHERE mb_seq = return_mb_seq;
+            
+            SELECT ROW_COUNT() INTO @insert_row_count;
+            
+            IF @insert_row_count > 0 THEN
+               SET @insert_row_count = 0;
+                
+                INSERT INTO MB_SESSION_STORE(
+                   MB_SESSION_ID,MB_SEQ,LO_IP,LO_DEVICE_TYPE,LO_DTTM,LO_DEVICE_ENV
+                )VALUES(
+                   param_mb_session_id,return_mb_seq,param_lo_ip,param_lo_device_type,@nowtime,param_lo_device_env
+                );
+                
+                SELECT ROW_COUNT() INTO @insert_row_count;
+                
+                IF @insert_row_count > 0 THEN
+                   SET return_query = 1;
+                ELSE 
+                	ROLLBACK;
+                   SET return_query = -1;
+                     
+                END IF;
+            ELSE
+            	ROLLBACK;
+               SET return_query = -1;
+                
+            END IF;
+        
+        ELSE
+            SET return_query = -1;
+        END IF;
+   ELSE 
+       SET return_query = -1;
+    END IF; 
+           
+    -- 쿼리 에러
+    IF error < 0 THEN
+    	ROLLBACK;
+      SET return_query = -1;
+       
+
+    ELSE
+      COMMIT;
+   END IF;
+
+    SELECT return_query,return_mb_seq;
+    
+END;
+
+DROP PROCEDURE `rainbow`.`PROC_MEMBER_BIZ_UPDATE`;
+CREATE PROCEDURE `rainbow`.`PROC_MEMBER_BIZ_UPDATE`(
+IN  param_mb_seq int(11) unsigned
+,IN param_mb_id varchar(20)
+,IN param_mb_nickname varchar(20)
+,IN param_mb_biz_name varchar(255)
+,IN param_mb_biz_type varchar(20)
+,IN param_mb_biz_ceo_name  varchar(255)
+,IN param_mb_biz_no varchar(15)
+,IN param_mb_biz_condition varchar(255)
+,IN param_mb_biz_category varchar(255)
+,IN param_mb_biz_zip_code varchar(10)
+,IN param_mb_biz_address varchar(243)
+,IN param_mb_biz_address_detail varchar(255)
+,IN param_mb_biz_tel varchar(20)
+,IN param_mb_biz_img_path varchar(255)
+,IN param_mb_biz_cert_state char(1)
+,IN param_admin_mb_seq int(11) unsigned
+,IN param_admin_mb_id varchar(20)
+,OUT return_query  int(1)
+)
+BEGIN
+
+   DECLARE error INT DEFAULT '0';
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET error = -1;
+
+    SET return_query = 0;
+    SET @insert_row_count = 0;
+    SET @mb_count = 0;
+
+    
+     START TRANSACTION;
+   
+   SELECT COUNT(MB_SEQ)  INTO @mb_count
+    FROM RB_MEMBER
+    WHERE MB_SEQ = param_mb_seq;
+       
+   IF  @mb_count = 1 THEN
+    
+      IF param_mb_biz_cert_state = '0' THEN
+    
+          INSERT INTO RB_BIZ_CERT_LOG
+             (
+                mb_seq
+                ,mb_id
+                ,mb_nickname
+                ,mb_biz_name
+                ,mb_biz_type
+                ,mb_biz_ceo_name
+                ,mb_biz_no
+                ,mb_biz_condition
+                ,mb_biz_category
+                ,mb_biz_zip_code
+                ,mb_biz_address
+                ,mb_biz_address_detail
+                ,mb_biz_tel
+                ,mb_biz_img_path
+                ,mb_biz_cert_state
+                ,rbl_reg_dttm
+                ,admin_mb_seq
+                ,admin_mb_id
+            )VALUES(
+                param_mb_seq
+                ,param_mb_id
+                ,param_mb_nickname
+                ,param_mb_biz_name
+                ,param_mb_biz_type
+                ,param_mb_biz_ceo_name
+                ,param_mb_biz_no
+                ,param_mb_biz_condition
+                ,param_mb_biz_category
+                ,param_mb_biz_zip_code
+                ,param_mb_biz_address
+                ,param_mb_biz_address_detail
+                ,param_mb_biz_tel
+                ,param_mb_biz_img_path
+                ,param_mb_biz_cert_state
+                ,NOW()
+                ,param_admin_mb_seq
+                ,param_admin_mb_id
+            );
+          
+          SELECT ROW_COUNT() INTO @insert_row_count;
+          
+          IF @insert_row_count  = 1 THEN
+             SET @insert_row_count = 0;
+
+         UPDATE rb_member
+            SET 
+               mb_biz_name = param_mb_biz_name
+                ,mb_biz_type = param_mb_biz_type
+                ,mb_biz_ceo_name = param_mb_biz_ceo_name
+                ,mb_biz_no = param_mb_biz_no
+                ,mb_biz_condition = param_mb_biz_condition
+                ,mb_biz_category = param_mb_biz_category
+                ,mb_biz_zip_code = param_mb_biz_zip_code
+                ,mb_biz_address = param_mb_biz_address
+                ,mb_biz_address_detail = param_mb_biz_address_detail
+               ,mb_biz_tel = param_mb_biz_tel
+                ,mb_biz_img_path = param_mb_biz_img_path
+                ,mb_biz_cert_state = param_mb_biz_cert_state
+             WHERE 
+            1=1
+            AND mb_seq = param_mb_seq;
+            
+            SELECT ROW_COUNT() INTO @insert_row_count;
+            
+            IF @insert_row_count = 1 THEN
+               SET return_query = 1;
+            ELSE
+            	ROLLBACK;
+               SET return_query = -1;
+                
+            END IF;
+          ELSE 
+          	ROLLBACK;
+             SET return_query = -1;
+            
+          END IF;
+        ELSE
+        	ROLLBACK;
+          SET return_query = -1;
+            
+        END IF;
+       
+    ELSE
+    	ROLLBACK;
+       SET return_query = -1;
+        
+   END IF;
+
+           
+    -- 쿼리 에러
+    IF error < 0 THEN
+    	ROLLBACK;
+      SET return_query = -1;
+       
+    ELSE
+      COMMIT;
+   END IF;
+
+    SELECT return_query;
+    
+END;
+
+DROP PROCEDURE `rainbow`.`PROC_MEMBER_LOGOUT_PROCESS`;
+CREATE PROCEDURE `rainbow`.`PROC_MEMBER_LOGOUT_PROCESS`(
+IN param_mb_seq int(11) unsigned
+,IN param_lo_type char(1)
+,IN param_lo_device_type char(1)
+,IN param_lo_ip varchar(20)
+,IN param_lo_url varchar(255)
+,IN param_mb_session_id varchar(255)
+,IN param_lo_device_env varchar(255)
+,OUT return_query  int(1)
+)
+BEGIN
+
+   DECLARE error INT DEFAULT '0';
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET error = -1;
+
+    SET @insert_row_count = 0;
+    SET return_query = 0;
+    SET @row_cnt = 0;
+    SET @login_member_cnt = 0;
+     START TRANSACTION;
+
+    
+    INSERT INTO RB_MEMBER_LOGIN(
+           mb_seq
+            ,lo_type
+            ,lo_device_type
+            ,lo_ip
+            ,lo_url
+            ,lo_dttm
+            ,mb_session_id
+            ,lo_device_env
+        )VALUES(
+           param_mb_seq
+            ,param_lo_type
+            ,param_lo_device_type
+            ,param_lo_ip
+            ,param_lo_url
+            ,now()
+            ,param_mb_session_id
+            ,param_lo_device_env
+       );
+    
+    SELECT ROW_COUNT() INTO @insert_row_count;
+    
+   IF @insert_row_count > 0 THEN
+       -- 세션스토어 정보 있든 없든 삭제 처리 로직 
+        DELETE FROM MB_SESSION_STORE
+        WHERE 1=1
+        AND MB_SESSION_ID = param_mb_session_id
+        AND MB_SEQ   =   param_mb_seq;
+                    
+        SET return_query = 1;
+        
+       SELECT COUNT(*) INTO @login_member_cnt FROM MB_SESSION_STORE WHERE MB_SEQ = param_mb_seq;
+        
+        IF @login_member_cnt = 0  THEN 
+                   
+          UPDATE RB_MEMBER
+                
+          SET 
+              mb_is_login = '0'
+              ,mb_login_device_type = param_lo_device_type
+          WHERE 
+          1=1
+          AND mb_seq = param_mb_seq;
+        END IF;
+
+   ELSE 
+       ROLLBACK;
+       SET return_query = -1;
+    END IF;
+           
+    -- 쿼리 에러
+    IF error < 0 THEN
+      ROLLBACK;
+        SET return_query = -1;
+   ELSE
+      COMMIT;
+   END IF;
+    
+    SELECT return_query;
+END;

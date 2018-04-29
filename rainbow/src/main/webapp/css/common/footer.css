@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+#footerWrap, #footerWrap button, #footerWrap input {
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+/*-----------------------------------------------------------------
+	풋터의 메뉴 중, 상단의 회색 박스 안의 영역 CSS입니다.
+	-----------------------------------------------------------------*/
+div#footer {
+	background-color: #1b1b1b;
+	height: auto;
+}
+
+div#footer > div#footerWrap {
+	width: 980px;
+	margin: 0 auto;
+}
+div#footer > div#footerWrap > div#companyLink_div{
+	padding: 15px 0px;
+}
+div#footer > div#footerWrap > div#companyLink_div > ul.companyLink_ul{
+	display: table;
+    margin: 0 auto;
+}
+div#footer > div#footerWrap > div#companyLink_div > ul.companyLink_ul > li.companyLink_li{
+	display: table-cell;
+}
+div#footer > div#footerWrap > div#companyLink_div > ul.companyLink_ul > li.companyLink_li > a{
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 12px;
+    height: 100%;
+}
+div#footer > div#footerWrap > div#companyLink_div > ul.companyLink_ul > li.companyLink_li > img{
+	vertical-align: middle;
+}
+div#footer > div#footerWrap > div#companyDescription_div{
+	padding: 15px 0px;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul{
+	display: table;
+	width: 100%;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul > li{
+	display: table-cell;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul > li > div{
+	width: 800px;
+	margin: 0 auto;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul ul{
+	display: table;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul ul.companyDescription_ul_innerLeft{
+	float: left;
+}
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul ul.companyDescription_ul_innerRight{
+	float: right;
+}
+
+div#footer > div#footerWrap > div#companyDescription_div > ul#companyDescription_ul ul li{
+	display: table-row;
+	color: #aaaaaa;
+	font-size: 12px;
+
+}
+

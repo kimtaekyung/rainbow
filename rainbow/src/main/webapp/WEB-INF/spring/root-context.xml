@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring 
+						http://mybatis.org/schema/mybatis-spring-1.2.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util.xsd
+						http://www.springframework.org/schema/task 
+						http://www.springframework.org/schema/task/spring-task.xsd">
+	
+	<context:annotation-config/>
+	<!-- @Transactional 애노테이션을 사용하기 위해 다음의 설정을 추가한다. -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	
+	<!-- 자동으로 등록할 컴포넌트가 있는 패키지를 지정한다. -->
+	<context:component-scan base-package="com.rainbow">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<context:property-placeholder location="/WEB-INF/conf/database.properties" />
+	<!-- datasource mybatis -->
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/conf/message</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="utf-8"></property>
+		<!--  
+		'fallbackToSystemLocale' property가 true인 경우, locale에 해당하는 file이 없을 경우 system locale을 사용
+		 <property name="fallbackToSystemLocale" value="false"/>
+		 -->
+		  <!-- 설정한 시간마다 properties 파일을 새로 로드함 -->
+		  <property name="cacheSeconds" value="30"/> 
+	</bean>
+	<!-- @Transactional 애노테이션을 사용하기 위해 다음의 설정을 추가한다. -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceShop"/>
+	</bean>
+	
+	<bean id="dataSourceShop" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${rainbowShop.driverClass}" />
+		<property name="url" value="${rainbowShop.url}" />
+		<property name="username" value="${rainbowShop.username}" />
+		<property name="password" value="${rainbowShop.password}" />
+		<property name="initialSize" value="100" />
+		<property name="maxActive" value="150" />
+		<property name="maxWait" value="10000" />
+		<property name="maxIdle" value="30" />
+		<property name="minIdle" value="20" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="130000" />
+		<property name="minEvictableIdleTimeMillis" value="120000" />
+		<property name="numTestsPerEvictionRun" value="20" />
+		<property name="removeAbandonedTimeout" value="30" />
+		<property name="removeAbandoned" value="true" />
+		<property name="logAbandoned" value="false" />
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<!-- 스프링 sql세션 팩토리 사용시(배포용) -->
+	<!-- <bean id="sqlSessionFactory_shop" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_shop" />
+		<property name="configLocation" value="classpath:mybatis-config-shop.xml"></property>
+		<property name="mapperLocations" value="classpath*:rainbowShopMappers/**/*Mapper.xml" />
+	</bean> -->
+	
+	<!-- xml 업로드시 자동 적용(개발용) -->
+	<bean id="sqlSessionFactoryShop" class="com.rainbow.util.RefreshableSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceShop" />
+		<property name="configLocation" value="classpath:mybatis-config-shop.xml"></property>
+		<property name="mapperLocations" value="classpath*:rainbowShopMappers/**/*Mapper.xml" />
+		<property name="interval" value="1000"></property>
+	</bean>
+	
+	<mybatis:scan base-package="com.rainbow.shop" factory-ref="sqlSessionFactoryShop"/>
+	
+	<bean id="sqlSessionShop" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryShop" />
+	</bean>
+	
+	
+	<bean id="dataSourceMall" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${rainbowMall.driverClass}" />
+		<property name="url" value="${rainbowMall.url}" />
+		<property name="username" value="${rainbowMall.username}" />
+		<property name="password" value="${rainbowMall.password}" />
+		<property name="initialSize" value="100" />
+		<property name="maxActive" value="150" />
+		<property name="maxWait" value="10000" />
+		<property name="maxIdle" value="30" />
+		<property name="minIdle" value="20" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="130000" />
+		<property name="minEvictableIdleTimeMillis" value="120000" />
+		<property name="numTestsPerEvictionRun" value="20" />
+		<property name="removeAbandonedTimeout" value="30" />
+		<property name="removeAbandoned" value="true" />
+		<property name="logAbandoned" value="false" />
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<!-- 스프링 sql세션 팩토리 사용시(배포용) -->
+	<!-- <bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource2" />
+		<property name="configLocation" value="classpath:mybatis-config-mall.xml"></property>
+		<property name="mapperLocations" value="classpath*:rainbowMallMappers/**/*Mapper.xml" />
+	</bean> -->
+	
+	<!-- xml 업로드시 자동 적용(개발용) -->
+	<bean id="sqlSessionFactoryMall" class="com.rainbow.util.RefreshableSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceMall" />
+		<property name="configLocation" value="classpath:mybatis-config-mall.xml"></property>
+		<property name="mapperLocations" value="classpath*:rainbowMallMappers/**/*Mapper.xml" />
+		<property name="interval" value="1000"></property>
+	</bean>
+	
+	<mybatis:scan base-package="com.rainbow.mall" factory-ref="sqlSessionFactoryMall"/> 
+	
+	<bean id="sqlSessionMall" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryMall" />
+	</bean>
+	
+	<task:scheduler id="jobScheduler" pool-size="10" />
+	<task:annotation-driven scheduler="jobScheduler"/>
+	
+</beans>

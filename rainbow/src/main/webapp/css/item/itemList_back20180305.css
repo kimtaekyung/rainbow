@@ -1,0 +1,2235 @@
+@charset "UTF-8";@charset "UTF-8";
+
+/*-----------------------------------------------------------------
+공통 CSS
+-----------------------------------------------------------------*/
+#itemList7, #itemList7 button, #itemList7 input {
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+
+#itemList7 a {
+	color: #1b1b1b;
+	text-decoration: none;
+}
+
+#itemList7 button {
+	cursor: pointer;
+}
+/* 드롭다운 목록 */
+#itemList7 .dropdown {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#itemList7 .dropdown ol {
+	display: none;
+	position: absolute;
+	top: 22px;
+	left: -9px;
+	width: 160px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+}
+
+#itemList7 .dropdown ol li {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	height: 28px;
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+	line-height: 26px;
+	text-indent: 8px;
+}
+
+#itemList7 .dropdown ol li:hover {
+	background-color: #ddd;
+}
+
+#itemList7 .dropdown ol li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+/* 단일 드롭다운 */
+#itemList7 .dropdownSingle {
+	position: relative;
+	top: 0;
+	left: 0;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_dropdownSingle.png');
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+#itemList7 .dropdownSingle ol {
+	display: none;
+	position: absolute;
+	top: 30px;
+	left: -1px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+}
+
+#itemList7 .dropdownSingle ol li {
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	height: 28px;
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+	line-height: 26px;
+	text-indent: 8px;
+}
+
+#itemList7 .dropdownSingle ol li:hover {
+	background-color: #ddd;
+}
+
+#itemList7 .dropdownSingle ol li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+/* 체크박스 */
+#itemList7 .checkbox {
+	width: 17px;
+	height: 17px;
+	border: 1px solid #dddddd;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_checkbox.png');
+	background-repeat: no-repeat;
+	color: transparent;
+	font-size: 0px;
+	text-decoration: none;
+	line-height: 0px;
+	cursor: pointer;
+}
+
+#itemList7 .checkbox[check="check"] {
+	background-color: #66c009;
+}
+/* 라디오버튼 */
+#itemList7 .radio {
+	width: 19px;
+	height: 18px;
+	border: 0;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_radio.png');
+	background-position: left bottom;
+	background-repeat: no-repeat;
+	color: transparent;
+	font-size: 0px;
+	text-decoration: none;
+	line-height: 0px;
+	cursor: pointer;
+}
+
+#itemList7 .radio[check="check"] {
+	background-position: left top;
+}
+/* 광고 */
+#itemList7 h3.ad:after {
+	position: relative;
+	top: -5px;
+	left: 5px;
+	content: 'AD';
+	color: #646464;
+	font-size: 11px;
+	font-weight: 100;
+	font-family: 'Dotum', '돋움';
+}
+
+#itemList7 h4.ad:after {
+	position: relative;
+	top: -4px;
+	left: 3px;
+	content: 'AD';
+	color: #646464;
+	font-size: 10px;
+	font-weight: 100;
+	font-family: 'Dotum', '돋움';
+}
+
+/*-----------------------------------------------------------------
+경로
+-----------------------------------------------------------------*/
+#lPath {
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#lPath ol.main>li {
+	float: left;
+	height: 12px;
+	margin-right: 8px;
+	padding: 2px 40px 4px 0px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lPathMain.png');
+	background-repeat: no-repeat;
+	background-position: top right;
+	cursor: pointer;
+	z-index: 9999;
+}
+
+#lPath ol.main>li.nosub {
+	padding-right: 12px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lPathNosub.png');
+}
+
+#lPath ol.main>li:last-child {
+	padding-right: 24px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_dropdown.png');
+}
+
+#lPath ol.main>li.nosub:last-child {
+	background-image: none;
+}
+
+/*-----------------------------------------------------------------
+스피드고배송관
+-----------------------------------------------------------------*/
+#lSh {
+	clear: both;
+	padding-top: 26px;
+}
+
+#lSh h3 {
+	display: inline;
+	color: #333;
+	font-size: 18px;
+	font-weight: 100;
+	line-height: 18px;
+}
+
+#lSh .desc {
+	color: #aaa;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+#lSh .ev {
+	float: right;
+	color: #aaa;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+#lSh ul {
+	width: 1105px;
+	height: 120px;
+	margin-top: 22px;
+}
+
+#lSh li {
+	float: left;
+	width: 90px;
+	margin-right: 34.28px;
+	text-align: center;
+}
+
+#lSh img {
+	width: 90px;
+	height: 90px;
+	margin-bottom: 10px;
+}
+
+#lSh .amt {
+	font-size: 16px;
+	line-height: 16px;
+	letter-spacing: -1px;
+}
+
+#lSh .amt b {
+	margin-right: 4px;
+	font-family: 'Verdana';
+}
+
+/*-----------------------------------------------------------------
+상단제목
+-----------------------------------------------------------------*/
+h2 {
+	clear: both;
+	padding: 20px 0 10px 0;
+	color: #1b1b1b;
+	font-size: 27px;
+	font-weight: 100;
+	line-height: 27px;
+	text-indent: 11px;
+}
+
+h2 q {
+	color: #e5004f;
+	font-weight: 700;
+}
+
+h2 q:after, h2 q:before {
+	content: none;
+}
+
+h2 small {
+	color: #1b1b1b;
+	font-size: 11pt;
+	font-weight: 100;
+}
+
+/*-----------------------------------------------------------------
+하위 카테고리
+-----------------------------------------------------------------*/
+#lCa {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 954px;
+	margin: auto;
+	margin-top: 10px;
+	padding: 8px 0px 10px 0;
+	border: 1px solid #ddd;
+	border-top: 2px solid #aaa;
+}
+
+#lCa>ol {
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lCategory.png');
+	background-repeat: repeat-y;
+	background-position: -1px 0;
+}
+
+#lCa>ol>li {
+	display: inline-block;
+	width: 227px;
+	height: 12px;
+	padding: 2px 0px 6px 0;
+	margin: 5px 0 5px 11px;
+	color: #aaa;
+	font-size: 10px;
+	line-height: 12px;
+	cursor: pointer;
+}
+
+#lCa>ol>li>img {
+	margin-left: 3px;
+	vertical-align: -6px;
+}
+
+#lCa>ol>li>a {
+	color: #1b1b1b;
+	font-size: 12px;
+}
+
+#lCa ol.sub {
+	z-index: 9999;
+}
+
+#lCa ol.sub li {
+	font-size: 12px;
+}
+
+#lCa .more {
+	clear: both;
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 18px;
+	margin-top: 10px;
+}
+
+#lCa .more button {
+	position: absolute;
+	bottom: -11px;
+	right: -1px;
+	height: 30px;
+	padding: 0 30px 4px 10px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lCaMore.png');
+	background-repeat: no-repeat;
+	background-position: right top;
+	cursor: pointer;
+}
+
+#lCa .more button.hidden {
+	background-position: top right;
+}
+
+#lCa .more button.shown {
+	background-position: bottom right;
+}
+/* IE7 Hack */
+*+html body #lCa>ol>li {
+	display: inline;
+}
+
+/*-----------------------------------------------------------------
+메인 썸네일
+-----------------------------------------------------------------*/
+#lMain {
+	clear: both;
+}
+
+#lMain .lMainItemList>li {
+	width: 468px;
+	border: 1px solid #d0d0d0;
+	float: left;
+}
+
+#lMain .lMainItemList>li:first-child {
+	margin-left: 13px;
+	margin-right: 14px;
+}
+
+#lMain .lMainItemList>li:last-child {
+	margin-left: 0px;
+	margin-right: 13px;
+}
+
+#lMain .lMainItemList>li img.thumb {
+	margin: 35px 69px 24px 69px;
+}
+
+#lMain .lMainItemList>li .info {
+	padding: 0 31px;
+}
+
+#lMain .lMainItemList>li .info .title {
+	width: 406px;
+	height: 23px;
+	font-size: 20px;
+	color: #1b1b1b;
+	font-weight: 700;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 40px;
+	line-height: 23px;
+	vertical-align: top;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl {
+	width: 406px;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .nowrap {
+	white-space: nowrap;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .onlineNameTd {
+	font-size: 17px;
+	color: #1b1b1b;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .onlineNameTd .date {
+	font-size: 11px;
+	font-weight: 100;
+	vertical-align: top;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .onlinePrice {
+	position: relative;
+	top: 0;
+	left: 0px;
+	font-size: 20px;
+	color: #646464;
+	font-weight: 700;
+	float: right;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .onlinePrice .hPriceTxt {
+	position: absolute;
+	top: -15px;
+	left: 28px;
+	font-size: 12px;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .onlinePrice .lPriceTxt {
+	position: absolute;
+	top: -15px;
+	left: 0;
+	font-size: 12px;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .ourPriceTr .ourName {
+	font-size: 17px;
+	font-weight: 700;
+	padding: 14px 0;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .ourPriceTr .ourPrice {
+	font-size: 20px;
+	font-weight: 700;
+	text-align: right;
+	padding: 14px 0;
+}
+
+#lMain .lMainItemList>li .info .domePriceInfoTbl .ourPriceTr .ourName,
+	#lMain .lMainItemList>li .info .domePriceInfoTbl .ourPriceTr .ourPrice
+	{
+	color: #e5004f;
+}
+
+#lMain .lMainItemList>li .info .supplyPriceInfoTbl .ourPriceTr .ourName,
+	#lMain .lMainItemList>li .info .supplyPriceInfoTbl .ourPriceTr .ourPrice
+	{
+	color: #f26722;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .ourPriceTr .onlyCom {
+	text-align: center;
+	width: 127px;
+	height: 20px;
+	font-size: 12px;
+	line-height: 20px;
+	border: 1px solid #1b1b1b;
+	color: #1b1b1b;
+	font-weight: 100;
+	float: right;
+}
+
+#lMain .lMainItemList>li .info .priceInfoTbl .buyItTd a {
+	display: block;
+	width: 402px;
+	height: 60px;
+	text-align: center;
+	margin-bottom: 25px;
+	color: #fff;
+	font-size: 21px;
+	line-height: 60px;
+}
+
+#lMain .lMainItemList>li .info .domePriceInfoTbl .buyItTd a {
+	background-color: #e5004f;
+}
+
+#lMain .lMainItemList>li .info .supplyPriceInfoTbl .buyItTd a {
+	background-color: #f26722;
+}
+
+/*-----------------------------------------------------------------
+결과내 조건 검색
+-----------------------------------------------------------------*/
+#lSer {
+	clear: both;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 956px;
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+#lSer table {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+#lSer table td {
+	padding: 0 12px;
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-bottom: 0;
+	text-align: left;
+}
+
+#lSer table td div {
+	margin-bottom: 8px;
+}
+
+#lSer table td button.checkbox {
+	margin-right: 2px;
+	vertical-align: -4px;
+}
+
+#lSer table td button.radio {
+	margin-right: 2px;
+	vertical-align: -4px;
+}
+
+#lSer table td .opt {
+	margin: 0 20px;
+	padding: 18px 0 18px 60px;
+}
+
+#lSer table td #lSerOrg {
+	border-bottom: 1px solid #ddd;
+}
+
+#lSer input[type="text"] {
+	width: 100px;
+	height: 12px;
+	margin-right: 5px;
+	padding: 7px;
+	border: 1px solid #ddd;
+	color: #e5004f;
+	font-size: 12px;
+	line-height: 12px;
+	vertical-align: -2px;
+}
+
+#lSer dl {
+	padding-top: 8px;
+	padding-bottom: 0;
+}
+
+#lSer dl dt {
+	float: left;
+	width: 108px;
+	height: 36px;
+	padding-top: 4px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 14px;
+}
+
+#lSer dl dd {
+	clear: right;
+	height: 40px;
+	color: #aaa;
+	font-size: 12px;
+	line-height: 14px;
+	letter-spacing: 9px;
+}
+
+#lSer label {
+	display: inline-block;
+	width: 80px;
+}
+
+#lSer #lKwd {
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	margin: 18px 0;
+}
+
+#lSer #lKwd #lKwdInp {
+	width: 360px;
+	height: 12px;
+	padding: 7px;
+	border: 1px solid #ddd;
+	color: #1b1b1b;
+	font-size: 12px;
+	line-height: 12px;
+	vertical-align: -2px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lKwdInp.png');
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+#lSer #lKwd #lKwdInp.typed {
+	background-image: none;
+}
+
+#lSer #lKwd #lKwdInp:focus {
+	background-image: none;
+}
+
+#lSer #lKwd ol {
+	position: absolute;
+	top: 27px;
+	left: 0;
+	width: 255px;
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+	z-index: 10;
+}
+
+#lSer #lKwd ol.hide {
+	visibility: hidden;
+}
+
+#lSer #lKwd ol li {
+	padding: 6px 8px 8px 8px;
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	color: #646464;
+	font-size: 12px;
+	line-height: 12px;
+	letter-spacing: -1px;
+	cursor: pointer;
+}
+
+#lSer #lKwd ol li.inc b {
+	color: #e5004f;
+	font-weight: 100;
+}
+
+#lSer #lKwd ol li.exc b {
+	color: #2dc1e7;
+	font-weight: 100;
+}
+
+#lSer #lKwdList {
+	float: right;
+	width: 476px;
+	margin-top: 22px;
+	margin-bottom: 18px;
+	padding-left: 90px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/ico_swi.png');
+	background-repeat: no-repeat;
+	font-size: 12px;
+}
+
+#lSer #lKwdList li {
+	display: inline-block;
+	margin-right: 14px;
+	padding-bottom: 6px;
+}
+
+#lSer #lKwdList li.inc {
+	color: #67c100;
+}
+
+#lSer #lKwdList li.exc {
+	color: #aaa;
+}
+
+#lSer #lKwdList li.init {
+	position: relative;
+	top: 1px;
+	left: 0;
+	padding-left: 28px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lKwdInit.png');
+	background-repeat: no-repeat;
+	background-position: 0px 3px;
+	font-weight: 700;
+	font-size: 12px;
+}
+
+#lSer #lKwdList li.inc a, #lSer #lKwdList li.exc a {
+	position: relative;
+	top: 3px;
+	left: -1px;
+	color: #666;
+	font-size: 16px;
+	font-family: 'Dotum', '돋움', 'Malgun Gothic', '맑은 고딕', 'AppleGothic',
+		'Sans-serif';
+	line-height: 12px;
+}
+
+#lSer .func {
+	clear: both;
+	text-align: center;
+}
+
+#lSer .func input.init, #lSer .func input.submit {
+	width: 120px;
+	height: 28px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+#lSer .func input.init {
+	background-color: #fff;
+	color: #aaa;
+}
+
+#lSer .func input.submit {
+	background-color: #aaa;
+	color: #fff;
+}
+/* IE7 Hack */
+*+html body #lSer #lKwdList {
+	width: 470px;
+}
+
+*+html body #lSer #lKwdList li {
+	display: inline;
+}
+
+*+html body #lSer label {
+	display: inline;
+}
+
+/*-----------------------------------------------------------------
+스페셜 프로모션
+-----------------------------------------------------------------*/
+#lAdSp {
+	position: relative;
+	top: 0;
+	left: 0;
+	border-top: 1px solid #1b1b1b;
+	margin-top: 60px;
+	padding-top: 20px;
+}
+
+#lAdSp h3 {
+	margin: 0 24px;
+	color: #e5004f;
+	font-weight: 100;
+}
+
+#lAdSp .rlink {
+	position: absolute;
+	top: 28px;
+	right: 24px;
+	color: #aaa;
+	font-size: 12px;
+}
+
+#lAdSp .wrap {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 892px;
+	height: 200px;
+	margin: auto;
+	margin-top: 20px;
+	padding: 20px;
+	background-color: #f0f0f0;
+}
+
+#lAdSp .wrap img {
+	width: 200px;
+	height: 200px;
+}
+
+#lAdSp .wrap .title {
+	display: block;
+	position: absolute;
+	top: 70px;
+	left: 247px;
+	width: 357px;
+	font-size: 17px;
+	line-height: 26px;
+}
+
+#lAdSp .wrap .title:hover {
+	text-decoration: underline;
+}
+
+#lAdSp .wrap table {
+	position: absolute;
+	top: 60px;
+	left: 604px;
+	width: 348px font-size: 12px;
+	color: #1b1b1b;
+}
+
+#lAdSp .wrap table th {
+	width: 70px;
+	height: 39px;
+	padding-right: 14px;
+	font-weight: 100;
+	text-align: right;
+}
+
+#lAdSp .amt {
+	display: inline;
+	font-family: 'Verdana';
+	font-size: 17px;
+	font-weight: 700;
+}
+
+#lAdSp .amt b {
+	position: relative;
+	top: 2px;
+	left: 0;
+	margin-right: 3px;
+	font-size: 27px;
+	letter-spacing: -2px;
+}
+
+#lAdSp .qty {
+	display: inline-block;
+	height: 5px;
+	margin-left: 8px;
+	padding: 0 0 7px 8px;
+	border-left: 1px solid #aaa;
+	line-height: 12px;
+}
+/* IE7 Hack */
+*+html body #lAdSp .qty {
+	display: inline;
+}
+
+/*-----------------------------------------------------------------
+검색건수
+-----------------------------------------------------------------*/
+#lCnt {
+	height: 14px;
+	padding: 3px 0 10px 0;
+	border-bottom: 1px solid #1b1b1b;
+	color: #1b1b1b;
+	font-size: 15px;
+	line-height: 14px;
+	text-indent: 11px;
+}
+
+#lCnt #lwpUpdating {
+	color: #f63700;
+	font-size: 12px;
+}
+
+/*-----------------------------------------------------------------
+이미지 교정된 상품만 보기
+-----------------------------------------------------------------*/
+#lCnew {
+	position: relative;
+	top: -25px;
+	left: 0;
+	height: 0;
+	font-size: 12px;
+	letter-spacing: -1px;
+	text-align: right;
+}
+
+#lCnew input {
+	margin-right: 4px;
+	vertical-align: -2px;
+}
+
+#lCnew img {
+	margin-left: 2px;
+	vertical-align: -3px;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------
+정렬방식 / 리스트 갤러리 선택 / 페이지당 상품개수
+-----------------------------------------------------------------*/
+#lOpt {
+	clear: both;
+	width: 956px;
+	height: 31px;
+	margin: auto;
+	border-bottom: 1px solid #ddd;
+	padding-top: 20px;
+}
+
+#lSort {
+	
+}
+
+#lSort li {
+	float: left;
+	height: 12px;
+	padding: 9px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lSortSep.png');
+	background-repeat: no-repeat;
+	background-position: left 11px;
+	color: #646464;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#lSort li.selected {
+	color: #1b1b1b;
+	font-weight: 700;
+}
+
+#lSort li:first-child {
+	margin-left: -8px;
+	background-image: none;
+}
+
+#lSort li img {
+	position: relative;
+	top: -3px;
+	left: 0;
+	cursor: pointer;
+	vertical-align: -8px;
+}
+
+#lLgtg {
+	float: right;
+	width: 60px;
+	height: 30px;
+	margin-right: 7px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_toggleListGallery.png');
+	background-repeat: no-repeat;
+}
+
+#lLgtg.list {
+	background-position: top left;
+}
+
+#lLgtg.gallery {
+	background-position: bottom left;
+}
+
+#lLgtg button {
+	display: block;
+	overflow: hidden;
+	float: left;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	background-color: transparent;
+	text-indent: -1000px;
+	cursor: pointer;
+}
+
+#lSz {
+	float: right;
+	height: 12px;
+	padding: 9px;
+	width: 82px;
+	font-size: 12px;
+	line-height: 12px;
+	cursor: pointer;
+}
+
+#lSz ol {
+	width: 100px;
+}
+
+/*-----------------------------------------------------------------
+상품목록 공통
+-----------------------------------------------------------------*/
+#lLst h4 {
+	clear: both;
+	margin: 20px 24px 0 24px;
+	padding: 0;
+	color: #1b1b1b;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+#lLst .others {
+	visibility: hidden;
+	position: absolute;
+	width: 954px;
+	height: 239px;
+	border: 1px solid #dddddd;
+	background-color: #f0f0f0;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#lLst li.showOther .others {
+	visibility: visible;
+}
+
+#lLst .others ul {
+	margin-left: 19px;
+}
+
+#lLst .others ul li {
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 135px;
+	height: 200px;
+	margin: 20px 19px 0 19px;
+}
+
+#lLst .others ul a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+#lLst .others img {
+	width: 135px;
+	height: 135px;
+	margin-bottom: 10px;
+}
+
+#lLst .others .ttl {
+	overflow: hidden;
+	height: 33px;
+	color: #646464;
+}
+
+#lLst .others .amt {
+	margin-top: 8px;
+	color: #1b1b1b;
+}
+
+#lLst .others>a {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 12px;
+	color: #646464;
+}
+
+/*-----------------------------------------------------------------
+상품목록 [리스트형]
+-----------------------------------------------------------------*/
+#itemList7 .lItemList {
+	width: 956px;
+	margin: auto;
+	padding: 0 12px;
+	border-bottom: 1px solid #1b1b1b;
+}
+
+#itemList7 .lItemList>li {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 932px;
+	height: 150px;
+	padding: 30px 12px;
+	border-top: 1px solid #ddd;
+}
+
+#itemList7 .lItemList>li:first-child {
+	border-top: 0;
+}
+
+#itemList7 .lItemList a.thumb {
+	display: block;
+	position: absolute;
+	top: 30px;
+	left: 12px;
+}
+
+#itemList7 .lItemList a.thumb img {
+	width: 150px;
+	height: 150px;
+}
+
+#itemList7 .lItemList .main {
+	position: absolute;
+	top: 40px;
+	left: 180px;
+	width: 570px;
+}
+
+#itemList7 .lItemList .main .paidIcon {
+	display: block;
+	height: 23px;
+}
+
+#itemList7 .lItemList .main .global {
+	color: #2dc1e7;
+	font-size: 15px;
+}
+
+#itemList7 .lItemList .main .title {
+	height: 90px;
+	font-size: 15px;
+	letter-spacing: -1px;
+	line-height: 21px;
+}
+
+#itemList7 .lItemList .main .bold {
+	font-weight: 700;
+}
+
+#itemList7 .lItemList .main .red {
+	color: #ff643c;
+}
+
+#itemList7 .lItemList .main .title:hover {
+	text-decoration: underline;
+}
+
+#itemList7 .lItemList .amtqty {
+	position: absolute;
+	top: 63px;
+	left: 780px;
+	width: 174px;
+	color: #646464;
+	font-size: 12px;
+	line-height: 12px;
+	text-align: center;
+}
+
+#itemList7 .lItemList .amtqty .amt {
+	padding-bottom: 13px;
+	color: #1b1b1b;
+	font-size: 14px;
+	line-height: 17px;
+}
+
+#itemList7 .lItemList .amtqty .amt b {
+	margin-right: 2px;
+	font-family: 'Verdana';
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemList .amtqty .lowestPrice {
+	font-size: 11px;
+	color: #f63700;
+	border: 1px solid #f63700;
+	padding: 1px 0 3px 0;
+	width: 60px;
+	margin: 0 auto 5px auto;
+	text-align: center;
+	position: relative;
+	top: 0;
+	left: 0;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemList .amtqty .lowestPriceSole {
+	width: 80px;
+}
+
+#itemList7 .lItemList .amtqty .lowestPrice .lowestPriceInfoLayer {
+	text-align: left;
+	font-size: 11px;
+	color: #1b1b1b;
+	width: 180px;
+	height: 135px;
+	line-height: 15px;
+	padding: 10px;
+	border: 1px solid #1b1b1b;
+	position: absolute;
+	top: 18px;
+	left: -1px;
+	background-color: #fff;
+	z-index: 1000;
+	display: none;
+}
+
+#itemList7 .lItemList .amtqty .discountAmt {
+	color: #aaa;
+	text-decoration: line-through;
+}
+
+#itemList7 .lItemList .amtqty .discountRate {
+	color: #e5004f;
+}
+
+#itemList7 .lItemList .amtqty .markCompanyOnly {
+	width: 88px;
+	margin: auto;
+	margin-top: 5px;
+	margin-bottom: 12px;
+	padding: 2px 0 4px 0;
+	border: 1px solid #aaa;
+	font-size: 11px;
+	text-align: center;
+}
+
+#itemList7 .lItemList .amtqty .markCompanyBlock {
+	width: 80px;
+	margin: auto;
+	margin-bottom: 9px;
+	padding: 2px 0 4px 0;
+	border: 1px solid #aaa;
+	font-size: 12px;
+	text-align: center;
+	line-height: 16px;
+}
+
+#itemList7 .lItemList .amtqty .useOpt {
+	display: inline-block;
+	height: 10px;
+	margin-right: 7px;
+	padding-right: 7px;
+	border-right: 1px solid #aaa;
+	color: #e5004f;
+	word-spacing: -2px;
+	line-height: 7px;
+}
+
+#itemList7 .lItemList .amtqty .unitQty {
+	display: inline;
+}
+
+#itemList7 .lItemList .amtqty .markFreeDeli {
+	width: 50px;
+	margin: auto;
+	margin-top: 7px;
+	padding: 1px 0 3px 0;
+	border: 1px solid #aaa;
+	font-size: 11px;
+	text-align: center;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemList .amtqty .infoDeli {
+	margin-top: 7px;
+}
+
+#itemList7 .lItemList .amtqty .storehouseDeli {
+	margin-top: 7px;
+}
+
+#itemList7 .lItemList .seller {
+	position: absolute;
+	top: 63px;
+	left: 770px;
+	width: 174px;
+	font-size: 12px;
+	text-align: center;
+}
+
+#itemList7 .lItemList .seller .nick {
+	color: #646464;
+}
+
+#itemList7 .lItemList .seller .nick a {
+	color: #646464;
+}
+
+#itemList7 .lItemList .seller .nick a:hover {
+	text-decoration: underline;
+}
+
+#itemList7 .lItemList .seller .nick img {
+	margin-right: 2px;
+	vertical-align: -2px;
+}
+
+#itemList7 .lItemList .seller .id {
+	color: #aaa;
+}
+
+#itemList7 .lItemList .seller .grade {
+	margin-top: 12px;
+	color: #214865;
+	font-size: 11px;
+}
+
+#itemList7 .lItemList .seller .grade b {
+	position: relative;
+	top: 2px;
+	left: -1px;
+	color: #214865;
+	font-size: 15px;
+}
+
+#itemList7 .lItemList .seller .fastdeli {
+	width: 66px;
+	height: 11px;
+	margin: auto;
+	margin-top: 6px;
+	padding-bottom: 1px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/ico_fastDeli.png');
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	color: #53c0c3;
+	font-size: 11px;
+	text-indent: 22px;
+	line-height: 11px;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemList .subinfo {
+	position: absolute;
+	top: 153px;
+	left: 182px;
+	height: 12px;
+	color: #646464;
+}
+
+#itemList7 .lItemList .subinfo li {
+	float: left;
+	height: 12px;
+	padding: 0 7px;
+	border-left: 1px solid #aaa;
+	font-size: 12px;
+	line-height: 9px;
+	word-spacing: -3px;
+}
+
+#itemList7 .lItemList .subinfo li:first-child {
+	border: 0;
+	padding-left: 0;
+}
+
+#itemList7 .lItemList .subinfo li .highlight {
+	color: #ff643c;
+}
+
+#itemList7 .lItemList .galleryMore {
+	display: none;
+}
+/* 판매자의 다른상품보기 관련 */
+#itemList7 .lItemList .otherButton {
+	position: absolute;
+	bottom: 0;
+	right: 30px;
+	width: 135px;
+	height: 30px;
+	padding: 0 30px 4px 10px;
+	border: 1px solid #fff;
+	border-bottom: 0;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lCaMore.png');
+	background-repeat: no-repeat;
+	background-position: right top;
+	font-size: 11px;
+	color: #646464;
+	cursor: pointer;
+}
+
+#itemList7 .lItemList .otherButton[target="highlight"] {
+	color: #66c009;
+}
+
+#itemList7 .lItemList>li.showOther .otherButton {
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	color: #1b1b1b;
+	background-position: right bottom;
+}
+
+#itemList7 .lItemList>li.showOther {
+	margin-bottom: 240px;
+}
+
+#itemList7 .lItemList .others {
+	top: 210px;
+	left: 0;
+	border-bottom: 0;
+}
+/* IE7 Hack */
+*+html body #itemList7 .lItemList .lowestPrice {
+	display: inline;
+}
+
+*+html body #itemList7 .lItemList .amtqty .useOpt {
+	display: inline;
+	line-height: 12px;
+}
+
+*+html body #itemList7 .lItemList .subinfo li {
+	line-height: 12px;
+}
+
+/*-----------------------------------------------------------------
+상품목록 [갤러리형]
+-----------------------------------------------------------------*/
+#itemList7 .lItemGallery {
+	overflow: hidden;
+	width: 956px;
+	margin: auto;
+	border-bottom: 1px solid #1b1b1b;
+}
+
+#itemList7 .lItemGallery>li {
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 500px;
+	padding: 0 19px;
+	border-bottom: 1px solid #ddd;
+}
+
+#itemList7 .lItemGallery>li.col0 {
+	clear: left;
+}
+
+#itemList7 .lItemGallery>li.col3 {
+	clear: right;
+}
+
+#itemList7 .lItemGallery a.thumb {
+	display: block;
+	width: 200px;
+	height: 200px;
+	margin-top: 20px;
+	margin-bottom: 16px;
+}
+
+#itemList7 .lItemGallery a.thumb img {
+	width: 200px;
+	height: 200px;
+}
+
+#itemList7 .lItemGallery .main {
+	
+}
+
+#itemList7 .lItemGallery .main .paidIcon {
+	
+}
+
+#itemList7 .lItemGallery .main .title {
+	display: block;
+	overflow: hidden;
+	height: 42px;
+	margin-bottom: 16px;
+	font-size: 15px;
+	letter-spacing: -1px;
+	line-height: 21px;
+	word-break: all-break;
+}
+
+#itemList7 .lItemGallery .main .bold {
+	font-weight: 700;
+}
+
+#itemList7 .lItemGallery .main .red {
+	color: #ff643c;
+}
+
+#itemList7 .lItemGallery .main .title:hover {
+	text-decoration: underline;
+}
+
+#itemList7 .lItemGallery .main .global {
+	color: #2dc1e7;
+	font-size: 15px;
+}
+
+#itemList7 .lItemGallery .amtqty {
+	position: relative;
+	top: 0;
+	left: 0;
+	color: #646464;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#itemList7 .lItemGallery .amtqty .amt {
+	display: inline-block;
+	padding-bottom: 8px;
+	color: #1b1b1b;
+	font-size: 14px;
+	line-height: 17px;
+}
+
+#itemList7 .lItemGallery .amtqty .amt b {
+	margin-right: 2px;
+	font-family: 'Verdana';
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemGallery .amtqty .lowestPrice {
+	font-size: 11px;
+	color: #f63700;
+	border: 1px solid #f63700;
+	width: 60px;
+	padding: 1px 0 3px 0;
+	text-align: center;
+	letter-spacing: -1px;
+	display: inline-block;
+	vertical-align: 2px;
+	/*position			: relative;
+	top					: 0;
+	left				: 0;*/
+}
+
+#itemList7 .lItemGallery .amtqty .lowestPriceSole {
+	width: 80px;
+}
+
+#itemList7 .lItemGallery .amtqty .lowestPrice .lowestPriceInfoLayer {
+	text-align: left;
+	font-size: 11px;
+	color: #1b1b1b;
+	width: 180px;
+	height: 135px;
+	line-height: 15px;
+	padding: 10px;
+	border: 1px solid #1b1b1b;
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	background-color: #fff;
+	z-index: 1000;
+	display: none;
+}
+
+#itemList7 .lItemGallery .amtqty .discount {
+	display: inline-block;
+}
+
+#itemList7 .lItemGallery .amtqty .discountAmt {
+	color: #aaa;
+	text-decoration: line-through;
+}
+
+#itemList7 .lItemGallery .amtqty .discountRate {
+	color: #e5004f;
+}
+
+#itemList7 .lItemGallery .amtqty .markCompanyOnly {
+	display: inline-block;
+	position: relative;
+	top: -2px;
+	left: 4px;
+	width: 74px;
+	margin-bottom: 2px;
+	padding: 1px 0 3px 0;
+	border: 1px solid #aaa;
+	font-size: 11px;
+	letter-spacing: -1px;
+	text-align: center;
+}
+
+#itemList7 .lItemGallery .amtqty .markCompanyBlock {
+	width: 130px;
+	margin-top: -4px;
+	padding: 1px 0 3px 0;
+	border: 1px solid #aaa;
+	font-size: 12px;
+	line-height: 16px;
+	text-align: center;
+}
+
+#itemList7 .lItemGallery .amtqty .useOpt {
+	display: inline-block;
+	width: 50px;
+	height: 10px;
+	margin-right: 7px;
+	padding-right: 6px;
+	border-right: 1px solid #aaa;
+	color: #e5004f;
+	word-spacing: -2px;
+	line-height: 7px;
+}
+
+#itemList7 .lItemGallery .amtqty .unitQty {
+	display: inline;
+}
+
+#itemList7 .lItemGallery .amtqty .markFreeDeli {
+	width: 50px;
+	margin-top: 6px;
+	padding: 1px 0 3px 0;
+	border: 1px solid #aaa;
+	font-size: 11px;
+	text-align: center;
+	letter-spacing: -1px;
+}
+
+#itemList7 .lItemGallery .amtqty .infoDeli {
+	margin-top: 6px;
+}
+
+#itemList7 .lItemGallery .amtqty .storehouseDeli {
+	margin-top: 6px;
+}
+
+#itemList7 .lItemGallery .subinfo {
+	position: absolute;
+	top: 390px;
+	left: 22px;
+	color: #646464;
+}
+
+#itemList7 .lItemGallery .subinfo li {
+	float: left;
+	height: 12px;
+	margin-bottom: 8px;
+	padding: 0 7px;
+	border-left: 1px solid #aaa;
+	font-size: 12px;
+	line-height: 9px;
+	word-spacing: -3px;
+}
+
+#itemList7 .lItemGallery .subinfo li:first-child {
+	border: 0;
+	padding-left: 0;
+}
+
+#itemList7 .lItemGallery .subinfo li .highlight {
+	color: #ff643c;
+}
+
+#itemList7 .lItemGallery .seller {
+	position: absolute;
+	top: 430px;
+	left: 22px;
+	font-size: 12px;
+}
+
+#itemList7 .lItemGallery .seller .nick {
+	display: inline;
+	color: #646464;
+}
+
+#itemList7 .lItemGallery .seller .nick a {
+	color: #646464;
+}
+
+#itemList7 .lItemGallery .seller .nick a:hover {
+	text-decoration: underline;
+}
+
+#itemList7 .lItemGallery .seller .nick img {
+	margin-right: 2px;
+	vertical-align: -2px;
+}
+
+#itemList7 .lItemGallery .seller .id {
+	display: inline;
+	color: #aaa;
+}
+
+#itemList7 .lItemGallery .seller .grade {
+	display: none;
+}
+
+#itemList7 .lItemGallery .seller .fastdeli {
+	width: 66px;
+	height: 11px;
+	margin-top: 5px;
+	padding-bottom: 1px;
+	background-image:
+		url('http://211.43.195.137/image/item/list/ico_fastDeli.png');
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	color: #53c0c3;
+	font-size: 11px;
+	text-indent: 22px;
+	line-height: 11px;
+	letter-spacing: -1px;
+}
+/* 판매자의 다른상품보기 관련 */
+#itemList7 .lItemGallery .otherButton {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 30px;
+	padding: 0 30px 4px 10px;
+	border: 1px solid #fff;
+	border-bottom: 0;
+	background-color: #fff;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_lCaMore.png');
+	background-repeat: no-repeat;
+	background-position: right top;
+	font-size: 11px;
+	color: #646464;
+	cursor: pointer;
+}
+
+#itemList7 .lItemGallery .otherButton[target="highlight"] {
+	color: #66c009;
+}
+
+#itemList7 .lItemGallery>li.showOther .otherButton {
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	color: #1b1b1b;
+	background-position: right bottom;
+}
+
+#itemList7 .lItemGallery>li.showOther {
+	margin-bottom: 240px;
+}
+
+#itemList7 .lItemGallery .col0 .others {
+	top: 500px;
+	left: 0;
+}
+
+#itemList7 .lItemGallery .col1 .others {
+	top: 500px;
+	left: -238px;
+}
+
+#itemList7 .lItemGallery .col2 .others {
+	top: 500px;
+	left: -476px;
+}
+
+#itemList7 .lItemGallery .col3 .others {
+	top: 500px;
+	left: -714px;
+}
+/* IE7 Hack */
+*+html body #itemList7 .lItemGallery .amtqty .discount, *+html body #itemList7 .lItemGallery .amtqty .markCompanyOnly,
+	*+html body #itemList7 .lItemGallery .lowestPrice {
+	display: inline;
+}
+
+*+html body #itemList7 .lItemGallery .amtqty .useOpt {
+	display: inline;
+	line-height: 12px;
+}
+
+*+html body #itemList7 .lItemGallery .subinfo li {
+	line-height: 12px;
+}
+
+/*-----------------------------------------------------------------
+검색결과 없음
+-----------------------------------------------------------------*/
+#lBlank {
+	padding: 100px;
+	border-bottom: 1px solid #1b1b1b;
+	color: #1b1b1b;
+	font-size: 14px;
+	text-align: center;
+}
+
+/*-----------------------------------------------------------------
+페이지네이션
+-----------------------------------------------------------------*/
+#lPage {
+	clear: both;
+	margin: 30px 0;
+	font-size: 0;
+	text-align: center;
+}
+
+#lPage .btn {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	top: 1px;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	margin-right: 2px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	text-indent: -500px;
+	cursor: pointer;
+	line-height: 100px;
+}
+
+#lPage .bf10 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageBefore10.png');
+}
+
+#lPage .bf1 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageBefore1.png');
+}
+
+#lPage .af1 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageAfter1.png');
+}
+
+#lPage .af10 {
+	background-image:
+		url('http://211.43.195.137/image/item/list/btn_pageAfter10.png');
+}
+
+#lPage ol {
+	display: inline-block;
+	margin-right: 2px;
+}
+
+#lPage li {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 28px;
+	height: 28px;
+	margin: 0 10px;
+	border: 1px solid #fff;
+	background-color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 14px;
+	cursor: pointer;
+}
+
+#lPage li.curr {
+	border: 1px solid #ddd;
+	background-color: #66c009;
+	font-size: 14px;
+	text-align: center;
+}
+
+#lPage li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding-top: 6px;
+	color: #1b1b1b;
+}
+
+#lPage li.curr a {
+	color: #fff;
+}
+
+#lPage form {
+	display: inline-block;
+	position: relative;
+	top: -10px;
+	left: 0;
+	margin-left: 37px;
+}
+
+#lPage form input[type="text"] {
+	width: 48px;
+	height: 12px;
+	padding: 8px 6px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#lPage form input[type="submit"] {
+	display: inline-block;
+	width: 46px;
+	height: 30px;
+	margin-left: -1px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#lPage form span {
+	padding-left: 10px;
+	color: #646464;
+	font-size: 12px;
+}
+
+IE7 Hack 
+*+html body #lPage .btn, *+html body #lPage ol, *+html body #lPage li, *+html body #lPage form,
+	*+html body #lPage form input[type="submit"] {
+	display: inline;
+}
+
+*+html body #lPage .bf10 {
+	margin-left: 480px;
+}
+
+*+html body #lPage input, *+html body #lPage input {
+	position: relative;
+	top: 6px;
+	left: 0;
+}
+
+/*-----------------------------------------------------------------
+기획전
+-----------------------------------------------------------------*/
+#lEvr {
+	padding-top: 20px;
+	margin-bottom: 60px;
+}
+
+#lEvr img {
+	width: 100%;
+}
+
+#lEvr ul {
+	overflow: hidden;
+}
+
+#lEvr .multiple li {
+	float: left;
+	width: 50%;
+}
+
+/*-----------------------------------------------------------------
+키워드 파워스페셜 / 카테고리 파워스페셜
+-----------------------------------------------------------------*/
+#lPws {
+	position: relative;
+	top: 0;
+	left: 0;
+	border-top: 1px solid #1b1b1b;
+	margin-top: 60px;
+	padding-top: 20px;
+}
+
+#lPws h3 {
+	margin: 0 24px;
+	color: #1b1b1b;
+	font-weight: 100;
+}
+
+#lPws h3 b {
+	color: #e5004f;
+}
+
+#lPws .rlink {
+	position: absolute;
+	top: 28px;
+	right: 24px;
+	color: #aaa;
+	font-size: 12px;
+}
+
+#lPws .lItemList {
+	border-bottom-color: #ddd;
+}
+
+/*-----------------------------------------------------------------
+검색결과 없음
+-----------------------------------------------------------------*/
+#lEmpty {
+	clear: both;
+	margin-top: 30px;
+	padding: 50px;
+	text-align: center;
+	background-color: #f0f0f0;
+}
+
+#lEmpty h3 {
+	color: #1b1b1b;
+	font-size: 28px;
+	font-weight: 100;
+	line-height: 28px;
+	letter-spacing: -1px;
+}
+
+#lEmpty h3 b {
+	font-weight: 700;
+	color: #f63700;
+}
+
+#lEmpty .spellCheck {
+	margin-top: 18px;
+	color: #646464;
+	font-size: 16px;
+	letter-spacing: -1px;
+}
+
+#lEmpty .spellCheck b {
+	color: #f63700;
+	font-weight: 100;
+}
+
+#lEmpty .spellCheck a {
+	color: #1ec400;
+	font-weight: 700;
+}
+
+#lEmpty ul {
+	margin-top: 30px;
+	padding: 0 220px;
+	list-style-type: disc;
+	list-style-position: inside;
+	text-align: left;
+	letter-spacing: -1px;
+}
+
+#lEmpty li {
+	color: #646464;
+	font-size: 13px;
+	line-height: 24px;
+}
+
+/*-----------------------------------------------------------------
+인기키워드(검색결과 없을 때)
+-----------------------------------------------------------------*/
+#lEmptyKw {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 410px;
+	margin-top: 310px;
+	padding: 0 24px;
+	border-top: 1px solid #1b1b1b;
+}
+
+#lEmptyKw h3 {
+	padding: 20px 0;
+	color: #1b1b1b;
+	font-size: 18px;
+	font-weight: 100;
+	line-height: 18px;
+}
+
+#lEmptyKw h3 b {
+	color: #e5004f;
+}
+
+#lEmptyKw ol {
+	float: left;
+	width: 198px;
+	padding: 4px 0;
+	border: 1px solid #ddd;
+}
+
+#lEmptyKw ol li {
+	margin: 5px 0;
+	padding: 7px 17px 8px 17px;
+	color: #646464;
+	font-size: 13px;
+	line-height: 13px;
+	cursor: pointer;
+}
+
+#lEmptyKw ol li.curr {
+	width: 192px;
+	color: #fff;
+	background-color: #1ec400;
+	background-image:
+		url('http://211.43.195.137/image/item/list/bg_emptyPop.png');
+	background-repeat: no-repeat;
+	background-position: top right;
+}
+
+#lEmptyKw>ul>li {
+	display: none;
+}
+
+#lEmptyKw>ul>li.curr {
+	display: block;
+}
+
+#lEmptyKw>ul>li ul {
+	
+}
+
+#lEmptyKw>ul>li li {
+	float: left;
+	width: 200px;
+	padding: 25px 0 25px 40px;
+}
+
+#lEmptyKw>ul>li li .title {
+	overflow: hidden;
+	display: block;
+	height: 40px;
+	margin-top: 24px;
+	font-size: 16px;
+	letter-spacing: -1px;
+	line-height: 19px;
+}
+
+#lEmptyKw>ul>li li .amt {
+	margin-top: 14px;
+	font-size: 14px;
+}
+
+#lEmptyKw>ul>li li .amt b {
+	font-family: 'Verdana';
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+/*-----------------------------------------------------------------
+인기상품100(검색결과 없을 때)
+-----------------------------------------------------------------*/
+#lEmptyPop {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 410px;
+	margin: auto;
+	margin-top: 60px;
+	padding: 0 12px;
+	border-top: 1px solid #1b1b1b;
+}
+
+#lEmptyPop h3 {
+	padding: 20px 0 0 19px;
+	color: #1b1b1b;
+	font-size: 18px;
+	font-weight: 100;
+	line-height: 18px;
+}
+
+#lEmptyPop h3 b {
+	color: #e5004f;
+}
+
+#lEmptyPop .rlink {
+	position: absolute;
+	top: 20px;
+	right: 33px;
+	color: #aaa;
+	font-size: 12px;
+}
+
+#lEmptyPop ol {
+	
+}
+
+#lEmptyPop li {
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 200px;
+	margin: 24px 19px;
+}
+
+#lEmptyPop li h4 {
+	overflow: hidden;
+	float: left;
+	margin-bottom: 10px;
+	padding: 3px 6px;
+	border-bottom: 3px solid #aaaaaa;
+	color: #1b1b1b;
+	font-size: 16px;
+}
+
+#lEmptyPop li .up, #lEmptyPop li .down, #lEmptyPop li .new, #lEmptyPop li .none
+	{
+	position: absolute;
+	top: 6px;
+	right: 0;
+	height: 12px;
+	padding-left: 10px;
+	font-size: 11px;
+	background-repeat: no-repeat;
+	background-position: bottom left;
+}
+
+#lEmptyPop li .up {
+	background-image:
+		url('http://211.43.195.137/image/item/list/ico_rankUp.png');
+}
+
+#lEmptyPop li .down {
+	background-image:
+		url('http://211.43.195.137/image/item/list/ico_rankDown.png');
+}
+
+#lEmptyPop li .img {
+	clear: both;
+	display: block;
+}
+
+#lEmptyPop li .ttl {
+	overflow: hidden;
+	display: block;
+	height: 40px;
+	margin-top: 24px;
+	font-size: 16px;
+	letter-spacing: -1px;
+	line-height: 19px;
+}
+
+#lEmptyPop li .amt {
+	margin-top: 14px;
+	font-size: 14px;
+}
+
+#lEmptyPop li .amt b {
+	font-family: 'Verdana';
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}

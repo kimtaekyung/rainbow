@@ -1,0 +1,148 @@
+@charset "UTF-8";
+div.cs_search_area_div {
+    width: 100%;
+    height: 90px;
+    background-color: #e5004f;
+    color: #ffffff;
+}
+div.cs_search_area_div > h1.cs_search_title_h1 {
+    font-size: 31px;
+    font-weight: bold;
+    letter-spacing: -0.7px;
+    margin-right: 95px;
+    position: absolute;
+    left: 75px;
+    top: 18px;
+}
+div.cs_search_area_div > div.cs_search_input_div {
+    width: 410px;
+    margin: 0px auto;
+    
+}
+div.cs_search_area_div > div.cs_search_input_div > div.cs_search_div{
+    display: inline-block;
+    position: absolute;
+    top: 21px;
+    width: 410px;
+    height: 20px;
+    background-color: #ffffff;
+    padding: 15px 15px;
+}
+div.cs_search_area_div > div.cs_search_input_div > div.cs_search_div > input.cs_search_input {
+    width: 330px;
+    color: #000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}
+div.cs_search_area_div > div.cs_search_input_div > div.cs_search_div > span.cs_search_span{
+	width: 50px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+div.cs_search_area_div > div.cs_search_input_div > div.cs_search_div > span.cs_search_span > img.cs_search_img{
+    width: 34px;
+    padding: 8px;
+}
+
+div.cs_navi_area_div{
+	border:1ps solid black;
+}
+
+div.cs_navi_area_div > ul.cs_navi_area_ul{
+	width: 100%;
+	display: none;
+	height: 60px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #fafafa;	
+    display: table;
+}
+
+div.cs_navi_area_div > ul.cs_navi_area_ul > li{
+	cursor:pointer;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+    border: 1px solid #eeeeee;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.cs_navi_area_div > ul.cs_navi_area_ul > li.on{
+	cursor:pointer;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+    border: 1px solid #eeeeee;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #eb515b;
+}
+
+div.cs_navi_area_div > ul.cs_navi_area_ul > li.on > a > span{
+	color: white;
+}
+
+div.cs_list_area_div{
+	margin-top: 0px;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul{
+	width: 100%; height: auto; margin-top: 0px;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li{
+	display: inline-block; width: 100%; height: auto; border-top: 1px solid #eeeeee;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > a.cs_list_area_a{
+	position: relative; display: block;height: auto;padding: 25px 34px 25px 34px;cursor: pointer;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > a.cs_list_area_a > span.cs_list_area_span{
+	display: inline-block;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > a.cs_list_area_a > span.cs_list_area_span > img.cs_list_area_img_q{
+	width: 32px;float: left;"
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > a.cs_list_area_a > span.cs_list_area_span > span{
+	width: 800px;font-size: 14px;line-height: 1.64;color: #111111;float: left;margin: 10px;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > a.cs_list_area_a > span.cs_list_area_span > img.cs_list_area_img_a{
+	width: 32px;right: 30px;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > div.cs_list_area_div_answer{
+	position: relative; display: block;height: auto;padding: 25px 34px 25px 34px;background-color: #fafafa;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > div.cs_list_area_div_answer > span{
+	display: inline-block;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > div.cs_list_area_div_answer > span > img{
+	width: 32px;float: left;
+}
+
+div.cs_list_area_div > ul.cs_list_area_ul > li.cs_list_area_li > div.cs_list_area_div_answer > span > span{
+	width: 800px;font-size: 14px;line-height: 1.64;color: #111111;float: left;margin: 10px;
+}
+div.cs_list_more_div{
+	padding: 16px 16px;border-top: 1px solid #eeeeee;border-bottom: 1px solid #eeeeee;text-align: center;cursor: pointer;
+}
+div.cs_list_more_div > a{
+	text-decoration: none;
+}
+
+

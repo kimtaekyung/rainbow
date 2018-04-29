@@ -1,0 +1,719 @@
+@charset "UTF-8";
+
+table {
+	table-layout: fixed;
+}
+/* 판매관리 */
+.sellerInfo {
+	height: 12px;
+}
+
+.sellerInfo .sellerName {
+	float: left;
+}
+
+.sellerInfo .sellerLevel {
+	float: right;
+	right: 0;
+}
+
+.sellerInfo .sellerLevel img {
+	vertical-align: -1px;
+}
+
+.sellerWrap {
+	clear: both;
+	margin-top: 18px;
+	height: 40px;
+	background-color: #e6e6e6;
+	border: 1px solid #cccccc;
+}
+
+.sellerWrap a {
+	color: #999999;
+	text-decoration: none;
+}
+
+.sellerWrap a:hover {
+	text-decoration: underline;
+}
+
+.sellerWrap .sellerCoupon {
+	float: left;
+	padding: 15px 0 0 20px;
+}
+
+.sellerWrap .sellerHelp {
+	float: right;
+	padding: 10px;
+	font-size: 0;
+}
+
+.sellerWrap .sellerHelp .padded {
+	margin-left: 10px;
+}
+/*-----------------------------------------------------------------
+	운세알리미
+-----------------------------------------------------------------*/
+.mySellFortune {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 770px;
+	height: 31px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	background-image:
+		url('http://211.43.195.137/image/partner/bgi_fortuneMessenger.gif');
+}
+
+.mySellFortune a {
+	color: #0000cc;
+}
+
+.mySellFortune .wrap {
+	display: block;
+	position: absolute;
+	top: 10px;
+	left: 113px;
+	width: 590px;
+	height: 12px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.mySellFortune .wrap #todayFortune {
+	text-indent: 590px;
+}
+
+.mySellFortune .conf {
+	display: block;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+/* 상품판매현황 */
+.sellInfo {
+	width: 495px;
+	margin-top: 30px;
+	float: left;
+}
+
+.sellInfo .sellState img {
+	position: absolute;
+}
+
+.sellInfo .sellState .sell {
+	position: relative;
+	top: 2px;
+	float: right;
+}
+
+.sellStep {
+	float: left;
+	width: 86px;
+	margin-top: 30px;
+	background-image:
+		url("http://211.43.195.137/image/v6/elements/my/common/img_bgRound.jpg");
+	text-align: center;
+}
+
+.sellStep .count {
+	font-size: 17px;
+	font-weight: 900;
+	font-family: 'tahoma';
+	letter-spacing: -1px;
+}
+
+.sellStep img {
+	margin-bottom: 2px;
+}
+
+.sellStep1l {
+	height: 95px;
+	padding-top: 50px;
+}
+
+.sellStep2l {
+	height: 120px;
+	padding-top: 25px;
+}
+
+.sellArrow {
+	float: left;
+	margin: 85px 17px 0 16px;
+}
+/* 판매종료/취소현황 */
+.itemEnd {
+	width: 120px;
+	margin: 30px 0 0 15px;
+	float: left;
+}
+
+.itemEndList {
+	height: 148px;
+	border: 2px solid #cdcdcd;
+	padding: 10px 0px;
+	margin-top: 2px;
+}
+
+.itemEndList li {
+	margin-bottom: 3px;
+}
+
+.itemEndList li a {
+	display: block;
+	padding: 6px 8px 5px 8px;
+	height: 15px;
+	color: #8b8b8b;
+	text-decoration: none;
+}
+
+.itemEndList li a:hover {
+	background-color: #eeeeee;
+}
+
+.itemEndList li .left {
+	float: left;
+}
+
+.itemEndList li .right {
+	float: right;
+	font-weight: 700;
+	text-decoration: underline;
+}
+/* 흥정현황 */
+.bargain {
+	width: 126px;
+	margin: 30px 0 0 9px;
+	float: right;
+}
+
+.bargainList {
+	height: 164px;
+	border: 2px solid #cdcdcd;
+	margin-top: 2px;
+	padding-top: 4px;
+}
+
+.bargainList li {
+	padding: 4px 0;
+}
+
+.bargainList li .right {
+	float: right;
+	padding-top: 8px;
+}
+
+.bargainList li a {
+	display: block;
+	padding: 3px 7px;
+	color: #8b8b8b;
+	text-decoration: none;
+}
+
+.bargainList li a:hover {
+	background-color: #eeeeee;
+}
+
+.bargainWait {
+	margin-left: 5px;
+}
+
+.itemWrap {
+	margin-top: 30px;
+}
+/* 상품등록현황 */
+.itemReg {
+	float: left;
+	font-size: 0;
+}
+
+.itemRegTbl {
+	margin-top: 10px;
+	border: 1px solid #d3d3d3;
+	width: 590px;
+	border-collapse: collapse;
+}
+
+.itemRegTbl th {
+	background-color: #efefef;
+	height: 30px;
+	border: 1px solid #e6e6e6;
+	font-weight: 100;
+}
+
+.itemRegTbl td {
+	height: 42px;
+	border: 1px solid #e6e6e6;
+	font-weight: 700;
+}
+
+.itemRegTbl td a {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+
+.itemRegTbl strong {
+	color: #ffaa33;
+	font-size: 12pt;
+	text-decoration: underline;
+}
+/* 광고현황 */
+.itemAdvState {
+	float: right;
+	margin-left: 15px;
+	width: 165px;
+	font-size: 0;
+}
+
+.itemAdvState img {
+	vertical-align: middle;
+	margin-bottom: 4px;
+}
+
+.itemAdvState .advStateList {
+	clear: both;
+	height: 62px;
+	padding: 7px 0px;
+	border: 2px solid #cdcdcd;
+}
+
+.itemAdvState .advStateList li {
+	height: 20px;
+	margin-bottom: 1px;
+	font-size: 9pt;
+}
+
+.itemAdvState .advStateList li a {
+	display: block;
+	height: 14px;
+	padding: 4px 6px 2px 6px;
+	color: #8b8b8b;
+	text-decoration: none;
+}
+
+.itemAdvState .advStateList li a:hover {
+	background-color: #eeeeee;
+}
+
+.itemAdvState .advStateList li .left {
+	float: left;
+}
+
+.itemAdvState .advStateList li .right {
+	float: right;
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+.supportCenterWrap {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 100px;
+	margin-top: 20px;
+	font-size: 0;
+}
+
+.supportCenterWrap .bnrLeft {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.supportCenterWrap .bnrRight {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.etcWrap {
+	margin-top: 20px;
+}
+/* 판매자 공지사항 */
+.sellerNotice {
+	width: 285px;
+	height: 160px;
+	float: left;
+	font-size: 0;
+}
+
+.sellerNotice img {
+	vertical-align: middle;
+}
+
+.sellerNotice ul li {
+	overflow: hidden;
+	padding: 7px 0 4px 5px;
+	border-bottom: 1px solid #d3d3d3;
+}
+
+.sellerNotice ul li .new {
+	text-indent: 3px;
+}
+
+.sellerNotice ul li a {
+	display: block;
+	float: left;
+	color: #a6a6a6;
+	text-decoration: none;
+	letter-spacing: -1px;
+	font-size: 12px;
+}
+
+.sellerNotice ul li a:hover {
+	color: #3333cc;
+	text-decoration: underline;
+}
+
+.noticeTitle {
+	height: 17px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #818181;
+	font-size: 13px;
+	font-weight: 700;
+	margin-bottom: 2px;
+}
+
+.noticeTitle .left {
+	float: left;
+}
+
+.noticeTitle .noticeMore {
+	float: right;
+	color: #999999;
+	letter-spacing: -2px;
+	text-decoration: none;
+}
+/* 상품문의현황 */
+.itemQState {
+	float: left;
+	margin-left: 17px;
+}
+
+.itemQState .qStateList {
+	border: 2px solid #cdcdcd;
+	margin-top: 5px;
+	width: 164px;
+	height: 100px;
+}
+
+.itemQState .qReviewStatus {
+	border: 2px solid #cdcdcd;
+	margin-top: 4px;
+	width: 164px;
+	height: 33px;
+}
+
+.itemQState ul {
+	padding: 6px 0px;
+}
+
+.itemQState ul li {
+	height: 18px;
+	margin-bottom: 4px;
+}
+
+.itemQState ul li.orange a {
+	color: #ffaa33;
+}
+
+.itemQState ul li a {
+	display: block;
+	height: 13px;
+	padding: 5px 15px 4px 15px;
+	color: #8b8b8b;
+	text-decoration: none;
+}
+
+.itemQState ul li a:hover {
+	background-color: #eeeeee;
+}
+
+.itemQState .left {
+	float: left;
+}
+
+.itemQState .right {
+	float: right;
+	font-weight: 700;
+	text-decoration: underline;
+}
+/* 매출내역 & 대금정산현황 */
+.saleInfo {
+	float: right;
+	width: 284px;
+	margin-left: 15px;
+}
+/* 매출내역 */
+.saleListDL {
+	height: 56px;
+	border: 1px solid #cdcdcd;
+	margin-top: 5px;
+	padding: 7px 5px 0px 5px;
+}
+
+.saleListDL input {
+	vertical-align: middle;
+}
+
+.saleListDL .row {
+	padding: 0;
+	height: 24px;
+	margin-bottom: 3px;
+	overflow: hidden;
+}
+
+.saleListDL select {
+	border: 1px solid #cdcdcd;
+	vertical-align: middle;
+}
+
+.saleYear {
+	padding: 2px;
+	width: 70px;
+	font-size: 11px;
+}
+
+.saleDivision {
+	margin-left: 5px;
+	padding: 2px;
+	width: 125px;
+	font-size: 11px;
+}
+/* 대금정산현황 */
+.calculateState {
+	margin-top: 18px;
+}
+
+.calculateState .title {
+	height: 18px;
+	font-size: 0;
+}
+
+.calculateState .title .left {
+	float: left;
+}
+
+.calculateState .title .right {
+	float: right;
+	padding-top: 2px;
+	font-size: 9pt;
+}
+
+.calculateList {
+	height: 40px;
+	margin-top: 4px;
+	border-collapse: collapse;
+	border: 1px solid #cdcdcd;
+}
+
+.calculateList td {
+	padding: 2px 12px;
+	border: 1px solid #cdcdcd;
+}
+
+.calculateList .labels {
+	float: left;
+}
+
+.calculateList .amount {
+	float: right;
+	margin-top: -1px;
+	word-spacing: -2px;
+}
+
+.calculatePrice {
+	color: #dd0000;
+	font-family: 'Century Gothic', 'Arial', 'Helvetica', 'sans-serif';
+	font-weight: 700;
+	font-size: 17px;
+	letter-spacing: -1px;
+}
+/* 파워멤버 광고영역 */
+.authPower {
+	height: 74px;
+	margin-top: 20px;
+	border: 1px solid #d8d8d8;
+	background-color: #fffcf0;
+}
+
+.authPowerLeft {
+	float: left;
+	width: 125px;
+	margin: 7px;
+	padding: 5px 45px 5px 35px;
+	border-right: 1px solid #d8d8d8;
+}
+
+.authPowerCenter {
+	float: left;
+	padding: 2px 10px 2px 35px;
+}
+
+.authPowerRight {
+	float: left;
+	padding: 8px;
+	padding-top: 12px;
+	font-size: 8pt;
+	font-family: 'dotum', '돋움';
+	color: #888888;
+	line-height: 1.6em;
+}
+/* 광고 영역 */
+.advWrap {
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+.advWrap a {
+	text-decoration: none;
+}
+
+.advLeft {
+	margin-right: 6px;
+}
+/* 폰트 색 & clear both */
+.clear {
+	clear: both;
+}
+
+.red {
+	color: #dc0000;
+}
+
+.black {
+	color: #272727;
+}
+
+.gray {
+	color: #8b8b8b;
+}
+
+.orange {
+	color: #ffaa33;
+}
+
+.pointer {
+	cursor: pointer;
+}
+/* 상품문의, 거래문의 현황 */
+.sellerSupportWrap {
+	margin: 20px 0 20px 0;
+}
+
+.sellerSupportWrap .itemSupport {
+	width: 380px;
+	float: left;
+}
+
+.sellerSupportWrap .itemSupport .title {
+	margin-bottom: 10px;
+}
+
+.sellerSupportWrap .itemSupport .sptTitle {
+	font-weight: 700;
+}
+
+.sellerSupportWrap .itemSupport .noticeMore {
+	color: #999999;
+	text-decoration: none;
+	float: right;
+	font-weight: 700;
+	letter-spacing: -2px;
+}
+
+.sellerSupportWrap .itemSupport .noticeMore img {
+	vertical-align: middle;
+}
+
+.sellerSupportWrap .itemSupport ul {
+	margin-top: 5px;
+	border-top: 1px solid #d3d3d3;
+}
+
+.sellerSupportWrap .itemSupport ul li {
+	height: 15px;
+	width: 380px;
+	border-bottom: 1px solid #d3d3d3;
+	padding: 7px 0 4px 0;
+}
+
+.sellerSupportWrap .itemSupport ul li a {
+	color: #a6a6a6;
+	text-decoration: none;
+}
+
+.sellerSupportWrap .orderSupport {
+	margin-left: 10px;
+	float: left;
+}
+
+.sellerSupportWrap .orderSupport .title {
+	margin-bottom: 5px;
+}
+
+.sellerSupportWrap .orderSupport ul {
+	margin-top: 5px;
+}
+
+.sellerSupportWrap .orderSupport ul li {
+	height: 15px;
+	width: 380px;
+	border-bottom: 1px solid #d3d3d3;
+	padding: 7px 0 4px 0;
+}
+
+.sellerSupportWrap .orderSupport ul li a {
+	color: #a6a6a6;
+	text-decoration: none;
+}
+
+.sellerSupportWrap .orderSupport .noticeMore {
+	padding-top: 6px;
+	color: #999999;
+	text-decoration: none;
+	float: right;
+	font-weight: 700;
+	letter-spacing: -2px;
+}
+
+.sellerSupportWrap .orderSupport .noticeMore img {
+	vertical-align: middle;
+}
+
+.lSellerWrap {
+	background-color: #FFF;
+	height: 70px;
+	margin-top: 18px;
+	border: 1px solid #CCC;
+	clear: both;
+}
+
+.lSellerWrap .sellerCoupon {
+	padding: 15px 0 0 20px;
+	float: left;
+	line-height: 18px;
+}
+
+.lSellerWrap .sellerHelp {
+	padding: 10px;
+	float: right;
+	font-size: 0;
+}
+
+.lSellerWrap a {
+	color: #8B8B8B;
+	text-decoration: none;
+}
+
+.lSellerWrap a:hover {
+	text-decoration: underline;
+}
+
+.lSellerWrap .red {
+	color: #CC0000;
+}

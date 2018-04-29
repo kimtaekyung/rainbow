@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+h3 {
+	margin: 8px 0;
+	padding-top: 12px;
+}
+
+#v6RightContent .insu {
+	padding: 15px;
+	text-align: center;
+}
+
+#v6RightContent .notice {
+	padding: 10px;
+	border: 1px solid #ccc;
+	background-color: #f3f3f3;
+	list-style-type: disc;
+	line-height: 1.6em;
+}
+
+#v6RightContent .notice li {
+	padding-top: 2px;
+	padding-left: 23px;
+	text-indent: -19px;
+	color: #333;
+}
+
+#v6RightContent .agreement {
+	padding: 20px;
+	text-align: center;
+}
+
+#v6RightContent .submitSelect {
+	padding: 15px;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+}
+
+#v6RightContent .submitSelect {
+	padding: 16px;
+}
+
+#v6RightContent .submitSelect label {
+	font-size: 9pt;
+}
+
+#v6RightContent .submitSelect label.label {
+	padding-right: 6px;
+	font-weight: 700;
+}
+
+#v6RightContent .submitSelect input {
+	margin-left: 8px;
+	vertical-align: -2px;
+}
+
+#v6RightContent .submitButton {
+	padding: 15px;
+	text-align: center;
+}

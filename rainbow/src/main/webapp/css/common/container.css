@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+#wrap, #wrap button, #wrap input {
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+
+#wrap #lHeaderTop {
+	border-bottom: 1px solid #DDD;
+}
+
+.clearboth {
+	clear: both;
+}
+
+/*-----------------------------------------------------------------
+	최상단메뉴바 부분의 CSS입니다.
+	-----------------------------------------------------------------*/
+#wrap #lHeaderTop #headerMenubar {
+	width: 980px;
+	height: 30px;
+	margin: 0px auto;
+	display: block;
+}
+
+/* 좌측 메뉴바(공통) 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#leftMenu {
+	float: left;
+	position: relative;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li {
+	padding: 8px 9px 8px 0;
+	float: left;
+	font-size: 11px;
+	color: #1B1B1B;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li.leftMenuBar {
+	color: #AAA;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li a {
+	color: #1B1B1B;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 좌측 메뉴바(앱다운로드 레이어) 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#leftMenu li#appDownload a img {
+	vertical-align: -2px;
+}
+
+/* 우측 메뉴바 부분입니다. */
+#wrap #lHeaderTop #headerMenubar ul#rightMenu {
+	float: right;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li {
+	padding: 8px 0 8px 20px;
+	float: left;
+	font-size: 11px;
+	color: #1B1B1B;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li a {
+	color: #1B1B1B;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li a b {
+	color: #F63700;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuMsg {
+	padding: 9px 5px 0 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuMsg img {
+	cursor: pointer;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuName {
+	padding: 8px 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li#rightMenuName a:hover {
+	text-decoration: underline;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.login {
+	padding-left: 5px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu {
+	position: relative;
+	z-index: 9999;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu a {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	position: absolute;
+	top: 30px;
+	display: none;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li {
+	width: 90px;
+	height: 13px; /* 객체의 사이 간격 8px 감안한 숫자임 */
+	border-top: 1px solid #DDD;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li:first-child
+	{
+	border-top: 0;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li:hover {
+	background-color: #DDD;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li a {
+	font-size: 9pt;
+	line-height: 11px;
+}
+
+#wrap #lHeaderTop #headerMenubar ul#rightMenu li.subMenu ul li a.lastSubMenu
+	{
+	color: #AAA;
+	text-align: right;
+}

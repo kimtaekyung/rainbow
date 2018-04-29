@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.buyer.dao.InterestItemDao">
+	<!-- 타입별 관심상품 리스트 가져오기 -->
+	<select id="getMyInterestItemList" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT
+			T1.ITEM_SEQ
+			,T1.MB_SEQ
+			,T2.ITEM_TITLE
+			,T2.ITEM_NAME
+			,T2.ITEM_PRICE
+			,T2.ITEM_CUST_PRICE
+			,T2.ITEM_COUPON_PRICE
+			,T2.ITEM_LAST_PRICE
+			,T2.ITEM_REPRESENT_IMAGE
+		FROM RB_MY_ITEM T1
+		LEFT OUTER JOIN RB_SHOP_ITEM T2 ON T1.ITEM_SEQ = T2.ITEM_SEQ 
+		WHERE 1=1
+		AND T1.MB_SEQ = #{mb_seq}
+		<if test='type != null and type != ""'>
+			<choose>
+				<when test='type == "0"'>
+					AND 1=1
+				</when>			
+				<when test='type == "1"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]> 10000
+				</when>	
+				<when test='type == "2"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  10000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  50000
+				</when>
+				<when test='type == "3"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  50000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  100000
+				</when>
+				<when test='type == "4"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  100000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  200000
+				</when>
+				<when test='type == "5"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  200000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  300000
+				</when>
+				<when test='type == "6"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  300000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  400000
+				</when>
+				<when test='type == "7"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  400000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  500000
+				</when>
+				<when test='type == "8"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  500000
+				</when>
+			</choose>
+		</if>
+		
+		ORDER BY T2.ITEM_LAST_PRICE ASC
+		LIMIT #{page}, #{pageSize}
+	</select>
+	
+	<!-- 타입별 관심상품 개수 가져오기 -->
+	<select id="getMyInterestItemListCount" parameterType="hashmap" resultType="int" statementType="PREPARED">
+		SELECT
+			COUNT(*)
+		FROM RB_MY_ITEM T1
+		LEFT OUTER JOIN RB_SHOP_ITEM T2 ON T1.ITEM_SEQ = T2.ITEM_SEQ
+		WHERE 1=1
+		AND T1.MB_SEQ = #{mb_seq}
+		<if test='type != null and type != ""'>
+			<choose>
+				<when test='type == "0"'>
+					AND 1=1
+				</when>			
+				<when test='type == "1"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]> 10000
+				</when>	
+				<when test='type == "2"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  10000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  50000
+				</when>
+				<when test='type == "3"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  50000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  100000
+				</when>
+				<when test='type == "4"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  100000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  200000
+				</when>
+				<when test='type == "5"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  200000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  300000
+				</when>
+				<when test='type == "6"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  300000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  400000
+				</when>
+				<when test='type == "7"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  400000
+					AND T2.ITEM_LAST_PRICE <![CDATA[<]]>  500000
+				</when>
+				<when test='type == "8"'>
+					AND T2.ITEM_LAST_PRICE <![CDATA[>=]]>  500000
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 관심상품 삭제 -->
+	<delete id="deleteMyInterestItem" parameterType="hashmap" statementType="PREPARED">
+		DELETE
+		FROM RB_MY_ITEM
+		WHERE MB_SEQ = #{mb_seq}
+		AND ITEM_SEQ = #{item_seq}
+	</delete>
+	
+	<!-- 관심상품 추가 -->
+	<insert id="insertMyInterestItem" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_MY_ITEM(
+			ITEM_SEQ
+			,MB_SEQ
+			,REG_DTTM
+		)VALUES(
+			#{item_seq}
+			,#{mb_seq}
+			,NOW()
+		)
+	</insert>
+	
+	<select id="getMyInterestItem" parameterType="hashmap" resultType="hashmap" statementType="PREPARED">
+		SELECT 
+			*
+		FROM 
+		RB_MY_ITEM
+		WHERE MB_SEQ = #{mb_seq}
+		AND ITEM_SEQ = #{item_seq}
+	</select>
+</mapper>

@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+ul.guide {
+	margin-top: 4px;
+	padding: 0;
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+ul.guide li {
+	margin-bottom: 4px;
+	text-indent: -18px;
+}
+
+.lSecLowest {
+	display: block;
+	overflow: hidden;
+	width: 64px;
+	margin-top: 4px;
+	padding: 1px 0;
+	border: 1px solid #ccc;
+	font-size: 12px;
+	letter-spacing: -2px;
+	text-align: center;
+	line-height: 15px;
+	white-space: normal;
+	word-break: keep-all;
+}
+
+.lBtnLowest_req {
+	border-color: #5B9BD5;
+	background-color: #5B9BD5;
+	color: #fff;
+	cursor: pointer;
+}
+
+.lBtnLowest_ing {
+	border-color: #C00000;
+	background-color: #C00000;
+	color: #fff;
+}
+
+.lBtnLowest_jBoth {
+	border-color: #5690C2;
+	background-color: #fff;
+	color: #5690C2;
+}
+
+.lBtnLowest_jDmg {
+	border-color: #00B050;
+	background-color: #fff;
+	color: #00B050;
+}
+
+.lBtnLowest_jDmm {
+	border-color: #ED7D31;
+	background-color: #fff;
+	color: #ED7D31;
+}
+
+.lBtnLowest_jNot {
+	border-color: #7F7F7F;
+	background-color: #7F7F7F;
+	color: #fff;
+}
+
+#tblRegistSearch {
+	
+}
+
+#tblRegistSearch th {
+	text-align: left;
+	letter-spacing: -1px;
+}
+
+#tblRegistSearch input {
+	vertical-align: -2px;
+}
+
+#tblRegistSearch select {
+	vertical-align: -2px;
+}
+
+#registSearchCat1, #registSearchCat2, #registSearchCat3,
+	#registSearchCat4 {
+	width: 150px;
+}
+
+
+
+
+
+table#TableLine > tbody > tr > td{
+	padding: 0px;
+	border-spacing: 0 0;
+	border:0;
+}
+
+table#ItemListTable > tbody > tr > th td{
+	padding: 4px;
+	border-spacing: 1px 1px;
+}

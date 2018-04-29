@@ -1,0 +1,2039 @@
+-- 테이블 생성
+use rainbow;
+
+-- 회원별 차단 아이피 테이블
+DROP TABLE IF EXISTS `mb_block_ip`;
+CREATE TABLE `mb_block_ip` (
+  `mbi_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '시퀀스',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원 시퀀스',
+  `mb_ip` varchar(20) NOT NULL COMMENT '차단 아이피',
+  `reg_dttm` datetime NOT NULL COMMENT '등록일시',
+  PRIMARY KEY (`mbi_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원별 차단 아이피 테이블';
+TRUNCATE `mb_block_ip`;
+
+
+
+-- 회원 세션 스토어
+DROP TABLE IF EXISTS `mb_session_store`;
+CREATE TABLE `mb_session_store` (
+  `mb_session_id` varchar(255) NOT NULL COMMENT '세션아이디',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원시퀀스',
+  `lo_ip` varchar(20) NOT NULL COMMENT '로그인(로그아웃) IP',
+  `lo_device_type` char(1) NOT NULL COMMENT '로그인기기(1:PC 2:MOBILE)',
+  `lo_dttm` datetime NOT NULL COMMENT '로그인일시',
+  `lo_device_env` varchar(255) NOT NULL COMMENT '접속기기정보'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+TRUNCATE `mb_session_store`;
+
+
+-- 관리자 회원정보
+DROP TABLE IF EXISTS `rb_admin_member`;
+CREATE TABLE `rb_admin_member` (
+  `admin_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '관리자SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '일반회원으로 사용할SEQ',
+  `admin_id` varchar(20) NOT NULL COMMENT '관리자아이디',
+  `admin_password` varchar(512) NOT NULL COMMENT '관리자비밀번호',
+  `admin_name` varchar(20) NOT NULL COMMENT '관리자이름',
+  `admin_hp` varchar(512) DEFAULT NULL COMMENT '관리자휴대전화',
+  `admin_email` varchar(100) DEFAULT NULL COMMENT '관리자이메일',
+  `admin_state` char(1) NOT NULL COMMENT '관리자상태(1:정상 2:정지 3:삭제)',
+  `admin_is_login` char(1) DEFAULT NULL COMMENT '관리자로그인여부(0:로그아웃 1:로그인)',
+  `admin_login_ip` varchar(20) DEFAULT NULL COMMENT '관리자IP',
+  `admin_reg_dttm` datetime DEFAULT NULL COMMENT '관리자등록일시',
+  `admin_reg_user` int(11) DEFAULT NULL COMMENT '관리자등록자',
+  `admin_mod_dttm` datetime DEFAULT NULL COMMENT '관리자수정일시',
+  `admin_mod_user` int(11) DEFAULT NULL COMMENT '관리자수정자',
+  PRIMARY KEY (`admin_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='관리자 회원정보';
+TRUNCATE `rb_admin_member`;
+
+
+
+-- 관리자 로그인 히스토리
+DROP TABLE IF EXISTS `rb_admin_member_login`;
+CREATE TABLE `rb_admin_member_login` (
+  `lo_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '로그SEQ',
+  `admin_seq` int(11) unsigned NOT NULL COMMENT '관리자SEQ',
+  `lo_type` char(1) NOT NULL COMMENT '로그타입(1:로그인 2:로그아웃)',
+  `lo_ip` varchar(20) DEFAULT NULL COMMENT '로그인(아웃)IP',
+  `lo_dttm` datetime NOT NULL COMMENT '로그인(아웃)일시',
+  PRIMARY KEY (`lo_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='관리자 회원 로그인 내역';
+TRUNCATE `rb_admin_member_login`;
+
+
+
+-- 관리자 메뉴
+DROP TABLE IF EXISTS `rb_admin_menu`;
+CREATE TABLE `rb_admin_menu` (
+  `menu_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '메뉴SEQ',
+  `menu_name` varchar(20) NOT NULL COMMENT '메뉴명',
+  `menu_link` varchar(255) NOT NULL COMMENT '메뉴링크',
+  `menu_depth` int(11) NOT NULL DEFAULT '1' COMMENT '메뉴뎁스',
+  `menu_parent` int(11) NOT NULL DEFAULT '0' COMMENT '부모메뉴SEQ',
+  `menu_order` int(11) NOT NULL DEFAULT '1' COMMENT '메뉴순번',
+  `menu_use_yn` char(1) NOT NULL DEFAULT '1' COMMENT '메뉴사용여부(0:미사용 1:사용)',
+  `menu_reg_dttm` datetime DEFAULT NULL COMMENT '메뉴등록일시',
+  `menu_reg_user` int(11) DEFAULT NULL COMMENT '메뉴등록관리자SEQ',
+  `menu_mod_dttm` datetime DEFAULT NULL COMMENT '메뉴수정일시',
+  `menu_mod_user` int(11) DEFAULT NULL COMMENT '메뉴수정관리자SEQ',
+  PRIMARY KEY (`menu_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='관리자 메뉴';
+TRUNCATE `rb_admin_menu`;
+
+
+
+-- 관리자 메뉴권한
+DROP TABLE IF EXISTS `rb_admin_menu_auth`;
+CREATE TABLE `rb_admin_menu_auth` (
+  `admin_seq` int(11) unsigned NOT NULL COMMENT '관리자SEQ',
+  `menu_seq` int(11) NOT NULL COMMENT '메뉴SEQ',
+  `auth_reg_dttm` datetime DEFAULT NULL COMMENT '권한등록일시',
+  `auth_reg_user` int(11) DEFAULT NULL COMMENT '권한등록자'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='관리자 메뉴권한';
+TRUNCATE `rb_admin_menu_auth`;
+
+
+
+
+
+-- 광고
+DROP TABLE IF EXISTS `rb_advertise`;
+CREATE TABLE `rb_advertise` (
+  `ad_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '광고SEQ',
+  `ad_title` varchar(255) DEFAULT NULL COMMENT '광고제목',
+  `ad_image_path` varchar(255) NOT NULL COMMENT '광고이미지경로',
+  `ad_link` varchar(512) NOT NULL COMMENT '광고링크',
+  `ad_start_dt` varchar(10) DEFAULT NULL COMMENT '광고시작일자',
+  `ad_end_dt` varchar(10) DEFAULT NULL COMMENT '광고종료일자',
+  `ad_req_user` int(11) DEFAULT NULL COMMENT '광고신청자',
+  `ad_reg_dttm` datetime DEFAULT NULL COMMENT '광고등록일시',
+  `ad_reg_user` int(11) DEFAULT NULL COMMENT '광고등록자',
+  PRIMARY KEY (`ad_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='광고';
+TRUNCATE `rb_advertise`;
+
+
+
+-- 회원 사업자인증 신청,승인,취소 내역
+DROP TABLE IF EXISTS `rb_biz_cert_log`;
+CREATE TABLE `rb_biz_cert_log` (
+  `rbl_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '사업자 인증,신청,취소 로그 시퀀스',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '사업자 회원번호',
+  `mb_id` varchar(20) NOT NULL COMMENT '사업자 회원 아이디',
+  `mb_nickname` varchar(20) NOT NULL COMMENT '사업자 외원 닉네임',
+  `mb_biz_name` varchar(255) NOT NULL COMMENT '상호명',
+  `mb_biz_type` varchar(20) NOT NULL COMMENT '사업자 유형',
+  `mb_biz_ceo_name` varchar(255) NOT NULL COMMENT '사업자 대표명',
+  `mb_biz_no` varchar(15) NOT NULL COMMENT '사업자등록번호',
+  `mb_biz_condition` varchar(255) NOT NULL COMMENT '사업자 업태',
+  `mb_biz_category` varchar(255) NOT NULL COMMENT '사업자 업종',
+  `mb_biz_zip_code` varchar(10) NOT NULL COMMENT '사업자 주소 우편번호',
+  `mb_biz_address` varchar(243) NOT NULL COMMENT '사업장 주소',
+  `mb_biz_address_detail` varchar(255) NOT NULL COMMENT '사업장 주소 상세',
+  `mb_biz_tel` varchar(20) NOT NULL COMMENT '사업장 전화',
+  `mb_biz_img_path` varchar(255) NOT NULL COMMENT '사업자 등록 사본 이미지 경로',
+  `mb_biz_cert_state` char(1) NOT NULL COMMENT '0:신청인증대기,1:신청인증완료,2:변경인증대기,3:변경인증완료,4:신청취소,5:변경취소',
+  `admin_mb_seq` int(11) unsigned DEFAULT NULL COMMENT '처리자 어드민 아이디 SEQ',
+  `admin_mb_id` varchar(20) DEFAULT NULL COMMENT '처리자 어드민 아이디',
+  `rbl_reg_dttm` datetime NOT NULL COMMENT '수정일시',
+  PRIMARY KEY (`rbl_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원 사업자 인증 신청,승인,취소 로그 테이블';
+TRUNCATE `rb_biz_cert_log`;
+
+
+
+-- e-money충전내역
+DROP TABLE IF EXISTS `rb_cash_charge`;
+CREATE TABLE `rb_cash_charge` (
+  `cc_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '충전SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `cc_amount` int(11) unsigned NOT NULL COMMENT '충전금액',
+  `cc_pay_type` char(1) NOT NULL COMMENT '이머니타입(1:현금성 2:카드성)',
+  `cc_pay_bank` varchar(128) DEFAULT NULL COMMENT '신용카드결제시 은행카드명',
+  `cc_pay_name` varchar(20) DEFAULT NULL COMMENT '무통장 결제인 이름',
+  `cc_pay_no` varchar(512) DEFAULT NULL COMMENT 'PG 사 결제번호',
+  `cc_state` char(1) NOT NULL COMMENT '상태(1:입금대기 2:입금완료 3:관리자취소)',
+  `cc_bigo` text COMMENT '상태변경 비고',
+  `cc_reg_dttm` datetime DEFAULT NULL COMMENT '등록일시',
+  `cc_mod_dttm` datetime DEFAULT NULL COMMENT '수정일시',
+  PRIMARY KEY (`cc_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='충전내역';
+TRUNCATE `rb_cash_charge`;
+
+
+
+-- 캐쉬사용내역
+DROP TABLE IF EXISTS `rb_cash_log`;
+CREATE TABLE `rb_cash_log` (
+  `cl_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '내역SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `cash_change_amount` int(11) NOT NULL DEFAULT '0' COMMENT '현금이머니변동액수',
+  `cash_card_change_amount` int(11) NOT NULL DEFAULT '0' COMMENT '카드성이머니변동액수',
+  `mb_cash` int(11) DEFAULT '0' COMMENT '현금성이머니',
+  `mb_cash_card` int(11) DEFAULT '0' COMMENT '카드성이머니',
+  `cl_title` varchar(255) DEFAULT NULL COMMENT '내역제목',
+  `cl_type` char(2) NOT NULL COMMENT '내역타입(1:현금충전, 2:카드충전, 3:현금성출금 , 4:현금성출금취소 ,5:현금성상품구매 , 6 : 카드성 상품구매, 7:현금성 상품취소 ,8:카드성상품취소, 9: 관리자 현금성이머니 지급, 10: 관리자 현금성이머니 차감,11: 관리자 카드성 이머니 지급, 12: 관리자 카드성 이머니 차감 , 13: 카드성 이머니 결제후 취소)',
+  `order_seq` bigint(20) DEFAULT NULL COMMENT '주문SEQ(캐쉬로 상품구매시)',
+  `cl_reg_dttm` datetime DEFAULT NULL COMMENT '등록일시',
+  PRIMARY KEY (`cl_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='캐쉬사용내역';
+TRUNCATE `rb_cash_log`;
+
+
+
+-- 출금내역
+DROP TABLE IF EXISTS `rb_cash_out`;
+CREATE TABLE `rb_cash_out` (
+  `co_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '출금SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `co_amount` int(11) NOT NULL DEFAULT '0' COMMENT '출금금액',
+  `co_bank` varchar(50) NOT NULL COMMENT '출금은행',
+  `co_account` varchar(20) NOT NULL COMMENT '출금계좌',
+  `co_account_name` varchar(10) NOT NULL COMMENT '예금주',
+  `co_state` char(1) NOT NULL COMMENT '출금상태(1:출금대기 2:출금완료 3:출금취소, 4:관리자 삭제)',
+  `co_reg_dttm` datetime DEFAULT NULL COMMENT '등록일시',
+  `co_mod_dttm` datetime DEFAULT NULL COMMENT '수정일시',
+  `co_pay_type` char(1) NOT NULL COMMENT '이머니타입(1:현금성 2:카드성)',
+  PRIMARY KEY (`co_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='출금내역';
+TRUNCATE `rb_cash_out`;
+
+
+
+-- 1:1문의
+DROP TABLE IF EXISTS `rb_inquiry`;
+CREATE TABLE `rb_inquiry` (
+  `ri_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '문의SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '문의회원SEQ',
+  `rit_seq` int(11) unsigned NOT NULL COMMENT '1:1문의 타입 시퀀스',
+  `ri_subject` varchar(255) DEFAULT NULL COMMENT '문의제목',
+  `ri_content` text COMMENT '문의내용',
+  `ri_recv_email` varchar(255) DEFAULT NULL COMMENT '문의회원이메일',
+  `ri_reg_dttm` datetime DEFAULT NULL COMMENT '문의일시',
+  `ri_answer` text COMMENT '답변내용',
+  `ri_is_answer` char(1) DEFAULT '0' COMMENT '답변여부(0:미답변 1:답변)',
+  `ri_answer_mb_seq` int(11) unsigned DEFAULT NULL COMMENT '답변관리자',
+  `ri_answer_dttm` datetime DEFAULT NULL COMMENT '답변일시',
+  `ri_delete` char(1) DEFAULT '0' COMMENT '문의삭제여부(0:미삭제 1:삭제)',
+  `ri_attach_img_path_1` varchar(255) DEFAULT NULL COMMENT '첨부파일경로',
+  `ri_attach_img_path_2` varchar(255) DEFAULT NULL COMMENT '첨부파일경로',
+  `ri_attach_img_path_3` varchar(255) DEFAULT NULL COMMENT '첨부파일경로',
+  `ri_attach_img_path_4` varchar(255) DEFAULT NULL COMMENT '첨부파일경로',
+  `ri_attach_img_path_5` varchar(255) DEFAULT NULL COMMENT '첨부파일경로',
+  PRIMARY KEY (`ri_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='1:1문의';
+TRUNCATE `rb_inquiry`;
+
+
+
+-- 1:1 문의타입
+DROP TABLE IF EXISTS `rb_inquiry_type`;
+CREATE TABLE `rb_inquiry_type` (
+  `rit_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '시퀀스',
+  `rit_name` varchar(10) NOT NULL DEFAULT 'urf8' COMMENT '분류명',
+  `rit_desc` varchar(255) NOT NULL COMMENT '분류설명',
+  PRIMARY KEY (`rit_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='1:1 문의타입테이블';
+TRUNCATE `rb_inquiry_type`;
+
+
+
+-- 쪽지 수신함(관리자만 발송, 회원은 수신만)
+DROP TABLE IF EXISTS `rb_letter`;
+CREATE TABLE `rb_letter` (
+  `rl_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '쪽지 시퀀스',
+  `rl_writer_seq` int(11) unsigned NOT NULL COMMENT '쪽지 발신 멤버 시퀀스',
+  `rl_receiver_seq` int(11) unsigned NOT NULL COMMENT '쪽지 수신 멤버 시퀀스',
+  `rl_title` varchar(256) NOT NULL COMMENT '쪽지 제목',
+  `rl_content` text NOT NULL COMMENT '쪽지 내용',
+  `rl_state` char(1) NOT NULL DEFAULT '1' COMMENT '쪽지상태(1:미삭제,2:삭제)',
+  `rl_view_state` char(1) NOT NULL DEFAULT '1' COMMENT '쪽지확인여부(1:미확인,2:확인)',
+  `rl_reg_dttm` datetime NOT NULL COMMENT '쪽지 등록일시',
+  PRIMARY KEY (`rl_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='관리자 쪽지수신함';
+TRUNCATE `rb_letter`;
+
+
+
+-- 회원정보
+DROP TABLE IF EXISTS `rb_member`;
+CREATE TABLE `rb_member` (
+  `mb_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '회원SEQ',
+  `mb_id` varchar(20) NOT NULL COMMENT '회원ID',
+  `mb_password` varchar(512) NOT NULL COMMENT '회원PW',
+  `mb_name` varchar(20) NOT NULL COMMENT '회원이름',
+  `mb_nickname` varchar(20) NOT NULL COMMENT '회원닉네임',
+  `mb_birthday` char(8) DEFAULT '00000000' COMMENT '회원생년월일',
+  `mb_birthday_type` char(1) DEFAULT '0' COMMENT '회원생년월일타입(0:양력 1:음력)',
+  `mb_tel` varchar(15) DEFAULT NULL COMMENT '회원전화번호',
+  `mb_hp` varchar(512) NOT NULL COMMENT '회원휴대폰번호',
+  `mb_email` varchar(100) NOT NULL COMMENT '회원이메일',
+  `mb_zip_code` varchar(10) DEFAULT NULL COMMENT '회원우편번호',
+  `mb_address` varchar(255) DEFAULT NULL COMMENT '회원주소',
+  `mb_address_detail` varchar(255) DEFAULT NULL COMMENT '회원주소상세',
+  `mb_address_type` char(1) DEFAULT NULL COMMENT '회원주소타입 (1:지번,2:도로명)',
+  `mb_biz_name` varchar(255) DEFAULT NULL COMMENT '상호명',
+  `mb_biz_ceo_name` varchar(255) DEFAULT NULL COMMENT '대표자명',
+  `mb_biz_no` varchar(15) DEFAULT NULL COMMENT '사업자등록번호',
+  `mb_biz_tel` varchar(20) DEFAULT NULL COMMENT '사업장전화번호',
+  `mb_biz_address` varchar(243) DEFAULT NULL COMMENT '사업장주소지',
+  `mb_biz_type_1` char(1) DEFAULT '0' COMMENT '매장형태(대리점) 0:해당없음,1:선택됨',
+  `mb_biz_type_2` char(1) DEFAULT '0' COMMENT '매장형태(판매점) 0:해당없음,1:선택됨',
+  `mb_biz_type_3` char(1) DEFAULT '0' COMMENT '매장형태(온라인) 0:해당없음,1:선택됨',
+  `mb_biz_type_4` char(1) DEFAULT '0' COMMENT '매장형태(방문판매) 0:해당없음,1:선택됨',
+  `mb_biz_type_5` char(1) DEFAULT '0' COMMENT '매장형태(기타) 0:해당없음,1:선택됨',
+  `mb_biz_code` varchar(255) DEFAULT NULL COMMENT 'P코드, 대리점코',
+  `mb_info_recv_mail` char(1) DEFAULT '0' COMMENT '회원정보수신(이메일) 0:해당없음,1:선택됨',
+  `mb_info_recv_post` char(1) DEFAULT '0' COMMENT '회원정보수신(우편) 0:해당없음,1:선택됨',
+  `mb_info_recv_sms` char(1) DEFAULT '0' COMMENT '회원정보수신(문자) 0:해당없음,1:선택됨',
+  `mb_info_recv_hp` char(1) DEFAULT '0' COMMENT '회원정보수신(휴대폰) 0:해당없음,1:선택됨',
+  `mb_info_open` char(1) DEFAULT '0' COMMENT '정보공개 0:허용안함,1:허용',
+  `mb_recomm_id` varchar(20) DEFAULT NULL COMMENT '추천인ID',
+  `mb_state` char(1) NOT NULL DEFAULT '0' COMMENT '회원상태(0:승인대기 1:정상 2:정지 3:탈퇴 4:강제탈퇴)',
+  `mb_type` char(1) NOT NULL COMMENT '회원타입(0:관리자 1:소비자 2:판매점)',
+  `mb_is_login` char(1) NOT NULL DEFAULT '0' COMMENT '회원로그인여부(0:로그아웃 1:로그인)',
+  `mb_join_ip` varchar(20) DEFAULT NULL COMMENT '회원가입IP',
+  `mb_login_ip` varchar(20) DEFAULT NULL COMMENT '회원로그인IP',
+  `grade_seq` int(11) unsigned DEFAULT NULL COMMENT '회원등급SEQ',
+  `mb_cash` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '현금성이머니',
+  `mb_cash_card` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '카드성이머니',
+  `mb_point` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '회원보유포인트',
+  `mb_reg_dttm` datetime NOT NULL COMMENT '회원가입일시',
+  `mb_leave_dttm` datetime DEFAULT NULL COMMENT '회원탈퇴일시',
+  `mb_biz_address_detail` varchar(255) DEFAULT NULL COMMENT '사업자 주소 상세',
+  `mb_biz_zip_code` varchar(10) DEFAULT NULL COMMENT '사업자 주소 우편번호',
+  `mb_session_id` varchar(255) NOT NULL COMMENT '회원 세션 아이디',
+  `mb_join_url` varchar(512) DEFAULT NULL COMMENT '회원가입경로',
+  `mb_allow_ip` varchar(20) DEFAULT NULL COMMENT '회원별 안심 아이피',
+  `mb_allow_ip_use_yn` char(1) NOT NULL DEFAULT 'N' COMMENT '회원별 안심 아이피 사용여부',
+  `mb_login_device_type` char(1) DEFAULT NULL COMMENT '회원로그인 기기 타입 1:pc, 2:mobile, 3:tablet',
+  `mb_bank_name` varchar(20) DEFAULT NULL COMMENT '회원 은행',
+  `mb_bank_no` varchar(50) DEFAULT NULL COMMENT '회원 계좌번호',
+  `mb_bank_owner` varchar(20) DEFAULT NULL COMMENT '회원 계좌 예금주',
+  `mb_event_receive` char(1) NOT NULL DEFAULT '1' COMMENT '이벤트 메일 수신여부 0: 수신안함,1 수신함',
+  `mb_biz_condition` varchar(255) DEFAULT NULL COMMENT '사업자 업태',
+  `mb_biz_category` varchar(255) DEFAULT NULL COMMENT '사업자 업종',
+  `mb_biz_img_path` varchar(255) DEFAULT NULL COMMENT '사업자 등록 사본 이미지 경로',
+  `mb_cert` varchar(1) NOT NULL DEFAULT '0' COMMENT '본인인증 여부 0:미인증 1:인증',
+  `mb_cert_phone` varchar(1) NOT NULL DEFAULT '0' COMMENT '휴대폰인증 0:미인증, 1:인증',
+  `mb_cert_email` varchar(1) NOT NULL DEFAULT '0' COMMENT '이메일인증 0:미인증, 1:인증',
+  `mb_biz_cert_state` varchar(1) NOT NULL DEFAULT '0' COMMENT '0:신청인증대기,1:신청인증완료,2:변경인증대기,3:변경인증완료,4:신청취소,5:변경취소',
+  `mb_biz_type` varchar(20) DEFAULT NULL COMMENT '사업자유형',
+  `mb_leave_reason` varchar(512) DEFAULT NULL COMMENT '회웥 탈퇴 사유',
+  PRIMARY KEY (`mb_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='회원정보';
+TRUNCATE `rb_member`;
+
+
+
+-- 회원 등급정보
+DROP TABLE IF EXISTS `rb_member_grade`;
+CREATE TABLE `rb_member_grade` (
+  `grade_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '등급SEQ',
+  `grade_name` varchar(255) NOT NULL COMMENT '등급명',
+  `grade_from` int(11) unsigned NOT NULL,
+  `grade_to` int(11) unsigned NOT NULL,
+  `grade_saving_per` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`grade_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원 등급정보';
+TRUNCATE `rb_member_grade`;
+
+
+
+-- 회원 등급로그
+DROP TABLE IF EXISTS `rb_member_grade_log`;
+CREATE TABLE `rb_member_grade_log` (
+  `mgl_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '회원 등급점수 로그 시퀀스',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원 시퀀스',
+  `mgl_increase_point` int(11) NOT NULL DEFAULT '0' COMMENT '증가된점수',
+  `mgl_decrease_point` int(11) NOT NULL DEFAULT '0' COMMENT '감소된점수',
+  `mgl_log_type` char(1) NOT NULL COMMENT '등급 타입 1:구매시 , 2:평가시',
+  `mgl_log_desc` varchar(255) NOT NULL COMMENT '로그 설명',
+  `mgl_log_point_total` int(11) NOT NULL DEFAULT '0' COMMENT '점수 반영결과',
+  `mgl_log_dttm` datetime NOT NULL COMMENT '등록일시',
+  PRIMARY KEY (`mgl_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원 등급 로그';
+TRUNCATE `rb_member_grade_log`;
+
+
+
+-- 회원 로그인 히스토리
+DROP TABLE IF EXISTS `rb_member_login`;
+CREATE TABLE `rb_member_login` (
+  `lo_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '로그인히스토리SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `lo_type` char(1) NOT NULL COMMENT '로그타입(1:로그인 2:로그아웃 3:세션타임아웃)',
+  `lo_device_type` char(1) DEFAULT NULL COMMENT '로그인기기(1:PC 2:MOBILE)',
+  `lo_ip` varchar(20) DEFAULT NULL COMMENT '로그인(로그아웃) IP',
+  `lo_url` varchar(255) DEFAULT NULL COMMENT '로그인URL',
+  `lo_dttm` datetime NOT NULL COMMENT '로그인(로그아웃) 일시',
+  `mb_session_id` varchar(255) DEFAULT NULL COMMENT '로그아웃 회원 세션 아이디',
+  `lo_device_env` varchar(255) DEFAULT NULL COMMENT '접속기기정보',
+  PRIMARY KEY (`lo_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='회원 로그인 히스토리';
+TRUNCATE `rb_member_login`;
+
+
+
+-- 회원 환경설정 정보
+DROP TABLE IF EXISTS `rb_member_setting`;
+CREATE TABLE `rb_member_setting` (
+  `rms_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '환경설정 시퀀스',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원번호',
+  `use_tel` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용)집전화안내 0:선택안함,1:선택함',
+  `use_hp` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용)휴대폰안내 0:선택안함,1:선택함',
+  `use_biz_tel` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용)사업장전화안내 0:선택안함,1:선택함',
+  `default_delivery_company` varchar(20) DEFAULT NULL COMMENT '(판매자전용)기본택배회사',
+  `use_payment_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)결제알림 이메일 0: 미사용 , 1:사용',
+  `use_payment_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)결제알림 문자 0:미사용, 1:사용',
+  `use_delivery_start_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)배송시작알림 이메일 0:미사용 , 1사용',
+  `use_delivery_start_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)배송시작알림 문자 0:미사용 , 1사용',
+  `use_seller_cancel_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)판매자취소 알림 이메일 0:미사용 , 1:사용',
+  `use_seller_cancel_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)판매자취소 알림 문자 0:미사용 , 1:사용',
+  `use_self_cancel_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)구매자결제 취소 알림 이메일 0:미사용 , 1:사용',
+  `use_self_cancel_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)구매자결제 취소 알림 문자 0:미사용 , 1:사용',
+  `use_return_approve_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)반품승인 알림 이메일 0:미사용 , 1:사용',
+  `use_return_approve_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)반품승인 알림 문자 0:미사용 , 1:사용',
+  `use_exchange_approve_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)교환승인 알림 이메일 0:미사용 , 1:사용',
+  `use_exchange_approve_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)교환승인 알림 문자 0:미사용 , 1:사용',
+  `use_return_success_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)반품완료 알림 이메일 0:미사용 , 1:사용',
+  `use_return_success_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)반품완료 알림 문자 0:미사용 , 1:사용',
+  `use_exchange_success_email` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)교환완료 알림 이메일 0:미사용 , 1:사용',
+  `use_exchange_success_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(소비자)교환완료 알림 문자 0:미사용 , 1:사용',
+  `use_deposit_success_email` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 입급완료안내 이메일 0: 미사용 , 1: 사용',
+  `use_deposit_success_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 입급완료안내 문자 0: 미사용 , 1: 사용',
+  `use_buyer_cancel_email` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 구매자 취소 이메일 0: 미사용 , 1: 사용',
+  `use_buyer_cancel_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 구매자 취소 문자 0: 미사용 , 1: 사용',
+  `use_return_request_email` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 반품요청 이메일 0: 미사용 , 1: 사용',
+  `use_return_request_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 반품요청 문자 0: 미사용 , 1: 사용',
+  `use_exchange_request_email` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 교환요청 이메일 0: 미사용 , 1: 사용',
+  `use_exchange_request_mms` char(1) NOT NULL DEFAULT '1' COMMENT '(판매자전용) 교환요청 문자 0: 미사용 , 1: 사용',
+  `rms_reg_dttm` datetime NOT NULL COMMENT '등록일시',
+  `rms_update_dttm` datetime DEFAULT NULL COMMENT '수정일시',
+  PRIMARY KEY (`rms_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='회원별 환경설정 테이블';
+TRUNCATE `rb_member_setting`;
+
+
+
+-- 구매자 세금계산서 내역
+DROP TABLE IF EXISTS `rb_member_tax_calc`;
+CREATE TABLE `rb_member_tax_calc` (
+  `mtc_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '구매자 세금 계산서 리스트  시퀀스',
+  `buy_mb_seq` int(11) unsigned NOT NULL COMMENT '구매자 seq',
+  `sell_mb_seq` int(11) unsigned NOT NULL COMMENT '판매자 seq',
+  `buy_mb_biz_name` varchar(255) NOT NULL COMMENT '구매자 상호',
+  `sell_buy_mb_biz_name` varchar(255) NOT NULL COMMENT '판매자 상호',
+  `buy_mb_biz_ceo_name` varchar(255) NOT NULL COMMENT '구매자 대표명',
+  `sell_mb_biz_ceo_name` varchar(255) NOT NULL COMMENT '판매자 대표명',
+  `provide_cash` int(11) NOT NULL COMMENT '공급가액',
+  `tax_cash` int(11) NOT NULL COMMENT '세액',
+  `buy_mb_biz_no` varchar(15) NOT NULL COMMENT '구매자 사업자 번호',
+  `sell_mb_biz_no` varchar(15) NOT NULL COMMENT '판매자 사업자 번호',
+  `order_no` varchar(16) NOT NULL COMMENT '주문번호',
+  `mtc_reg_dttm` datetime DEFAULT NULL COMMENT '세금 계산서 생성일',
+  `tax_type` varchar(1) NOT NULL COMMENT '세금셰산서 타입 0:포인트 충전 , 1: 상품 주문',
+  PRIMARY KEY (`mtc_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='구매자 세금 계산서 리스트 ';
+TRUNCATE `rb_member_tax_calc`;
+
+
+
+-- 메뉴
+DROP TABLE IF EXISTS `rb_menu`;
+CREATE TABLE `rb_menu` (
+  `menu_id` varchar(10) NOT NULL COMMENT '메뉴ID',
+  `menu_name` varchar(50) NOT NULL COMMENT '메뉴명',
+  `menu_order` int(11) NOT NULL COMMENT '메뉴순번',
+  `menu_link` varchar(255) NOT NULL COMMENT '메뉴링크',
+  `menu_reg_user` varchar(10) NOT NULL COMMENT '메뉴등록자',
+  `menu_reg_dttm` datetime NOT NULL COMMENT '메뉴등록일시',
+  `menu_mod_user` varchar(10) DEFAULT NULL COMMENT '메뉴수정자',
+  `menu_mod_dttm` datetime DEFAULT NULL COMMENT '메뉴수정일시',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='메뉴';
+TRUNCATE `rb_menu`;
+
+
+
+-- 나의 관심상품
+DROP TABLE IF EXISTS `rb_my_item`;
+CREATE TABLE `rb_my_item` (
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `reg_dttm` datetime DEFAULT NULL COMMENT '등록일자',
+  PRIMARY KEY (`item_seq`,`mb_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='나의 관심상품';
+TRUNCATE `rb_my_item`;
+
+
+
+-- 나의 관심상품 테마
+DROP TABLE IF EXISTS `rb_my_item_tema`;
+CREATE TABLE `rb_my_item_tema` (
+  `tm_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '테마 SEQ',
+  PRIMARY KEY (`tm_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='나의 관심상품 테마';
+TRUNCATE `rb_my_item_tema`;
+
+
+
+-- 포인트내역
+DROP TABLE IF EXISTS `rb_point_log`;
+CREATE TABLE `rb_point_log` (
+  `pl_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '내역SEQ',
+  PRIMARY KEY (`pl_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='포인트 내역';
+TRUNCATE `rb_point_log`;
+
+
+
+-- 자주묻는 질문
+DROP TABLE IF EXISTS `rb_question_answer`;
+CREATE TABLE `rb_question_answer` (
+  `rqa_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '시퀀스',
+  `rqa_writer` int(11) NOT NULL COMMENT '등록자 시퀀스',
+  `rqa_question` varchar(512) NOT NULL COMMENT '질문',
+  `rqa_answer` text NOT NULL COMMENT '답변',
+  `rqa_reg_dttm` datetime NOT NULL COMMENT '등록일시',
+  `rqt_seq` int(11) NOT NULL COMMENT '질문타입 시퀀스',
+  PRIMARY KEY (`rqa_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='자주묻는 질문 테이블';
+TRUNCATE `rb_question_answer`;
+
+
+
+-- 자주묻는 질문 타입정보
+DROP TABLE IF EXISTS `rb_question_type`;
+CREATE TABLE `rb_question_type` (
+  `rqt_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'q&a 타입 시퀀스',
+  `rqt_type` varchar(128) NOT NULL COMMENT 'q&a 타입 텍스트',
+  PRIMARY KEY (`rqt_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='q&a 타입 테이블';
+TRUNCATE `rb_question_type`;
+
+
+
+-- 검색어 정보
+DROP TABLE IF EXISTS `rb_search_text`;
+CREATE TABLE `rb_search_text` (
+  `rst_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '시퀀스',
+  `rst_text` varchar(128) NOT NULL COMMENT '검색어',
+  `rst_reg_dttm` datetime NOT NULL,
+  PRIMARY KEY (`rst_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='검색어 저장 테이블';
+TRUNCATE `rb_search_text`;
+
+
+
+-- 장바구니
+DROP TABLE IF EXISTS `rb_shop_cart`;
+CREATE TABLE `rb_shop_cart` (
+  `cart_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '장바구니SEQ',
+  `order_no` varchar(17) NOT NULL COMMENT '주문번호',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `item_title` varchar(512) DEFAULT NULL COMMENT '상품제목',
+  `item_name` varchar(255) DEFAULT NULL COMMENT '상품명',
+  `item_price` int(11) NOT NULL COMMENT '상품가격',
+  `item_point` int(11) DEFAULT NULL COMMENT '상품부여포인트',
+  `cart_qty` int(11) NOT NULL COMMENT '주문개수',
+  `io_name` varchar(255) DEFAULT NULL COMMENT '상품옵션명',
+  `io_type` char(1) DEFAULT NULL COMMENT '상품옵션타입(0:선택옵션 1:추가옵션)',
+  `io_price` int(11) unsigned DEFAULT NULL COMMENT '상품옵션가격',
+  `delivery_type` char(1) DEFAULT NULL COMMENT '배송비유형(1:무료배송 2:주문시선결제(선결제) 3:상품수령시결제(착불))',
+  `cart_ip` varchar(20) DEFAULT NULL COMMENT '장바구니등록IP',
+  `cart_state` char(1) NOT NULL DEFAULT '1' COMMENT '장바구니상태(1:쇼핑 2:주문)',
+  `item_seller_seq` int(11) NOT NULL COMMENT '상품판매자SEQ',
+  `cart_reg_dttm` datetime DEFAULT NULL COMMENT '장바구니등록일시',
+  PRIMARY KEY (`cart_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='장바구니';
+TRUNCATE `rb_shop_cart`;
+
+
+
+-- 카테고리
+DROP TABLE IF EXISTS `rb_shop_category`;
+CREATE TABLE `rb_shop_category` (
+  `cate_code` varchar(10) NOT NULL COMMENT '카테고리코드',
+  `cate_name` varchar(255) NOT NULL COMMENT '카테고리명',
+  `cate_order` int(11) NOT NULL COMMENT '카테고리순번',
+  `cate_depth` int(2) DEFAULT NULL COMMENT '카테고리뎁스',
+  `cate_use_yn` char(1) NOT NULL DEFAULT 'N' COMMENT '카테고리사용여부(Y,N)',
+  `cate_ad_yn` char(1) DEFAULT 'N' COMMENT '카테고리광고사용여부',
+  `cate_ad_img_path` varchar(200) DEFAULT NULL COMMENT '카테고리광고이미지경로',
+  `cate_ad_img_link` varchar(200) DEFAULT NULL COMMENT '카테고리광고이미지링크',
+  `cate_reg_user` varchar(10) NOT NULL COMMENT '카테고리등록자',
+  `cate_reg_dttm` datetime NOT NULL COMMENT '카테고리등록일시',
+  `cate_mod_user` varchar(10) DEFAULT NULL COMMENT '카테고리수정자',
+  `cate_mod_dttm` datetime DEFAULT NULL COMMENT '카테고리수정일시',
+  `cate_advertise_img` varchar(255) DEFAULT NULL COMMENT '카테고리별 광고 이미지 경로',
+  `cate_advertise_item_seq` int(11) DEFAULT NULL COMMENT '카테고리별 광고 상품 시퀀스',
+  PRIMARY KEY (`cate_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='카테고리';
+TRUNCATE `rb_shop_category`;
+
+
+
+-- 카테고리 옵션
+DROP TABLE IF EXISTS `rb_shop_category_option`;
+CREATE TABLE `rb_shop_category_option` (
+  `cate_option_group` varchar(20) NOT NULL COMMENT '카테고리옵션분류',
+  `cate_code` varchar(10) NOT NULL COMMENT '카테고리코드',
+  `cate_option_value` varchar(255) NOT NULL COMMENT '카테고리옵션값',
+  `cate_option_order` int(11) NOT NULL COMMENT '카테고리옵션순번',
+  PRIMARY KEY (`cate_option_group`,`cate_code`,`cate_option_value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='카테고리 옵션';
+TRUNCATE `rb_shop_category_option`;
+
+
+
+-- 상품정보
+DROP TABLE IF EXISTS `rb_shop_item`;
+CREATE TABLE `rb_shop_item` (
+  `item_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '상품SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '회원SEQ(업체코드용)',
+  `item_title` varchar(512) DEFAULT NULL COMMENT '상품제목',
+  `item_name` varchar(255) NOT NULL COMMENT '상품명',
+  `item_keyword` varchar(255) DEFAULT NULL COMMENT '상품검색키워드',
+  `cate_code1` varchar(10) NOT NULL COMMENT '상품카테고리1',
+  `cate_code2` varchar(10) NOT NULL COMMENT '상품카테고리2',
+  `cate_code3` varchar(10) DEFAULT NULL COMMENT '상품카테고리3(여분)',
+  `item_maker` varchar(255) DEFAULT NULL COMMENT '상품제조사',
+  `item_origin` varchar(255) DEFAULT NULL COMMENT '상품원산지',
+  `item_cust_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '상품시중가격',
+  `item_price` int(11) unsigned DEFAULT '0' COMMENT '상품판매가격',
+  `item_coupon_price` int(11) unsigned DEFAULT '0' COMMENT '상품할인금액',
+  `item_last_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '상품최종판매가격',
+  `item_sale_rate` int(11) DEFAULT '0' COMMENT '상품할인율',
+  `item_model_name` varchar(255) DEFAULT NULL COMMENT '상품모델명',
+  `item_status` char(1) NOT NULL DEFAULT '1' COMMENT '상품상태(1:승인대기 2:판매중 3:재고없음 4:판매종료 5:기간종료 6:승인거부)',
+  `item_display` char(1) NOT NULL DEFAULT '1' COMMENT '상품진열상태(1:숨김 2:진열)',
+  `item_sell_period_from` datetime DEFAULT NULL COMMENT '상품판매시작일시',
+  `item_sell_period_to` datetime DEFAULT NULL COMMENT '상품판매종료일시',
+  `item_qty` int(11) NOT NULL DEFAULT '0' COMMENT '상품수량',
+  `item_delivery_charge_type` char(1) DEFAULT NULL COMMENT '배송비유형(1:업체기본설정 2:무료배송 3:조건부무료 4:유료배송 5:수량별부과)',
+  `item_delivery_condition` int(11) DEFAULT NULL COMMENT '배송유형조건(조건부무료일경우 금액입력)',
+  `item_delivery` varchar(255) DEFAULT NULL COMMENT '배송회사정보',
+  `item_tag` char(1) NOT NULL COMMENT '상품태그(1:새상품 2:미사용전시 3:전시시연 4:렌탈전시 5:터프한중고)',
+  `item_tag_sub` varchar(255) DEFAULT NULL COMMENT '상품태그서브(1:신품수준 2:선착순한정 3:노마진 4::스크래치 5:무료배송 6:짧은사용 7:가성비)',
+  `item_content` text NOT NULL COMMENT '상품설명',
+  `item_content_mobile` text COMMENT '상품설명(모바일)',
+  `item_dtl_info` text COMMENT '상품상세설명(그누보드기준 상품상단,하단 내용- 삭제가능)',
+  `item_option_subject` varchar(255) DEFAULT NULL COMMENT '상품옵션그룹명(콤마로 구분)',
+  `item_supply_subject` varchar(255) DEFAULT NULL COMMENT '상품추가옵션그룹명(콤마로구분)',
+  `item_represent_image` varchar(255) NOT NULL COMMENT '상품대표이미지',
+  `item_img1` varchar(255) DEFAULT NULL COMMENT '상품이미지1',
+  `item_img2` varchar(255) DEFAULT NULL COMMENT '상품이미지2',
+  `item_img3` varchar(255) DEFAULT NULL COMMENT '상품이미지3',
+  `item_img4` varchar(255) DEFAULT NULL COMMENT '상품이미지4',
+  `item_img5` varchar(255) DEFAULT NULL COMMENT '상품이미지5',
+  `item_img6` varchar(255) DEFAULT NULL COMMENT '상품이미지6',
+  `item_img7` varchar(255) DEFAULT NULL COMMENT '상품이미지7',
+  `item_img8` varchar(255) DEFAULT NULL COMMENT '상품이미지8',
+  `item_img9` varchar(255) DEFAULT NULL COMMENT '상품이미지9',
+  `item_img10` varchar(255) DEFAULT NULL COMMENT '상품이미지10',
+  `item_approval_mb_seq` int(11) DEFAULT NULL COMMENT '상품승인관리자SEQ',
+  `item_return_info` varchar(255) DEFAULT NULL COMMENT '상품반품/교환 전화번호(판매자명)',
+  `item_view_cnt` int(11) DEFAULT '0' COMMENT '상품뷰횟수',
+  `item_sell_cnt` int(11) DEFAULT '0' COMMENT '상품판매수',
+  `item_reg_dttm` datetime DEFAULT NULL COMMENT '상품등록일시',
+  `item_reg_mb_seq` int(11) DEFAULT NULL COMMENT '상품등록자',
+  `item_mod_dttm` datetime DEFAULT NULL COMMENT '상품수정일시',
+  `item_mod_mb_seq` int(11) DEFAULT NULL COMMENT '상품수정자',
+  PRIMARY KEY (`item_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='상품정보';
+TRUNCATE `rb_shop_item`;
+
+
+
+-- 상품옵션
+DROP TABLE IF EXISTS `rb_shop_item_option`;
+CREATE TABLE `rb_shop_item_option` (
+  `io_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '옵션SEQ',
+  `io_group` varchar(255) DEFAULT NULL COMMENT '옵션그룹명(삭제가능)',
+  `io_name` varchar(255) NOT NULL COMMENT '옵션명',
+  `io_type` char(1) NOT NULL DEFAULT '0' COMMENT '옵션타입(0:선택옵션 1:추가옵션)',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `io_price` int(11) NOT NULL DEFAULT '0' COMMENT '옵션가격',
+  `io_stock_qty` int(11) NOT NULL DEFAULT '0' COMMENT '옵션상품수량',
+  `io_noti_qty` int(11) NOT NULL DEFAULT '0' COMMENT '옵션상품통보수량',
+  `io_use` char(1) NOT NULL DEFAULT '0' COMMENT '옵션상품사용유무(0:미사용 1:사용)',
+  `io_reg_user` int(11) unsigned NOT NULL COMMENT '옵션상품등록자',
+  `io_reg_dttm` datetime NOT NULL COMMENT '옵션상품등록일시',
+  `io_mod_user` int(11) unsigned DEFAULT NULL COMMENT '옵션상품수정자',
+  `io_mod_dttm` datetime DEFAULT NULL COMMENT '옵션상품수정일시',
+  PRIMARY KEY (`io_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='상품옵션';
+TRUNCATE `rb_shop_item_option`;
+
+
+
+-- 상품문의 마스터
+DROP TABLE IF EXISTS `rb_shop_item_qa`;
+CREATE TABLE `rb_shop_item_qa` (
+  `iqa_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '상품문의 SEQ',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품 SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '질문회원SEQ',
+  `iqa_subject` varchar(255) NOT NULL COMMENT '질문제목',
+  `iqa_open` char(1) DEFAULT '0' COMMENT '질문공개여부(0:오픈 1:미오픈)',
+  `iqa_reg_dttm` datetime DEFAULT NULL COMMENT '질문등록일시',
+  `iqa_is_answer` char(1) DEFAULT NULL COMMENT '답변여부(0:미답변 1:답변)',
+  PRIMARY KEY (`iqa_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='상품문의(마스터)';
+TRUNCATE `rb_shop_item_qa`;
+
+
+
+-- 상품문의 질문,답변 내역
+DROP TABLE IF EXISTS `rb_shop_item_qa_content`;
+CREATE TABLE `rb_shop_item_qa_content` (
+  `content_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '내용SEQ',
+  `iqa_seq` int(11) unsigned NOT NULL COMMENT '문의SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '질문자(답변자)',
+  `content_type` char(1) NOT NULL DEFAULT '0' COMMENT '내용타입(0:질문 1:답변)',
+  `content` text NOT NULL COMMENT '질문내용(또는 답변내용)',
+  `attach_image` varchar(255) DEFAULT NULL COMMENT '첨부이미지',
+  `content_order` int(11) unsigned NOT NULL COMMENT '질문(답변) 순번',
+  `content_reg_dttm` datetime DEFAULT NULL COMMENT '질문(답변) 등록일시',
+  PRIMARY KEY (`content_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='상품문의 질문,답변 내역';
+TRUNCATE `rb_shop_item_qa_content`;
+
+
+
+-- 상품 구매후기
+DROP TABLE IF EXISTS `rb_shop_item_review`;
+CREATE TABLE `rb_shop_item_review` (
+  `review_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '리뷰SEQ',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '리뷰등록자SEQ',
+  `review_start` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '리뷰별점',
+  `review_content` text COMMENT '리뷰내용',
+  `review_reg_dttm` datetime DEFAULT NULL COMMENT '리뷰등록일시',
+  PRIMARY KEY (`review_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품구매후기';
+TRUNCATE `rb_shop_item_review`;
+
+
+
+-- 상품주문 마스터
+DROP TABLE IF EXISTS `rb_shop_order`;
+CREATE TABLE `rb_shop_order` (
+  `order_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '주문SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '주문자(회원SEQ)',
+  `order_price` int(11) NOT NULL COMMENT '주문금액',
+  `delivery_price` int(11) DEFAULT NULL COMMENT '배송비용',
+  `pay_type` char(1) NOT NULL COMMENT '결제방법(1:현금성e-money 2:카드성e-money 3:무통장 4:카드)',
+  `order_dttm` datetime DEFAULT NULL COMMENT '주문일시',
+  PRIMARY KEY (`order_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품주문(마스터)';
+TRUNCATE `rb_shop_order`;
+
+
+
+-- 상품주문 내역
+DROP TABLE IF EXISTS `rb_shop_order_info`;
+CREATE TABLE `rb_shop_order_info` (
+  `info_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '내역SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '주문자SEQ(회원번호)',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `order_seq` int(11) unsigned NOT NULL COMMENT '주문SEQ',
+  `order_no` varchar(17) NOT NULL COMMENT '주문번호',
+  `order_name` varchar(512) DEFAULT NULL COMMENT '주문명(상품명)',
+  `order_price` int(11) NOT NULL COMMENT '주문가격',
+  `order_qty` int(11) DEFAULT NULL COMMENT '주문수량',
+  `order_ip` varchar(20) DEFAULT NULL COMMENT '주문자IP',
+  `recv_name` varchar(20) NOT NULL COMMENT '수신자명',
+  `recv_hp` varchar(512) NOT NULL COMMENT '수신자핸드폰',
+  `recv_zip_code` varchar(10) NOT NULL COMMENT '수신자우편번호',
+  `recv_address` varchar(255) NOT NULL COMMENT '수신자주소',
+  `recv_address_dtl` varchar(255) NOT NULL COMMENT '수신자상세주소',
+  `recv_message` text COMMENT '수신자요청메세지',
+  `send_req_date` datetime NOT NULL COMMENT '배송요청일자',
+  `ORDER_STATE` varchar(2) NOT NULL COMMENT '주문상태',
+  `delivery_type` char(1) DEFAULT NULL COMMENT '배송비타입',
+  `delivery_charge` int(11) unsigned DEFAULT NULL COMMENT '택배요금',
+  `delivery_company` varchar(255) DEFAULT NULL COMMENT '택배회사',
+  `delivery_no` varchar(50) DEFAULT NULL COMMENT '운송장번호',
+  `delivery_dttm` datetime DEFAULT NULL COMMENT '배송시작일시',
+  `item_seller_seq` int(11) NOT NULL COMMENT '상품판매자',
+  `order_reg_dttm` datetime DEFAULT NULL COMMENT '주문등록일시',
+  `order_mod_dttm` datetime DEFAULT NULL COMMENT '주문수정일시',
+  PRIMARY KEY (`info_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품주문내역(장바구니에서 주문이 완료된 정보만 저장)';
+TRUNCATE `rb_shop_order_info`;
+
+
+
+-- 상품주문내역 변경로그
+DROP TABLE IF EXISTS `rb_shop_order_info_log`;
+CREATE TABLE `rb_shop_order_info_log` (
+  `log_seq` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '로그SEQ',
+  `info_seq` int(11) unsigned NOT NULL COMMENT '내역SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '주문자SEQ',
+  `item_seq` int(11) unsigned NOT NULL COMMENT '상품SEQ',
+  `order_seq` int(11) unsigned NOT NULL COMMENT '주문SEQ',
+  `order_no` varchar(17) NOT NULL COMMENT '주문번호',
+  `order_name` varchar(512) DEFAULT NULL COMMENT '주문명',
+  `order_price` int(11) NOT NULL COMMENT '주문가격',
+  `order_qty` int(11) DEFAULT NULL COMMENT '주문수량',
+  `order_ip` varchar(20) DEFAULT NULL COMMENT '주문자IP',
+  `recv_name` varchar(20) NOT NULL COMMENT '수령자명',
+  `recv_hp` varchar(512) NOT NULL COMMENT '수령자핸드폰',
+  `recv_zip_code` varchar(10) NOT NULL COMMENT '수령자우편번호',
+  `recv_address` varchar(255) NOT NULL COMMENT '수령자주소',
+  `recv_address_dtl` varchar(255) NOT NULL COMMENT '수령자상세주소',
+  `recv_message` text COMMENT '수령자요청메세지',
+  `send_req_date` datetime NOT NULL COMMENT '배송요청일자',
+  `order_state` varchar(2) NOT NULL COMMENT '주문상태',
+  `delivery_type` char(1) DEFAULT NULL COMMENT '배송비타입',
+  `delivery_charge` int(11) unsigned DEFAULT NULL COMMENT '택배요금',
+  `delivery_company` varchar(255) DEFAULT NULL COMMENT '택배회사',
+  `delivery_no` varchar(50) DEFAULT NULL COMMENT '운송장번호',
+  `delivery_dttm` datetime DEFAULT NULL COMMENT '배송시작일시',
+  `item_seller_seq` int(11) NOT NULL COMMENT '상품판매자SEQ',
+  `order_reg_dttm` datetime DEFAULT NULL COMMENT '주문등록일시',
+  `order_mod_dttm` datetime DEFAULT NULL COMMENT '주문수정일시',
+  PRIMARY KEY (`log_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품주문내역 변경로그';
+TRUNCATE `rb_shop_order_info_log`;
+
+
+
+-- 상품 반품/교환요청 내역
+DROP TABLE IF EXISTS `rb_shop_order_back_exchange`;
+CREATE TABLE `rb_shop_order_back_exchange` (
+  `be_seq` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '반품/교환SEQ',
+  `mb_seq` int(11) unsigned NOT NULL COMMENT '요청자SEQ',
+  `order_seq` int(11) unsigned NOT NULL COMMENT '주문마스터SEQ',
+  `order_no` char(17) NOT NULL COMMENT '주문번호',
+  `be_type` char(1) NOT NULL COMMENT '요청타입(1:반품 2:교환)',
+  `be_subject` varchar(255) DEFAULT NULL COMMENT '반품/교환 제목',
+  `be_content` text COMMENT '반품/교환 내용',
+  `be_reg_dttm` datetime DEFAULT NULL COMMENT '반품/교환 요청일시',
+  `be_answer` text COMMENT '반품/교환 답변',
+  `be_is_answer` char(1) DEFAULT NULL COMMENT '요청 답변 여부',
+  `be_answer_mb_seq` int(11) DEFAULT NULL COMMENT '답변자 SEQ',
+  `be_answer_dttm` datetime DEFAULT NULL COMMENT '답변일시',
+  `be_attach_img_path_1` varchar(255) DEFAULT NULL COMMENT '첨부이미지경로1',
+  `be_attach_img_path_2` varchar(255) DEFAULT NULL COMMENT '첨부이미지경로2',
+  PRIMARY KEY (`be_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='상품 반품/교환요청 내역';
+TRUNCATE `rb_shop_order_back_exchange`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 기본데이터 insert
+
+-- 1:1문의 카테고리 데이터
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (1, '신고하기', '사이트 불만사항, 불법신고 합니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (2, '오류/아이디어', '오류를 발견 했습니다/좋은 아이디어를 제안합니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (3, '광고문의', 'R샵에 광고를 게재하고 싶습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (4, '사업자인증', '사업자인증을 신청합니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (5, '상품교환/반품문의', '반품/교환에 대해 문의 할 사항이 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (6, '상품구매취소', '주문한 물건을 취소하고 싶습니다/거래에 문제가 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (7, '상품판매취소', '주문들어온 상품의 배송이 불가능 합니다/거래에 문제가 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (8, '상품등록/승인', '상품등록방법, 문제점이나 판매승인에 대해 문의 할 사항이 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (9, '상품내용수정/삭제', '등록한 상품의 내용이나 이미지 수정, 기간연장이 잘되지 않습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (10, '세금계산서', '세금계산서에 대해 문의할 사항이 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (11, '입금확인/입금방법', '계좌입금을 했는데 입금처리가 되었나요?/입금방법을 모릅니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (12, '정산문의', '상품판매대금 정산 관련해 질문이 있습니다/언제 정산이 되나요?');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (13, '부분환불/카드취소', '카드취소를 하고 싶습니다/환불과 관련하여 문의 합니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (14, 'e-money', 'e-money충전/출금에 대해 문의 할 사항이 있습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (15, '직거래유도신고', '직거래유도 상품 및 사이트 홍보 상품을 신고합니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (16, '관공서용세금계산서신', '상품구입시 관공서용 세금계산서를 발급받고 싶습니다');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (17, '입점상담문의', 'R샵에 판매입점을 하고 싶습니다.');
+
+INSERT INTO rainbow.rb_inquiry_type
+  (rit_seq, rit_name, rit_desc)
+VALUES
+  (18, '기타', '위 사항에 속하지 않는 기타 질문이 있습니다');
+
+
+
+-- 자주묻는 질문 타입 카테고리 데이터
+INSERT INTO RB_QUESTION_TYPE(
+	RQT_TYPE
+)VALUES(
+	'회원관련'
+);
+
+INSERT INTO RB_QUESTION_TYPE(
+	RQT_TYPE
+)VALUES(
+	'주문/배송'
+);
+
+INSERT INTO RB_QUESTION_TYPE(
+	RQT_TYPE
+)VALUES(
+	'등록/판매'
+);
+
+INSERT INTO RB_QUESTION_TYPE(
+	RQT_TYPE
+)VALUES(
+	'반품/교환'
+);
+
+INSERT INTO RB_QUESTION_TYPE(
+	RQT_TYPE
+)VALUES(
+	'기타'
+);
+
+
+
+-- 상품 카테고리 데이터
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C01', '노트북/데스크탑', 1, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:26:43', '1', '2018-01-04 16:26:43', '/upload/product/item/02/c12c1067f6404724936d64646a644598.jpg', 1);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0101', '노트북/스마트PC', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:48:39', '1', '2018-01-04 16:48:39', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010101', '삼성', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:51:18', '1', '2018-01-13 11:51:18', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010102', 'LG', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:51:26', '1', '2018-01-13 11:51:26', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010103', 'TG삼보', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:51:34', '1', '2018-01-13 11:51:34', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010104', 'HP/컴펙', 4, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:51:50', '1', '2018-01-13 11:51:50', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010105', 'IBM/레노버', 5, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:52:04', '1', '2018-01-13 11:52:04', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010106', 'DELL', 6, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:52:14', '1', '2018-01-13 11:52:14', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010107', 'SONY/도시바/후지쯔', 7, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:52:35', '1', '2018-01-13 11:52:35', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010108', 'ASUS/MS/ACER', 8, 3, 'Y', 'N', '', '', '1', '2018-01-13 11:53:14', '1', '2018-01-13 11:53:14', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0102', '컴퓨터/일체형PC', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:48:56', '1', '2018-01-04 16:48:56', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010201', '삼성', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:05', '1', '2018-01-13 12:00:05', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010202', 'LG', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:11', '1', '2018-01-13 12:00:11', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010203', 'HP/컴펙', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:20', '1', '2018-01-13 12:00:20', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010204', 'DELL', 4, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:27', '1', '2018-01-13 12:00:27', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010205', 'IBM/레노버', 5, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:39', '1', '2018-01-13 12:00:39', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010206', 'TG삼보', 6, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:00:48', '1', '2018-01-13 12:00:48', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010207', '일체형PC', 7, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:01:17', '1', '2018-01-13 12:01:17', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010208', '맞춤PC', 8, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:01:31', '1', '2018-01-13 12:01:31', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010209', '미니PC', 9, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:01:42', '1', '2018-01-13 12:01:42', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010210', '서버PC', 10, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:01:59', '1', '2018-01-13 12:01:59', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0103', '애플/맥북/아이패드', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:49:13', '1', '2018-01-04 16:49:13', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010301', '아이패드', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:02:39', '1', '2018-01-13 12:02:39', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010302', '맥북에어', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:03:17', '1', '2018-01-13 12:03:17', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010303', '맥북프로', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:03:24', '1', '2018-01-13 12:03:24', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010304', '아이맥/맥미니', 4, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:03:37', '1', '2018-01-13 12:03:37', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010305', '악세사리/기타', 5, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:03:46', '1', '2018-01-13 12:03:46', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0104', '태블릿PC/서피스', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:49:33', '1', '2018-01-04 16:49:33', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010401', '갤럭시탭/노트', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:04:11', '1', '2018-01-13 12:04:11', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010402', '서피스/윈도우태블릿', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:04:20', '1', '2018-01-13 12:04:20', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010403', '기타브랜드', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:04:31', '1', '2018-01-13 12:04:31', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C010404', '태블릿악세사리', 4, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:04:50', '1', '2018-01-13 12:04:50', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C02', '모니터/주변기기', 2, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:27:27', '1', '2018-01-04 16:27:27', '/upload/product/item/02/af1fb8feb29944a3827f2e22fbf819f1.jpg', 2);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0201', '모니터17~24인치', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:50:16', '1', '2018-01-04 16:50:16', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0202', '모니터27~28인치', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:50:33', '1', '2018-01-04 16:50:33', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0203', '모니터 32인치 이상', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:50:47', '1', '2018-01-04 16:50:47', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0204', '빔프로젝터', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:50:59', '1', '2018-01-04 16:50:59', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0205', '프린터/복합기', 5, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:51:13', '1', '2018-01-04 16:51:13', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0206', '유무선공유기/허브', 6, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:51:28', '1', '2018-01-04 16:51:28', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0207', '외장 HDD/SSD', 7, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:51:53', '1', '2018-01-04 16:51:53', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0208', '보조배터리/충전기', 8, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:52:21', '1', '2018-01-04 16:52:21', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0209', '키보드/마우스', 9, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:52:34', '1', '2018-01-04 16:52:34', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0210', '노트북/주변기기', 10, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:52:49', '1', '2018-01-04 16:52:49', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C03', '휴대폰/웨어러블', 3, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:27:36', '1', '2018-01-04 16:27:36', '/upload/product/item/02/27a6aa475e8e4a5798e5f93d03b8bc6e.jpg', 3);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0301', '애플 아이폰', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:56:53', '1', '2018-01-04 16:56:53', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0302', '삼성 갤럭시폰', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:57:01', '1', '2018-01-04 16:57:01', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0303', 'LG 스마트폰', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:57:20', '1', '2018-01-04 16:57:20', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0304', '웨어러블기기', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 16:57:45', '1', '2018-01-04 16:57:45', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0305', '스마트 악세사리', 5, 2, 'Y', 'N', '', '', '1', '2018-02-09 17:15:04', '1', '2018-02-09 17:15:04', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C04', '음향/이어폰/스피커', 4, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:27:49', '1', '2018-01-04 16:27:49', '/upload/product/item/02/07d35f0c95f243d786b6e7d24f83bd7c.jpg', 4);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0401', 'best By 닥터드레ⓑ', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:03:37', '1', '2018-01-04 17:03:37', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0402', 'SONY 블루투스', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:04:23', '1', '2018-01-04 17:04:23', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0403', '이어폰/블루투스', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:04:46', '1', '2018-01-04 17:04:46', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0404', '스피커/사운드바', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:05:10', '1', '2018-01-04 17:05:10', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0405', '유명헤드폰', 5, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:05:38', '1', '2018-01-04 17:05:38', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0406', '카세트오디오/MP3', 6, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:06:26', '1', '2018-01-04 17:06:26', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C05', '가전/TV/세탁기/냉장고', 5, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:28:03', '1', '2018-01-04 16:28:03', '/upload/product/item/02/1a1f9efc315548d2a025d0aeec93a932.jpg', 5);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0501', 'TV/UHD/LED', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:10:02', '1', '2018-01-04 17:10:02', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050101', '32~49인치', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:07:25', '1', '2018-01-13 12:07:25', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050102', '50~79인치', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:07:37', '1', '2018-01-13 12:07:37', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050103', '기타', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:07:44', '1', '2018-01-13 12:07:44', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0502', '냉장고/세탁기', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:10:13', '1', '2018-01-04 17:10:13', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0503', '생활가전', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:10:23', '1', '2018-01-04 17:10:23', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050301', '청소기/로봇청소기', 1, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:14:05', '1', '2018-01-29 15:14:05', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050302', '공기청정기/제습기', 2, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:14:18', '1', '2018-01-29 15:14:18', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050303', '온수/온열매트', 3, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:14:26', '1', '2018-01-29 15:14:26', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050304', '히터/온열기기', 4, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:14:37', '1', '2018-01-29 15:14:37', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050305', '에어컨/선풍기/써큘', 5, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:14:59', '1', '2018-01-29 15:14:59', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050306', '업소용냉장고/가전', 6, 3, 'Y', 'N', '', '', '1', '2018-01-29 15:15:15', '1', '2018-01-29 15:15:15', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0504', '주방가전', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:11:32', '1', '2018-01-04 17:11:32', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050401', '압력밥솥', 1, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:08:40', '1', '2018-01-13 12:08:40', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050402', '전자레인지/오븐', 2, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:08:48', '1', '2018-01-13 12:08:48', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050403', '그릴', 3, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:08:54', '1', '2018-01-13 12:08:54', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050404', '토스터기/주전자', 4, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:09:10', '1', '2018-01-13 12:09:10', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050405', '믹서기/원액기', 5, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:09:17', '1', '2018-01-13 12:09:17', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C050406', '커피메이커', 6, 3, 'Y', 'N', '', '', '1', '2018-01-13 12:09:24', '1', '2018-01-13 12:09:24', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0505', '건강가전/안마기', 5, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:12:25', '1', '2018-01-04 17:12:25', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C06', '주방/생활/아동', 6, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:28:19', '1', '2018-01-04 16:28:19', '/upload/product/item/02/8fe27b59519c4563b6fa6555888c1254.jpg', 6);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0601', '주방용품/주장기구', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:13:30', '1', '2018-01-04 17:13:30', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0602', '생활용품/침구/의자', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:13:47', '1', '2018-01-04 17:13:47', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0603', '어린이/유아용품/완구', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:13:58', '1', '2018-01-04 17:13:58', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0604', '가방/여행용캐리어/백', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:14:15', '1', '2018-01-04 17:14:15', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C07', '차량용품/블랙박스', 7, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:28:29', '1', '2018-01-04 16:28:29', '/upload/product/item/02/ecd69a10e2c44ba59e311a72c9da7702.jpg', 7);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0701', '블랙박스/네비/하이패스', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:14:34', '1', '2018-01-04 17:14:34', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0702', '차량용품/성능개선제', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:14:54', '1', '2018-01-04 17:14:54', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0703', 'CCTV/보안카메라', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:15:11', '1', '2018-01-04 17:15:11', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0704', '차량용소품', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:15:25', '1', '2018-01-04 17:15:25', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C08', '건강/아웃도어', 8, 1, 'Y', 'N', '', '', '1', '2018-01-04 16:28:45', '1', '2018-01-04 16:28:45', '/upload/product/item/02/219fde1692f845dfa40805da26d2476c.jpg', 8);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0801', '스포츠/의류/패션', 1, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:15:40', '1', '2018-01-04 17:15:40', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0802', '헬스용품', 2, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:15:55', '1', '2018-01-04 17:15:55', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0803', '건강식품', 3, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:03', '1', '2018-01-04 17:16:03', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0804', '시계', 4, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:11', '1', '2018-01-04 17:16:11', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0805', '화장품/스킨케어', 5, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:19', '1', '2018-01-04 17:16:19', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0806', '패션잡화', 6, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:30', '1', '2018-01-04 17:16:30', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0807', '명품선글라스', 7, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:38', '1', '2018-01-04 17:16:38', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0808', '이너웨어', 8, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:16:50', '1', '2018-01-04 17:16:50', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0809', '캠핑/아웃도어', 9, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:17:03', '1', '2018-01-04 17:17:03', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0810', '골프용품', 10, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:17:14', '1', '2018-01-04 17:17:14', '', 0);
+
+INSERT INTO rainbow.rb_shop_category
+  (cate_code, cate_name, cate_order, cate_depth, cate_use_yn, cate_ad_yn, cate_ad_img_path, cate_ad_img_link, cate_reg_user, cate_reg_dttm, cate_mod_user, cate_mod_dttm, cate_advertise_img, cate_advertise_item_seq)
+VALUES
+  ('C0811', '기타', 11, 2, 'Y', 'N', '', '', '1', '2018-01-04 17:17:23', '1', '2018-01-04 17:17:23', '', 0);
+
+
+
+
+
+
+
+  
+-- 회원정보
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (1, 'nerobong2', 'f6a9b81b05533adc8ed7b0988abab58da4bce0e073d54d0ee38e56f29ede8075adf0b7c1e44d6ac8c401f502162d4d6604734b885661ff78efc0c2cb65647c6b', '김태경', '닉넴2', '20181231', '0', '002-1234-1234', 'PChVVTO68n3DZ1c4GZIxtA==', 'nerobong2@gmail.com', '06113', '서울특별시 강남구 학동로12길 15', '202호', '2', '', '', '', '', '', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '1', '', '1', '1', '1', '127.0.0.1', '127.0.0.1', 1, 0, 0, 0, '2018-01-22 20:24:07', NULL, '', '', '65D98229616625366623D75983F722D3', '', '', 'N', '1', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (2, 'yic0907', 'ffef6258c33cc977c8e003954392c639924969d283d00dffe1dd1a15d1b384141393aef706625d454c276e9d14776b5e3cf183aa35ff803088a8c725e8d2d0d0', '유인찬', '축구쟁이차니', '19840907', '0', '002-1234-1234', 'Tq22X1TDAfuVCGEvkJ76Jw==', 'yic0907@naver.com', '03410', '서울특별시 은평구 서오릉로13길 4', '뉴아름빌', '2', 'AJ전시몰', '김대표', '123-12-12345', '002-1242-1242', '서울특별시 영등포구 경인로 775', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '', '1', '1', '1', '127.0.0.1', '127.0.0.1', 1, 0, 0, 0, '2018-01-24 14:27:05', NULL, '2동 11층', '07299', '3E4094250ED847DA2889E926646E01F0', '', '', 'N', '1', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (3, 'nerobong3', 'acdccbc62667937c4a1555520471f04066a7848ef050003bcf727b277d74fbb9cb01fcdc0d06bc7e98ab499d29e0e75f551da80cb8e5a9e8c6c7d34a24b3cc87', '판매점이', '판매점이', '20181231', '0', '', 'kKaptysBdbplXV2CJKpp0g==', 'aaaa@gmail.com', '', '', '', '', '상포', '김태표', '123-12-12315', '02-1111-1111', '서울특별시 강남구 언주로130길 35', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '', '1', '2', '0', '127.0.0.1', '', 1, 0, 0, 0, '2018-02-01 16:06:32', NULL, '6층', '06098', '7F367A0222109E3AD5C55B220FAAA0D1', '', '', 'N', '', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (4, 'yic09072', 'b187762870ef66aeb32030562ac5eaa19c1c5190495ca2b17771f73489231550b094eb2056d443611c2ddad810c1b10f1261c2299d5dfb4d044a7b9c848b9c71', '유인찬', '판매점1', '19930725', '0', '02-1234-1234', 'PChVVTO68n3DZ1c4GZIxtA==', 'seller1@naver.com', '07328', '서울특별시 영등포구 국제금융로6길 30', '5층', '', 'AJ전시몰', '김중우', '117-81-62550', '02-6390-5245', '서울특별시 영등포구 경인로 755', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '', '1', '2', '1', '127.0.0.1', '127.0.0.1', 1, 0, 0, 0, '2018-02-06 20:14:30', NULL, '2동 11층 05호', '07299', '9D95D7A65D4F2E55033053FE0A3081F5', '', '', 'N', '1', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (5, 'yic09073', '105f61b5ee96a474d7d4537875663aa6cc009ab8a42386327904f256443d50ac03cb56599ab6e7b3d14ad6d41996f500d9cd6ab6b977268e78e9e2411345a0e5', '홍길동', '판매점22', '19770623', '0', '02-1111-2222', 'xEXy+2oEDGdC/Kk1qzCVQA==', 'yic0907@naver.com', '11144', '경기도 포천시 학동로 3', '2동 2호', '', '싸요꾹', '김싸요', '123-12-12345', '02-1122-3344', '서울특별시 강남구 테헤란로 101', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '', '1', '2', '0', '127.0.0.1', '127.0.0.1', 1, 0, 0, 0, '2018-02-08 14:48:23', NULL, '2', '06134', '4B135B791B92D90CC1128C7339F84B7B', '', '', 'N', '1', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (6, 'forever6509', '07e72bf348b8d7a253459e97dc85e702127fb65c1055527605307a32e014992d07ef0347d183930f18d9c2fba0200a99cacfc17692a7ae03f7a93de2cb6d9abb', '유소비', '축구하는촤니', '19840907', '0', '02-1234-1234', 'Tq22X1TDAfuVCGEvkJ76Jw==', 'forever6509@naver.com', '28450', '충청북도 청주시 흥덕구 백봉로 244', '9동 605호', '', '', '', '', '', '', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '1', 'yic0907', '1', '1', '0', '127.0.0.1', '', 1, 0, 0, 0, '2018-02-08 14:59:11', NULL, '', '', '51A42DD5FDAB596C582080CDD0E15E71', '', '', 'N', '', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+
+-- 관리자 계정
+INSERT INTO rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (7, 'admin1', 'c56c957f9c46d5d7de66fa9980ec86c7ea7be89174e414a4feaad3265cf4767c9204d2308fc0cced6c6c3123671539d8ca5a3c0bc4e028c2544e24525e1ebc57', '관리자', '최고관리자', '20181231', '0', '', 'R7+zBvWHTTyXT1gFSItw0A==', 'admin@gmail.com', '', '', '', '', '', '', '', '', '', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '', '', '1', '0', '0', '127.0.0.1', '', 1, 0, 0, 0, '2018-02-23 21:15:21', NULL, '', '', 'F3F84EBC115641B0CE529154DEAF2439', '', '', 'N', '', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+  
+INSERT INTO rainbow.rb_member
+  (mb_seq, mb_id, mb_password, mb_name, mb_nickname, mb_birthday, mb_birthday_type, mb_tel, mb_hp, mb_email, mb_zip_code, mb_address, mb_address_detail, mb_address_type, mb_biz_name, mb_biz_ceo_name, mb_biz_no, mb_biz_tel, mb_biz_address, mb_biz_type_1, mb_biz_type_2, mb_biz_type_3, mb_biz_type_4, mb_biz_type_5, mb_biz_code, mb_info_recv_mail, mb_info_recv_post, mb_info_recv_sms, mb_info_recv_hp, mb_info_open, mb_recomm_id, mb_state, mb_type, mb_is_login, mb_join_ip, mb_login_ip, grade_seq, mb_cash, mb_cash_card, mb_point, mb_reg_dttm, mb_leave_dttm, mb_biz_address_detail, mb_biz_zip_code, mb_session_id, mb_join_url, mb_allow_ip, mb_allow_ip_use_yn, mb_login_device_type, mb_bank_name, mb_bank_no, mb_bank_owner, mb_event_receive, mb_biz_condition, mb_biz_category, mb_biz_img_path, mb_cert, mb_cert_phone, mb_cert_email, mb_biz_cert_state, mb_biz_type, mb_leave_reason)
+VALUES
+  (8, 'superadmin', 'c44bda115afc48cb2aa5f4dd25c0cf45675f82b7a649e33b83dee3ee131d5ad6fbda276367fa7c947e4e8e29ba416a991700fde29ee5b7cad3e687bc36900de9', '슈퍼관리', '슈퍼관리자', '19840907', '0', '02-1234-1234', 'PChVVTO68n3DZ1c4GZIxtA==', 'superadmin@admin.com', '03410', '서울특별시 은평구 서오릉로13길 4', '관리자주소다', '', '', '', '', '', '', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '1', '', '1', '0', '0', '127.0.0.1', '', 1, 0, 0, 0, '2018-03-05 14:59:48', NULL, '', '', '01CA0096D0E83537484BD2D0D5C31A18', '', '', 'N', '', '', '', '', '1', '', '', '', '0', '0', '0', '0', '', '');
+  
+  
+  
+  
+-- 어드민 사용자  
+INSERT INTO rainbow.rb_admin_member
+  (admin_seq, mb_seq, admin_id, admin_password, admin_name, admin_hp, admin_email, admin_state, admin_is_login, admin_login_ip, admin_reg_dttm, admin_reg_user, admin_mod_dttm, admin_mod_user)
+VALUES
+  (1, 7, 'admin1', 'H8IBtM82VWas57t/p85stA==', '최고관리자', 'PChVVTO68n3DZ1c4GZIxtA==', 'superadmin@admin.com', '0', '1', '127.0.0.1', '2018-03-05 15:03:44', 1, NULL, 0);
+
+INSERT INTO rainbow.rb_admin_member
+  (admin_seq, mb_seq, admin_id, admin_password, admin_name, admin_hp, admin_email, admin_state, admin_is_login, admin_login_ip, admin_reg_dttm, admin_reg_user, admin_mod_dttm, admin_mod_user)
+VALUES
+  (2, 8, 'superadmin', 'H8IBtM82VWas57t/p85stA==', '슈퍼관리자', 'PChVVTO68n3DZ1c4GZIxtA==', 'superadmin@admin.com', '0', '1', '127.0.0.1', '2018-03-05 15:03:44', 1, NULL, 0);
+  
+
+
+
+ -- 회원기본세팅 
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(1,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(2,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(3,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(4,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(5,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(6,now());
+
+INSERT INTO rainbow.rb_member_setting
+(MB_SEQ,RMS_REG_DTTM)VALUES(7,now());
+
+
+
+-- 회원 개쉬 충전
+-- 충전 신청
+INSERT INTO rainbow.rb_cash_charge
+  (cc_seq, mb_seq, cc_amount, cc_pay_type, cc_pay_bank, cc_pay_name, cc_pay_no, cc_state, cc_bigo, cc_reg_dttm, cc_mod_dttm)
+VALUES
+  (1, 1, 10000000, '1', '', '김태경', '', '2', '', '2018-02-20 18:30:31', NULL);
+  
+INSERT INTO rainbow.rb_cash_charge
+  (cc_seq, mb_seq, cc_amount, cc_pay_type, cc_pay_bank, cc_pay_name, cc_pay_no, cc_state, cc_bigo, cc_reg_dttm, cc_mod_dttm)
+VALUES
+  (2, 2, 10000000, '1', '', '유인찬', '', '2', '', '2018-02-20 18:30:31', NULL);
+
+-- 관리자 확인 충전 완료
+update rb_cash_charge
+set cc_state = 2, cc_mod_dttm = now()
+where cc_seq = 1;
+
+update rb_cash_charge
+set cc_state = 2, cc_mod_dttm = now()
+where cc_seq = 2;
+
+-- 충전 사용내역 프로시저 호출(회원번호,금액,상품 오더 시퀀스)
+call `rainbow`.`PROC_INSERT_RB_CASH_LOG`(1,10000000,1,null,@return_query,@return_result_text);
+call `rainbow`.`PROC_INSERT_RB_CASH_LOG`(2,10000000,1,null,@return_query,@return_result_text);
+
+
+
+-- 관리자 쪽지 보내기
+INSERT INTO rb_letter(
+	rl_writer_seq
+	,rl_receiver_seq
+	,rl_title
+	,rl_content
+	,rl_reg_dttm
+)VALUES(
+	7
+    ,1
+    ,'쪽지제목입니당'
+	,'쪽지내용내용입니다 내용입니다'
+	,NOW()
+);
+
+
+
+-- 상품정보
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (1, 4, '[삼성] 갤럭시 프로S 블랙에디션 (모바일 최적화버젼/인텔 6세대 코어M3 6Y30-900MHz/램4G/SSD 128GB/터치스크린/블루투스/12인치 Super AMOLED/Win', '갤럭시 프로S 블랙에디션', '갤럭시,노트북,삼성', 'C01', 'C0101', '', '삼성전자', '베트남', 1039000, 799000, 10000, 789000, 24, '갤럭시 탭프로S', '2', '2', '2018-02-01 00:00:00', '2018-03-31 00:00:00', 8, '2', 0, '', '2', '신품수준', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/2e854903-0f93-46a7-b26e-0fac28bd1dfe.jpg&#10;" title="001033412CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/c12c1067f6404724936d64646a644598.jpg', '/upload/product/item/02/5ecf4688c6634d458e65a49fba3e08c4.jpg', '/upload/product/item/02/3c227454538948f88a597593ecd37031.jpg', '/upload/product/item/02/6953d8ebbc4441acaa240b518dfeedee.jpg', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 22:33:49', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (2, 4, '코어i5 SSD초고속부팅 [삼성] 매직스테이션 하이엔드 블랙라벨 최고사양 3D게임 완벽지원 DB-P400', '매직스테이션 하이엔드 블랙라벨', '컴퓨터,블랙라벨', 'C01', 'C0102', '', '삼성전자', '대한민국', 833000, 449000, 10000, 439000, 47, 'DB-P400 i5-2300', '2', '2', '2018-02-01 00:00:00', '2018-03-31 00:00:00', 38, '2', 0, '', '4', '짧은사용', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/ff6eef0b-7ef2-4cd4-830d-1738826292f2.jpg&#10;" title="001017673CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/af1fb8feb29944a3827f2e22fbf819f1.jpg', '/upload/product/item/02/55a5ea9c79d7413ca8ed697622b79768.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:13:01', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (3, 4, '[브리츠] BZ-G20 Cone 블루투스 스피커', '[브리츠] BZ-G20 Cone 블루투스 스피커', '블루투스,스피커,브리츠', 'C04', 'C0403', '', '브리츠', '베트남', 21900, 17900, 0, 17900, 18, 'BZ-G20 Cone', '2', '2', '2018-02-08 00:00:00', '2018-04-05 00:00:00', 99, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/fcd32c84-5225-4c67-b53b-d0615ef6aff0.jpg&#10;" title="G20%20CONE-1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '색상', '', '/upload/product/item/02/27a6aa475e8e4a5798e5f93d03b8bc6e.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:15:52', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (4, 4, '[삼성] 블랙슈트 에디션 코어i7 테라급 ★삼성게이밍북★ [삼성] 센스NT200B5C 게이밍북 (인텔 아이비브릿지 코어i7 3720QM-2.6GHz/램8G/하드1TB', '삼성게이밍북', '노트북,삼성,게이밍북,인텔', 'C01', 'C0101', '', '삼성전자', '대한민국', 998000, 599000, 50000, 549000, 45, 'NT200B5C I7-3720QM', '2', '2', '2018-02-21 00:00:00', '2018-02-28 00:00:00', 1, '2', 0, '', '5', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/d70a6d16-bf86-4ae3-af4d-8287a9c2e516.jpg&#10;" title="001024690CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '신품배터리', '/upload/product/item/02/07d35f0c95f243d786b6e7d24f83bd7c.jpg', '/upload/product/item/02/4c20e281d30a4a3a8678d7beb516c49e.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:19:31', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (5, 4, '★런칭기념행사 종전16G→32G 업그레이드★ 가성비 블랙박스 수호미 SMART-F 자가진단 지능형 음성시스템 2CH (전방 FHD + 후방 HD)', '블랙박스 수호미 SMART-F ', '블랙박스,수호미,자가진단', 'C07', 'C0701', '', '수호미전자통신', '베트남', 191000, 101000, 6000, 95000, 50, 'SMART-F 16G', '2', '2', '2018-02-01 00:00:00', '2018-04-18 00:00:00', 3, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/901dfa99-d97c-4617-aab6-561da3316491.jpg&#10;" title="001048503CT2.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/1a1f9efc315548d2a025d0aeec93a932.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:31:57', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (6, 4, '에디스 세라믹 3종세트(18cm 편수/20cm양수/ 24cm양수)', '에디스 세라믹냄비 3종', '에디스,냄비,세라믹', 'C06', 'C0601', '', '양신코리아', '대한민국', 55800, 36000, 0, 36000, 35, '에디스 세라믹냄비', '2', '2', '2018-02-04 00:00:00', '2018-03-22 00:00:00', 14, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/a9d0e27b-e525-49f0-9af3-99af64ec7b7d.jpg&#10;" title="001045881CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/8fe27b59519c4563b6fa6555888c1254.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:34:04', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (7, 4, '새상품 무료배송설치!! ★월풀스타일러 건조기★ 에어밴티드방식!! 먼지세균 제거와 건조를 한번에 [월풀] 건조기 식스센스 세계최초기술 옷감의 습도를 인식 AWD80BGW (건조용량 ', '월풀스타일러 건조기', '건조기,월풀스타일러,에어밴티드', 'C05', 'C0502', '', '월풀', '인도네시아', 1060000, 995000, 200000, 795000, 25, 'AWD80BGW', '2', '2', '2018-02-21 00:00:00', '2018-02-28 00:00:00', 1, '2', 0, '', '1', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/58d53010-d360-4d20-96da-6c662939f63c.jpg&#10;" title="001042064CT6.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/ecd69a10e2c44ba59e311a72c9da7702.jpg', '/upload/product/item/02/7b64575b376c4cf984abb27a14dba674.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:36:29', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (8, 4, '북유럽 핀란드 명품브랜드 Golla Jude 파우치 [골라] Golla Jude G1483 (최대9.7인치 태블릿 파우치/내부자석디자인/외부포켓/핑거스트랩/제품입구 3cm오픈/색상', 'Golla Jude 파우치', '파우치,골라,명품,핀란드', 'C06', 'C0604', '', 'Golla', '독일', 49500, 15900, 3000, 12900, 74, 'Jude G1483', '2', '2', '2018-02-01 00:00:00', '2018-04-19 00:00:00', 16, '2', 0, '', '1', '선착순한정,무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/745a4bb9-6d36-4d5c-906c-923bc6befb6f.jpg&#10;" title="001025221CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/219fde1692f845dfa40805da26d2476c.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:38:27', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (9, 4, '[PILLAR] 1인노래방 블루투스 마이크 & 스피커 BT-858M', '필라 블루투스 마이크', '마이크,노래방,필라', 'C04', 'C0405', '', '(주)컴소닉코퍼레이션', '미국', 32000, 24900, 0, 24900, 22, 'BT-858M', '2', '2', '2018-02-21 00:00:00', '2018-03-31 00:00:00', 19, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/114f8a0c-5e9d-4793-acba-98a21dc4a542.jpg&#10;" title="bbd2392c5680afd_15076108612487281644.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '색상', '', '/upload/product/item/02/4f7633f99e594185971b11bd679a7b9f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:41:40', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (10, 4, '롯데면세점, 신세계면세점 판매 모델 중 베스트 셀러~!!![엘르] 남여 가죽 손목시계EG1317 실버블랙(WBK)택 1/실버블랙 /Japan 무브/스테인레스스틸백 / 소가죽밴드/3', '[엘르] 남여 가죽 손목시계', '시계,엘르,면세점', 'C08', 'C0804', '', '엘르', '일본', 99000, 69000, 0, 69000, 30, 'EG1317MM/WBK', '2', '2', '2018-02-04 00:00:00', '2018-05-23 00:00:00', 100, '2', 0, '', '2', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/ec557281-2883-4d79-bbf8-1000cb17db2d.jpg&#10;" title="EG1317_WBK_info.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '사이즈', '', '/upload/product/item/02/709fa19a7ae84193828caca189c7513a.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-21 23:44:16', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (11, 4, '삼성전자 16:9비율 Full HD LED모니터 [삼성] 효율적인 편의성과 환경까지 생각하는 에코모니터 BX2240X (1920x1080 Full HD /틸트/응답속도 5ms/D-', '삼성전자 16:9비율 Full HD LED모니터', '삼성전자,모니터,LED', 'C02', 'C0201', '', '삼성전자', '대한민국', 258000, 119000, 0, 119000, 54, 'BX2240X', '2', '2', '2018-02-22 00:00:00', '2018-03-28 00:00:00', 12, '2', 0, '', '3', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/02/c34da0e0-d486-46ae-bf8f-54b8d20e65bb.jpg&#10;" title="001049288CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/02/94aebe67e24c4d9d8c93a7ae53ec7f78.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-02-22 17:08:33', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (12, 4, '최신형 레노버 아이디어패드 B51 코어i7 + 라데온그래픽 기업체 납품취소 미개봉노트북 선착순-50만원 할인!', '레노버 아이디어패드', '레노버,아이디어패드,코어i7', 'C01', 'C0101', '', '레노버', '미국', 1299000, 897000, 100000, 797000, 39, 'B51 코어i7 80LM00VMKR', '2', '2', '2018-03-01 00:00:00', '2018-03-31 00:00:00', 3, '2', 0, '', '1', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/fada95c0-87d8-409e-ae8d-df6d66867590.jpg&#10;" title="001050243CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', 'SSD변경', '/upload/product/item/03/c628c85f3fdf44b599699d088a5b0401.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 14:36:56', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (13, 4, '신품SSD탑재! 초고속부팅 LG가성비 노트북 [LG] X-Note R510 레드와인 (펜린 P8700-2.53G/램4G/SSD128G/intel GMA 4500/15.4인치 LED', 'LG X-Note', 'X-Note,LG,노트북', 'C01', 'C0101', '', 'LG', '대한민국', 598000, 298000, 50000, 248000, 59, 'LG R510', '2', '2', '2018-03-03 00:00:00', '2018-03-31 00:00:00', 2, '2', 0, '', '3', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/7fb37578-46e3-46c5-a6bd-a7f2aca2d708.jpg&#10;" title="001048436CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/22095a9da1004397b373afc8692a493d.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 14:39:12', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (14, 4, 'SSD장착 플래티넘실버 한정입고 [DELL] Vostro 3350 (인텔 샌디브릿지 코어i5 2410M-2.30GHz/램4G/SSD128G/인텔HD그래픽/DVD멀티/13인치 LED', '[DELL] Vostro 3350', 'DELL,노브툭,vostro', 'C01', 'C0101', '', 'DELL', '일본', 429000, 339000, 0, 339000, 21, 'Vostro 3350', '2', '2', '2018-03-03 00:00:00', '2018-03-31 00:00:00', 2, '2', 0, '', '3', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/d0c4bcf4-da21-4310-974d-0cec999d6f93.jpg&#10;" title="001050039CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/c803c6dd7c184ef4a10589d397dce3b7.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 14:41:25', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (15, 4, '코어i5 노트북 SSD 하드 탑재! [DELL] 마그네슘합금 애런데일에디션 Latitude E6410 블랙 (인텔 코어i5 520M-2.4GHz/램4GB/SSD128G/인텔HD그래', '애런데일에디션 Latitude E6410 블랙', 'dell,노트북,애런데일에디션', 'C01', 'C0101', '', 'DELL', '일본', 429000, 329000, 0, 329000, 23, 'Latitude E6410 I5-520M', '2', '2', '2018-03-01 00:00:00', '2018-03-31 00:00:00', 12, '2', 0, '', '3', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/64d7569f-446d-4599-8a32-5d87cc391a8e.jpg&#10;" title="001049951CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/bfba56228b724115a3526d99efc2b908.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 14:45:21', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (16, 4, 'HP 3세대 코어i5 마지막1대 [HP] ProBook 650 (인텔 3세대 코어i5 3210M-2.5GHz/램6GB/500GB/HD그래픽4000/DVD멀티/15.6인치(1366x', '[HP] ProBook 650', '노트북,HP,probook', 'C01', 'C0101', '', 'HP', '대한민국', 459000, 359000, 0, 359000, 22, 'ProBook 650', '2', '2', '2018-03-01 00:00:00', '2018-03-22 00:00:00', 1, '2', 0, '', '3', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/f002bb4f-289b-41cb-8a12-81d74a4671db.jpg&#10;" title="001049916CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/fbc0bcf1d7ec484bad92b526d8843790.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 14:47:31', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (17, 4, 'iPhone8 Plus [apple] 유리로 빚어낸 고고한 매력 아이폰8+ (5.5인치/3D-Touch/Retina HD디스플레이/아이폰7대비 2배더 뛰어난 A11 Bionic칩', '아이폰8 플러스', '아이폰.애플,아이폰8', 'C03', 'C0301', '', '애플', '베트남', 1130000, 1059000, 270000, 789000, 30, '아이폰8+ 64GB (B)', '2', '2', '2018-03-01 00:00:00', '2018-03-20 00:00:00', 1, '2', 0, '', '5', '노마진', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/23047941-ffda-4ccd-ac3d-fe9f7a7faf09.jpg&#10;" title="001049059CT2.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '색상', '', '/upload/product/item/03/81957d82f4db4c31a39dfffb2cd1791c.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-03 16:55:12', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (18, 5, '신품SSD하드128G 탑재! HP 코어i5 가성비 노트북 [hp] 프로페셔널을 위한 메탈실버 EliteBook 8470P (인텔 3세대 아이비브릿지 코어i5 3210M-2.5GHz', '메탈실버 EliteBook 8470P', '노트북,HP,메탈실버', 'C01', 'C0101', '', 'HP', '베트남', 598000, 399000, 40000, 359000, 40, 'HP 8470P I5-3210M', '2', '2', '2018-03-01 00:00:00', '2018-04-30 00:00:00', 14, '2', 0, '', '5', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/5dc62fbc-6dfa-47e2-8a57-6915625dc8fc.jpg&#10;" title="001049004CT4.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/c6006251fd40446f8a21050013b0e419.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:21:13', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (19, 5, '코어i5 삼성 아티브북3 [삼성] 하스웰 아티브북3 NT371B5J (인텔 4세대 하스웰 코어i5 4210M-2.6GHz/램8GB/신품SSD128G/인텔HD4600/DVD멀티/웹캠', '삼성 아티브북3', '노트북,삼성 아티브북,아티브북', 'C01', 'C0101', '', '삼성', '베트남', 1080000, 1079000, 490000, 589000, 45, 'NT371B5J', '2', '2', '2018-03-06 00:00:00', '2018-03-29 00:00:00', 2, '2', 0, '', '5', '스크래치,짧은사용', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/2ea2f242-f4cf-4a4e-8f60-9aa817c26241.jpg&#10;" title="001024033CT2.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '추가옵션', '/upload/product/item/03/9a95161350064d12bf20ef63d8dc29c3.jpg', '/upload/product/item/03/515b903b7e6349188d75b820c63509a9.jpg', '/upload/product/item/03/656456ccb0e34336a41b47fcd1580539.jpg', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:25:11', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (20, 5, '삼성시리즈5 크롬북 200대 완판!! 가성비노트북 179,000원 [삼성] Serise5 Chromebook 초슬림 초경량 디자인 삼성 리퍼비쉬 시리즈5 (인텔 N570-1.66G', '삼성시리즈5 크롬북', '크롬북,노트북,삼성', 'C01', 'C0101', '', '삼성전자', '베트남', 379000, 179000, 10000, 169000, 55, 'XE500C21', '2', '2', '2018-03-01 00:00:00', '2018-04-28 00:00:00', 16, '2', 0, '', '4', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/4ed25dba-bab1-489a-aa57-abda2cd06de4.jpg&#10;" title="001042956CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '추가옵션', '/upload/product/item/03/5a925619e1074c2bb0f7f6d008c7dd92.jpg', '/upload/product/item/03/877ca023f4104a50ab8036b36e206eba.jpg', '/upload/product/item/03/d3fc8b2336294ad5804c8b4a22f031e7.jpg', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:28:18', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (21, 5, 'SSD초고속부팅! 데스크톱 PC 대체할 노트북 [TG] 에버라텍 TS-510 블랙(인텔 코어i5-450M 2.4GHz/램4G/하드SSD128G/인텔HD그래픽/15.6인치 LED(1', '에버라텍 TS-510 블랙', '삼보,노트북,에버라텍,TS-510', 'C01', 'C0101', '', 'TG삼보', '대한민국', 598000, 399000, 40000, 359000, 40, '에버라텍 TS-510 블랙', '2', '2', '2018-03-01 00:00:00', '2018-05-31 00:00:00', 28, '2', 0, '', '4', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/407d898f-19f1-4aa2-9438-668ca95d9388.jpg&#10;" title="001050311CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/cc1f74195bc6488791afcba4149f922f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:31:30', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (22, 5, '코어i7 SSD초고속부팅 플래티넘실버 엘리트북 [HP] EliteBook 8540P 실버(인텔 코어 i7 740Q-1.73GHz/램8G/하드SSD128G/NVIDIA NVS 510', '플래티넘실버 엘리트북 [HP]', '노트북,HP,엘리트북', 'C01', 'C0101', '', 'HP', '대한민국', 798000, 558000, 60000, 498000, 38, 'EliteBook 8540P', '2', '2', '2018-03-01 00:00:00', '2018-06-22 00:00:00', 17, '2', 0, '', '4', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/0ea133da-02fd-43c3-89a8-9d78dec10576.jpg&#10;" title="001050312CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '추가상품', '/upload/product/item/03/c01543e52a52484eb8dc20635df1cd09.jpg', '/upload/product/item/03/74d338af09604773ad8483c0baebeaf8.jpg', '/upload/product/item/03/6bf33e80d04f465d8ea64305259cfc35.jpg', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:34:36', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (23, 5, '6세대 스카이레이크CPU! 빠른속도의 SSD장착 [LG전자]LG 그램 14ZB970-GP50ML (인텔 6세대 스카이레이크 코어i5 6200U/램8G/SSD256G/인텔HD520/', 'LG 그램', '그램,LG,노트북,6세대,스카이레이크', 'C01', 'C0101', '', 'LG전자', '대한민국', 1549000, 1368000, 0, 1368000, 12, '14ZB970-GP50ML', '2', '2', '2018-03-01 00:00:00', '2018-07-31 00:00:00', 100, '2', 0, '', '1', '노마진,무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/a27f7e9f-0e6d-4c20-99f8-1cb23a0e3f0a.jpg&#10;" title="001050270CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/9106972d1e8e4a07ad6a2096d02bc2f5.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:38:46', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (24, 5, '7세대 카비레이크CPU! 빠른속도의 SSD장착 [LG전자] LG 올데이그램 15Z970-GP70ML (인텔 7세대 카비레이크 코어i7 7500U/램8G/SSD256G/인텔HD620', 'LG 올데이그램', '노브툭,올데이그램,그램,카비레이크,LG', 'C01', 'C0101', '', 'LG전자', '대한민국', 1940000, 1768000, 0, 1768000, 9, '15Z970-GP70ML', '2', '2', '2018-03-01 00:00:00', '2018-08-31 00:00:00', 100, '2', 0, '', '1', '노마진,무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/7af7b2e5-71e0-4d71-affd-6fd801940d39.jpg&#10;" title="001050273CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/73a1b4c776fc4bea82a0f90eedb4cb16.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:41:04', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (25, 5, '마블 화이트 라인 시리즈3 [삼성] NT370R5E 화이트 (인텔 3세대 아이비브릿지 코어i5 3230M-2.60GHz/램8G/하드500GB/라데온 HD 8750M/15.6인치 L', '마블 화이트 라인 시리즈3', '삼성,화이트라인,마블,노트북', 'C01', 'C0101', '', '삼성전자', '베트남', 659000, 459000, 0, 459000, 30, 'NT370R5E 화이트 코어i5 3230M', '2', '2', '2018-03-01 00:00:00', '2018-03-31 00:00:00', 1, '2', 0, '', '4', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/bd9f5b5f-5121-4288-bc85-26ce7c133c95.jpg&#10;" title="001050283CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/2175de5700a441a38d3c97f36900409f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:48:10', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (26, 5, 'USB 초음파 가습기 MFU-4018HW(화이트)', 'USB 초음파 가습기', '가습기,초음파,마이프랜드', 'C05', 'C0503', '', '(주)마이프랜드', '대한민국', 39000, 19000, 0, 19000, 51, 'MFU-4018HW(화이트)', '2', '2', '2018-03-01 00:00:00', '2018-05-31 00:00:00', 66, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/1f3b3392-6c30-4606-afc7-61553af6523a.jpg&#10;" title="b7c390526832a9e_15109861274438821404.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/b0e09a3946b4441ab4fc2d7908f94d53.jpg', '/upload/product/item/03/21a01f97d3a44e539a9500644ede7f66.jpg', '/upload/product/item/03/d63e4396eeae414f9415e02081231e6f.jpg', '/upload/product/item/03/f283cb0ab1c84fb0a5d63c51d7e4fad4.jpg', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:53:23', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (27, 5, '[마이프랜드] 내손 안에 최고의 바리스타 에스프레소 머신 간편하고 휴대가 가능한 핸디형 MF-PCM01', '핸디형 에스프레소 머신', '에스프레소,핸디형,커피머신', 'C05', 'C0503', '', '마이프랜드', '대한민국', 59000, 29000, 0, 29000, 51, 'MF-PCM01', '2', '2', '2018-03-02 00:00:00', '2018-05-31 00:00:00', 20, '2', 0, '', '1', '무료배송', '<p>&nbsp;</p><div style="text-align: center;" align="center"><img src="/upload/product/item/03/78a1bb81-d0e9-4f4c-bec9-cbdce65028ad.jpg&#10;" title="img_offsrc%20(2).jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;" align="center"><img src="/upload/product/item/03/07aa68a5-67dc-4841-98be-798b66fa26ed.jpg&#10;" title="img_offsrc%20(1).jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;" align="center"><img src="/upload/product/item/03/04213f26-7638-41d6-b8b9-a96909fba964.jpg&#10;" title="img_offsrc%20(3).jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;" align="center"><img src="/upload/product/item/03/d0204ad2-8bd4-40ef-a63b-1d90a1147e8d.jpg&#10;" title="img_offsrc%20(4).jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;" align="center"><img src="/upload/product/item/03/3b70d399-5246-4677-9581-83cda38aaf19.jpg&#10;" title="img_offsrc.jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;"><br></div><p>&nbsp;</p>', '', '', '', '', '/upload/product/item/03/364f2453b31a464489bf06deb1d4fc45.jpg', '/upload/product/item/03/35d5331b010841108214c6b7f21aa91b.jpg', '/upload/product/item/03/734e68d817ed45fa8088c0c816d933db.jpg', '/upload/product/item/03/32c163451dbe431e95236aefb48ce68f.jpg', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 13:57:35', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (28, 5, '[특가] [POUT] EYES1 LED스 탠드블루투스 스피커_화이트', 'LED 스탠드블루투스 스피커', 'LED스탠드,블루투스', 'C05', 'C0503', '', '브로스앤컴퍼니', '대한민국', 54000, 43800, 0, 43800, 19, 'LED스탠드블루투스스피커', '2', '2', '2018-03-01 00:00:00', '2018-05-31 00:00:00', 20, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/1b416257-21f1-425d-9e68-a2b748c669f9.jpg&#10;" title="EYES1_LED_stand_web.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/72a4e4e431f9492e8981cbcfb179b9d9.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:00:12', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (29, 5, '[에이테크] 아키즈 온도조절 매직 스트레이트기 (중/AT-03S)', '매직 스트레이트기', '매직 스트레이트기,에이테크,아키즈,온도조절', 'C05', 'C0503', '', '에이테크 ', '대한민국', 90000, 60900, 0, 60900, 32, '중/AT-03S', '2', '2', '2018-03-01 00:00:00', '2018-06-30 00:00:00', 15, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/76172828-7a56-4d28-9d49-8f0b17f135c4.jpg&#10;" title="TECH7106-d.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/c77974ed8b464460b75f02ecf8302b8e.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:02:05', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (30, 5, '[제스파] 듀얼파워 풋 마사져 발마사지기 (ZP-828)', '제스파 발마사지기', '발마사지,제스파,듀얼', 'C05', 'C0503', '', '(주)제스파', '대한민국', 298000, 195300, 0, 195300, 34, 'zp-828', '2', '2', '2018-03-01 00:00:00', '2018-04-30 00:00:00', 20, '2', 0, '', '1', '선착순한정,무료배송', '<p style="text-align: center;" align="center"><img src="/upload/product/item/03/fbf79a64-a390-45ee-8a25-2d0ad37f5600.jpg&#10;" title="zespa504-d.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/04fb62d76aa64a2d95b5a955af9d80e5.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:04:11', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (32, 5, '[제스파] 비젼 아이 눈마사지기 (ZP459)', '제스파 눈마사지기', '눈마사지기,제스파,비전아이', 'C05', 'C0503', '', '제스파', '대한민국', 270000, 123200, 0, 123200, 54, 'zp-459', '2', '2', '2018-03-01 00:00:00', '2018-05-24 00:00:00', 20, '2', 0, '', '1', '무료배송', '<p style="text-align: center;" align="center"><img src="/upload/product/item/03/1a876db0-2dfb-442f-b817-2db86a8f9d50.jpg&#10;" title="zespa708-d.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/49d43aa544374d84bb6948bdebcde713.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:11:48', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (33, 5, '[제스파] 스마트 파워 마사져 안마기 (ZP-721)', '제스파 파워 안마기', '제스파,안마기,마사져,파워', 'C05', 'C0503', '', '제스파', '대한민국', 128000, 63500, 0, 63500, 50, 'ZP-721', '2', '2', '2018-03-01 00:00:00', '2018-06-27 00:00:00', 20, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/d52774cb-7dc5-4f1c-aba3-30966612c6d6.jpg&#10;" title="zespa501-d.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/8fa7debd94544295bbbe68b50cf6a7c9.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:13:46', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (34, 5, '[제스파] 슬림핏 에어 마사지기 ZP3600', '제스파 에어 마사지기', '제스파,에어마사지,슬림핏', 'C05', 'C0503', '', '제스파', '대한민국', 340000, 210600, 0, 210600, 38, 'zp3600', '2', '2', '2018-03-01 00:00:00', '2018-06-30 00:00:00', 20, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/4a73bb90-2123-4836-b3f8-1a42f0628aef.jpg&#10;" title="ZP3600.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/03932dce67bc47cb9aa04cd0ead4098f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:15:46', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (35, 5, '[보국] 큐브 통세척 가습기 BKU2055UH 세균번식 걱정없는 통세척방식', '큐브 통세척 가습기', '가습기,통체척,보국전자,보국', 'C05', 'C0503', '', '	(주)보국전자', '대한민국', 34900, 31900, 2000, 29900, 14, 'BKB2055UH', '2', '2', '2018-03-01 00:00:00', '2018-03-31 00:00:00', 5, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/fd6292ec-1a8f-44f8-8132-0dd5ba4744e7.jpg&#10;" title="BKU-2055UH.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/3efb03559e4d467ab6d0b67e010057be.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:18:23', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (36, 5, '가이타이너 모던 스팀 다리미', '스팀 다리미', '가이타이너,홈니즈,다리미,스팀다리미', 'C05', 'C0503', '', '홈니즈 ', '대한민국', 94750, 59900, 0, 59900, 37, 'GT-HI600', '2', '2', '2018-03-01 00:00:00', '2018-07-19 00:00:00', 100, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/3dad6da7-425c-4cd6-ad8b-d7d9e1e296eb.jpg&#10;" title="GT-HI600_info.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/47068fd0d9f94267bfcb5628b688e62a.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:20:18', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (37, 5, '스위스밀리터리 디지털 체중계 ss-501-2', '스위스 체중계', '스위스밀리터리,밀리터리,체중계', 'C05', 'C0503', '', '스위스밀리터리 ', '독일', 26000, 14900, 0, 14900, 43, 'ss-501-2', '2', '2', '2018-03-01 00:00:00', '2018-06-06 00:00:00', 99, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/ba01465d-f251-4b94-8282-f86204348241.jpg&#10;" title="001049758CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/e21ee89a6f7c463a865e23bd057c93df.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:23:15', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (38, 5, '스위스밀리터리 (잔다르크 체중계2) 디지털체중계 SS-602-2', '디지털체중계', '스위스밀리터리,체중계,잔다르크', 'C05', 'C0503', '', '스위스밀리터리', '독일', 28000, 15900, 0, 15900, 43, 'SS-602-2', '2', '2', '2018-03-01 00:00:00', '2018-07-19 00:00:00', 100, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/f9b49717-caf4-4bca-91f6-27ee9f3f4f3f.jpg&#10;" title="001049761CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/b6c889ffc3b2484ca539fd176b2301b0.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:25:08', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (39, 5, '[필립스] 스팀다리미 GC2990/28', '필립스 스팀다리미', '필립스,스팀다리미,다리미', 'C05', 'C0503', '', '필립스전자 ', '프랑스', 86250, 63900, 0, 63900, 26, 'GC2990/28', '2', '2', '2018-03-08 00:00:00', '2018-08-16 00:00:00', 30, '2', 0, '', '1', '무료배송', '<p>&nbsp;</p><div style="text-align: center;" align="center"><img src="/upload/product/item/03/926d5455-8756-4bfb-b764-327273fc7b66.jpg&#10;" title="GC299028_spec.jpg" style="max-width: 100%; height: auto;"></div><div style="text-align: center;" align="center"><br></div><br><p>&nbsp;</p>', '', '', '', '', '/upload/product/item/03/876142a943c74591afc4d516405daeff.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:28:23', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (40, 5, '[필립스] 스팀다리미 GC2995/38', '필립스 스팀다리미', '다리미,필립스,스팀,스팀다리미', 'C05', 'C0503', '', '필립스전자', '프랑스', 139000, 79000, 0, 79000, 43, 'GC2995/38', '2', '2', '2018-03-01 00:00:00', '2018-07-13 00:00:00', 29, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/2956294a-cd27-47dc-9b5b-63c5561daaaa.jpg&#10;" title="GC299538_spec.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/f7127e73c9074b479b046c8d375577bc.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:29:50', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (41, 5, '보만 에어프라이어 FR4240', '보만 에어프라이어', '에어프라이어,보만', 'C05', 'C0504', '', '보만코리아', '대한민국', 120370, 60000, 0, 60000, 50, 'FR4240', '2', '2', '2018-03-01 00:00:00', '2018-07-27 00:00:00', 48, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/46eda4aa-fad2-4497-a177-65d09d8dfbe7.jpg&#10;" title="001049520CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/8a4f920f822d461296e6029a4159d4fa.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:34:30', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (42, 5, '[HUSTORM] 휴스톰 듀얼 히팅 시스템 다리미 HI-9000', '휴스톰 듀얼 히팅 다리미', '휴스톰,듀얼,히팅,다리미,휴스톰 다리미', 'C05', 'C0503', '', '휴스톰', '이탈리아', 199000, 169000, 0, 169000, 15, 'HI-9000', '2', '2', '2018-03-05 00:00:00', '2018-08-30 00:00:00', 43, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/659f838f-23c0-464e-b752-f864a46de371.jpg&#10;" title="HI-9000_800.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/32bee4fb194e4c578d9e1d95dda8c290.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:45:41', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (43, 5, '카넬리안 물통형 정수기 화이트 / 블랙', '카넬리안 물통형 정수기', '카넬리안,정수기,물통형정수기', 'C06', 'C0601', '', '카넬리안', '대한민국', 18000, 17800, 0, 17800, 1, 'Carnelian', '2', '2', '2018-03-01 00:00:00', '2018-04-20 00:00:00', 100, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/ea25ea9a-6350-4402-9305-3a8a87569aae.jpg&#10;" title="001048842CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '색상', '', '/upload/product/item/03/b26511c267b04269b633c5cd1ad7a18f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:53:37', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (44, 5, '[스위스 밀리터리] 펠릭스 전기면도기', '[스위스 밀리터리] 펠릭스 전기면도기', '스위스밀리터리,전기면도기,펠릭스', 'C05', 'C0503', '', '스위스 밀리터', '프랑스', 110000, 49000, 10000, 39000, 65, 'SMS-W500', '2', '2', '2018-03-01 00:00:00', '2018-04-30 00:00:00', 12, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/4df5c285-90a3-4ee4-b0b4-ef8e22ea01d8.jpg&#10;" title="c456ef6cb481ec2_15166014803918617167.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/2979da868c474c6d8b81babde7175c03.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 14:56:10', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (45, 5, '오아 안개가습기 & 아로마디퓨저', '오아 안개가습기 & 아로마디퓨저', '안개가습기,디퓨터,오아', 'C05', 'C0503', '', '케이투씨아이', '대한민국', 49900, 47900, 0, 47900, 4, 'H0002 / E0050', '2', '2', '2018-03-01 00:00:00', '2018-07-27 00:00:00', 100, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/9987d392-4ac1-4563-a8e6-7e87a37cb96a.jpg&#10;" title="001047282CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/f5cccff2aa1643a8b08abc2b2f35f87b.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 15:00:09', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (46, 5, '보만 모공브러쉬 진동클렌저 FC8610', '보만 모공브러쉬 진동클렌저', '보만,모공브러쉬,진동클렌저', 'C05', 'C0503', '', 'Ningbo Symay Electrical Appliances Co. Ltd.', '대한민국', 39900, 29900, 0, 29900, 25, 'FC8610', '2', '2', '2018-03-01 00:00:00', '2018-05-18 00:00:00', 19, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/aba48881-9627-44cf-a168-6ff72a4cec0c.jpg" title="a991295431eef46_15131531225671162839.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">?</p>', '', '', '', '', '/upload/product/item/03/28d41f8f4f334b35babc2ca2c85cbe36.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-06 15:03:07', 5, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (47, 4, '삼성 43인치 풀HDTV 풀박스에디션 2018년 평창올림픽 선수촌 단기사용 [삼성] 43인치 Full-HD TV UN43M5200AFXKR', '삼성 43인치 풀HDTV 풀박스에디션', '삼성TV,43인치,풀박스에디션,삼성43인치', 'C05', 'C0501', '', '삼성전자', '베트남', 631000, 598000, 100000, 498000, 21, 'UN43M5200AFXKR', '2', '2', '2018-02-26 00:00:00', '2018-04-30 00:00:00', 10, '2', 0, '', '3', '신품수준', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/408f41c7-8b80-4150-b67b-83d22cbcf0f3.jpg&#10;" title="001050102CT2.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/2b0644ce277b4b4ea616a665e6c425ca.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-12 16:15:09', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (48, 4, '삼성시리즈5 크롬북 b급 스크레치에디션 #가성비특가 99,000원 [삼성] Serise5 Chromebook 초슬림 초경량 디자인 삼성 리퍼비쉬 시리즈5', '삼성시리즈5 크롬북', '삼성 노트북,삼성 크롬복,삼성시리즈5,크롬북', 'C01', 'C0101', '', '삼성전자', '베트남', 379000, 199000, 100000, 99000, 74, 'XE500C21', '2', '2', '2018-02-14 00:00:00', '2018-07-31 00:00:00', 30, '2', 0, '', '5', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/68fedd1b-d6cb-418d-8153-3470639980d8.jpg&#10;" title="001045846CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '용량추가', '/upload/product/item/03/5f271818820948339a10f7f74b16fc8f.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-12 16:25:41', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (49, 4, '★NEW 2018형★ 최신 8세대 커피레이크 코어i5탑재! HP 파빌리온 15 터치북 미사용전시 한정입고! [hp] 완전히 새로워진 디자인! NEW HP Pavilion 15 CC', 'HP 파빌리온 15 터치북', 'HP노트북,파빌리온,노트북 15인치,HP 15인치', 'C01', 'C0101', '', 'HP', '베트남', 1298000, 898000, 100000, 798000, 39, 'Pavilion 15-CC123', '2', '2', '2018-03-01 00:00:00', '2018-06-30 00:00:00', 9, '2', 0, '', '2', '선착순한정', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/6456c62b-c409-455f-b48c-73abed9a1e5c.jpg&#10;" title="001048492CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/2b064f720b594f588128757a594b05a1.jpg', '/upload/product/item/03/b96f0c2db3ea4799a26b2cc4e60cbcd7.jpg', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-12 16:33:40', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (50, 4, '삼성컴퓨터 코어i5 SSD장착 [삼성] 블랙슬림 DB-Z200 (인텔 코어i5 650-3.20GHz/램4G/신품SSD128G/지포스G210/DVD롬/Windows7) + [SONY', '[삼성] 블랙슬림 DB-Z200', '삼성컴퓨터,삼성PC,블랙슬림,코어i5', 'C01', 'C0102', '', '삼성전자', '베트남', 748000, 429000, 30000, 399000, 47, 'DB-Z200 i5-650.J', '2', '2', '2018-03-05 00:00:00', '2018-04-30 00:00:00', 5, '2', 0, '', '4', '가성비', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/c7ae1123-205a-4933-ade5-1a763a0c6c4b.jpg&#10;" title="001046277CT1.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '윈도우변경,메모리변경,그래픽변경', '/upload/product/item/03/34a190f7b43e448ca19382ebc74bf8c7.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-12 16:37:51', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (51, 4, '★미세먼지 99.97% 제거★ 상쾌하게 바뀐 공기를 느껴보세요! [Gruenluft] 그린루프트 무드램프 공기 청정기 DGP-3100', '그린루프트 무드램프 공기 청정기', '공기청정기,무드램프,그린루프트', 'C05', 'C0503', '', 'Voke Health Technolog', '대한민국', 79000, 74800, 5000, 69800, 12, 'DGP-3100', '2', '2', '2018-03-01 00:00:00', '2018-04-30 00:00:00', 11, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/d6f95505-9fac-47f5-b7d2-d3f964dcface.jpg&#10;" title="DGP-3100_700.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/dd84eb3117b749e390cb6dd4bdf34291.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-12 16:42:32', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (52, 4, '캐논 미니빔 프로젝터 레이요 멀티빔', '캐논 레이요 멀티빔', '빔프로젝트,캐논 멀티빔,레이요 멀티빔,캐논 레이요', 'C02', 'C0204', '', '캐논', '일본', 350000, 298000, 0, 298000, 15, '레이요 멀티빔', '2', '2', '2018-03-01 00:00:00', '2018-03-31 00:00:00', 1, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/712ce566-1f0b-4285-bace-ed2ed5060e7e.jpg&#10;" title="b0348c3f232a109_15029291222271533048.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '색상', '', '/upload/product/item/03/596bda99240240bd84622ee36bcba418.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-13 00:37:58', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (53, 4, '[쌩큐] 식품 진공포장기 IDR-013WH', '진공포장기', '진공포장기,쌩큐,IDR-013WH', 'C05', 'C0504', '', '(주)이너웍스', '대한민국', 59800, 48000, 0, 48000, 20, 'IDR-013WH', '2', '2', '2018-03-01 00:00:00', '2018-08-31 00:00:00', 100, '2', 0, '', '1', '무료배송', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/942af54c-c2fc-4d54-8439-15018efef198.jpg" title="e69d3777316090b_15205784993037826307.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">?</p>', '', '', '색상', '', '/upload/product/item/03/edcf0d5ce8ec4774a0aef5ff649143a0.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-14 01:24:33', 4, NULL, 0);
+
+INSERT INTO rainbow.rb_shop_item
+  (item_seq, mb_seq, item_title, item_name, item_keyword, cate_code1, cate_code2, cate_code3, item_maker, item_origin, item_cust_price, item_price, item_coupon_price, item_last_price, item_sale_rate, item_model_name, item_status, item_display, item_sell_period_from, item_sell_period_to, item_qty, item_delivery_charge_type, item_delivery_condition, item_delivery, item_tag, item_tag_sub, item_content, item_content_mobile, item_dtl_info, item_option_subject, item_supply_subject, item_represent_image, item_img1, item_img2, item_img3, item_img4, item_img5, item_img6, item_img7, item_img8, item_img9, item_img10, item_approval_mb_seq, item_return_info, item_view_cnt, item_sell_cnt, item_reg_dttm, item_reg_mb_seq, item_mod_dttm, item_mod_mb_seq)
+VALUES
+  (54, 4, '코어i7 가성비 맥북에어 터프한중고 새상품대비-120만원할인 최고사양 CTO 에디션 [애플] New MacBook Air 11인치 MD711 코어i7 CTO에디션', '코어i7 가성비 맥북에어', '맥북에어,코어i7,맥북,CTO에디션', 'C01', 'C0103', '', '애플', '미국', 1989000, 1189000, 400000, 789000, 60, '맥북 MD711', '2', '2', '2018-03-14 00:00:00', '2018-08-31 00:00:00', 16, '2', 0, '', '5', '노마진', '<p style="text-align: center; " align="center"><img src="/upload/product/item/03/1e228c40-8282-459c-bf06-360a7193686b.jpg&#10;" title="001048370CT2.jpg" style="max-width:100%; height:auto;"><br style="clear:both;">&nbsp;</p>', '', '', '', '', '/upload/product/item/03/6d67ff8b651f44d5bdfa1ce9b7ced85e.jpg', '', '', '', '', '', '', '', '', '', '', 0, '', 0, 0, '2018-03-14 16:48:04', 4, NULL, 0);
+
+
+
+
+
+-- 상품옵션
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (1, '', '빨강', '0', 3, 0, 50, 0, '1', 4, '2018-02-21 23:15:52', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (2, '', '노랑', '0', 3, 0, 50, 0, '1', 4, '2018-02-21 23:15:52', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (3, '', '검정', '0', 3, 0, 50, 0, '1', 4, '2018-02-21 23:15:52', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (4, '', '신품호환배터리', '1', 4, 50000, 1, 0, '1', 4, '2018-02-21 23:19:31', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (5, '', '골드', '0', 9, 0, 10, 0, '1', 4, '2018-02-21 23:41:40', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (6, '', '로즈골드', '0', 9, 0, 5, 0, '1', 4, '2018-02-21 23:41:40', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (7, '', '블랙', '0', 9, 0, 4, 0, '1', 4, '2018-02-21 23:41:40', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (8, '', '남성용', '0', 10, 0, 50, 0, '1', 4, '2018-02-21 23:44:16', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (9, '', '여성용', '0', 10, 0, 50, 0, '1', 4, '2018-02-21 23:44:16', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (10, '', 'HDD 1TB -> SSD 160GB', '1', 12, 0, 1, 0, '1', 4, '2018-02-21 23:44:16', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (11, '', '실버', '0', 17, 0, 1, 0, '1', 4, '2018-03-03 16:55:12', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (12, '', '스페이스그레이', '0', 17, 0, 1, 0, '1', 4, '2018-03-03 16:55:12', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (13, '', 'SSD128G -> SSD240G', '1', 19, 45000, 1, 0, '1', 5, '2018-03-06 13:25:11', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (14, '', 'MicroSD 32G장착', '1', 20, 19000, 30, 0, '1', 5, '2018-03-06 13:28:18', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (15, '', '신품일반가방', '1', 22, 0, 10, 0, '1', 5, '2018-03-06 13:34:36', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (16, '', '화이트', '0', 43, 0, 50, 0, '1', 5, '2018-03-06 14:53:37', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (17, '', '블랙', '0', 43, 0, 50, 0, '1', 5, '2018-03-06 14:53:37', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (18, '', 'MicroSD 32G', '1', 48, 19000, 50, 0, '1', 4, '2018-03-12 16:25:41', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (19, '', '윈도우7 -> 윈도우10', '1', 50, 29000, 10, 0, '1', 4, '2018-03-12 16:37:51', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (20, '', '메모리 4G -> 8G', '1', 50, 39000, 10, 0, '1', 4, '2018-03-12 16:37:51', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (21, '', '지포스GT630-1G', '1', 50, 49000, 10, 0, '1', 4, '2018-03-12 16:37:51', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (22, '', '실버', '0', 52, 0, 1, 0, '1', 4, '2018-03-13 00:37:58', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (23, '', '블랙', '0', 53, 0, 50, 0, '1', 4, '2018-03-14 01:37:21', 0, NULL);
+
+INSERT INTO rainbow.rb_shop_item_option
+  (io_seq, io_group, io_name, io_type, item_seq, io_price, io_stock_qty, io_noti_qty, io_use, io_reg_user, io_reg_dttm, io_mod_user, io_mod_dttm)
+VALUES
+  (24, '', '화이트', '0', 53, 0, 50, 0, '1', 4, '2018-03-14 01:37:21', 0, NULL);
+
+
+
+
+-- 광고 데이터
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (1, '메인광고상품', '/upload/ad/main_visual1.png', '/item/itemView.do?item_seq=47', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:52:46', 8);
+
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (2, '메인광고상품', '/upload/ad/main_visual2.png', '/item/itemView.do?item_seq=48', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:54:22', 8);
+
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (3, '메인광고상품', '/upload/ad/main_visual3.png', '/item/itemView.do?item_seq=49', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:54:37', 8);
+
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (4, '메인광고상품', '/upload/ad/main_visual4.png', '/item/itemView.do?item_seq=50', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:54:51', 8);
+
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (5, '메인광고상품', '/upload/ad/main_visual5.png', '/item/itemView.do?item_seq=51', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:54:59', 8);
+  
+INSERT INTO rainbow.rb_advertise
+  (ad_seq, ad_title, ad_image_path, ad_link, ad_start_dt, ad_end_dt, ad_req_user, ad_reg_dttm, ad_reg_user)
+VALUES
+  (6, '메인광고상품', '/upload/ad/main_visual6.png', '/item/itemView.do?item_seq=54', '2018-03-01', '2018-03-31', 2, '2018-03-12 16:54:59', 8);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

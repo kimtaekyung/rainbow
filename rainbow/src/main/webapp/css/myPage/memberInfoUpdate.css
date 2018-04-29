@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+#tblMemInfo input[readonly] {
+	background-color: #F3F3F3;
+}
+
+#tblMemInfo label.addrEditable {
+	position: relative;
+	top: 5px;
+	left: 160px;
+}
+
+#tblMemInfo label.addrEditable input {
+	vertical-align: -2px;
+}
+
+button#memberInfoUpdateButton{
+	width: 123px;
+    height: 38px;
+    background: url(/images/myPage/btn_memberModify.gif) no-repeat;
+    border: 0;
+}

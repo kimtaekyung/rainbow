@@ -1,0 +1,3857 @@
+@charset "UTF-8";
+
+
+/*-----------------------------------------------------------------
+드롭다운 목록
+-----------------------------------------------------------------*/
+#itemView #lPath .dropdown
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+}
+#itemView #lPath .dropdown ol
+{
+	display				: none;
+	position			: absolute;
+	top					: 22px;
+	left				: -9px;
+	width				: 160px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+}
+#itemView #lPath .dropdown ol li
+{
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	z-index				: 9999;
+	height				: 28px;
+	border-bottom		: 1px solid #ddd;
+	background-color	: #fff;
+	line-height			: 26px;
+	text-indent			: 8px;
+}
+#itemView #lPath .dropdown ol li:hover
+{
+	background-color	: #ddd;
+}
+#itemView #lPath .dropdown ol li a
+{
+	display				: block;
+	position			: absolute;
+	top					: 0;
+	left				: 0;
+	bottom				: 0;
+	right				: 0;
+}
+/*-----------------------------------------------------------------
+경로
+-----------------------------------------------------------------*/
+#itemView #lPath
+{
+	font-size			: 12px;
+	line-height			: 12px;
+	width				: 956px;
+	margin				: 0 auto;
+	height				: 18px;
+	margin-bottom		: 20px;
+}
+#itemView #lPath a
+{
+	color				: #1b1b1b;
+	text-decoration		: none;
+}
+#itemView #lPath ol.main > li
+{
+	float				: left;
+	height				: 12px;
+	margin-right		: 8px;
+	padding				: 2px 40px 4px 0px;
+	background-image	: url('http://211.43.195.137/image/item/list/bg_lPathMain.png');
+	background-repeat	: no-repeat;
+	background-position	: top right;
+	cursor				: pointer;
+	z-index				: 9999;
+}
+#itemView #lPath ol.main > li.nosub
+{
+	padding-right		: 12px;
+	background-image	: url('http://211.43.195.137/image/item/list/bg_lPathNosub.png');
+}
+#itemView #lPath ol.main > li:last-child
+{
+	padding-right		: 24px;
+	background-image	: url('http://211.43.195.137/image/item/list/btn_dropdown.png');
+}
+#itemView #lPath ol.main > li.nosub:last-child
+{
+	background-image	: none;
+}
+/*-----------------------------------------------------------------
+배너
+-----------------------------------------------------------------*/
+#itemView .topBanner
+{
+	clear				: both;
+	padding				: 20px 0px;
+	width				: 956px;
+	margin				: 0 auto;
+}
+#itemView .topBanner img
+{
+	width				: 956px;
+}
+
+div#lThumb {
+	float: left;
+	width: 330px;
+	margin: 0 36px 0 24px;
+	position: relative;
+}
+div#lThumb > a.thumbLightbox{
+	display:inline-block;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------
+인기상품 100 관련 CSS
+-----------------------------------------------------------------*/
+div#lThumb div#rank100 {
+	height: 30px;
+}
+
+div#lThumb div#rank100 a {
+	height: 30px;
+	display: block;
+}
+
+div#lThumb div#rank100 a img {
+	padding-top: 5px;
+}
+
+/*-----------------------------------------------------------------
+섬네일 하단 기능 관련
+-----------------------------------------------------------------*/
+div#lThumb ul.prodFuncList {
+	margin-bottom: 30px;
+	letter-spacing: -1px;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc {
+	margin-top: 20px;
+	font-size: 12px;
+	color: #646464;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc img {
+	vertical-align: -3px;
+	cursor: pointer;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc .blue {
+	color: #55C1C1;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc span.clickLink {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------
+QR코드 List line 관련
+-----------------------------------------------------------------*/
+div#lThumb ul.prodFuncList li#qrCodeList {
+	position: relative;
+}
+
+div#lThumb ul.prodFuncList li#qrCodeList a {
+	font-size: 12px;
+	color: #646464;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+div#lThumb ul.prodFuncList li#qrCodeList a:hover {
+	text-decoration: underline;
+}
+
+div#lThumb ul.prodFuncList li#qrCodeList div#qrCode {
+	width: 100px;
+	padding: 0;
+	border: 1px solid #646464;
+	background-color: #fff;
+	color: #1b1b1b;
+	font-size: 13px;
+	display: none;
+	position: absolute;
+	top: -128px;
+	left: 0px;
+	z-index: 1000;
+}
+
+div#lThumb ul.prodFuncList li#qrCodeList div#qrCode div {
+	height: 20px;
+	margin-bottom: -2px;
+	padding: 4px 10px 0 10px;
+}
+
+div#lThumb ul.prodFuncList li#qrCodeList div#qrCode div img {
+	vertical-align: -1px;
+}
+
+/*-----------------------------------------------------------------
+파트너 프로그램 관련
+-----------------------------------------------------------------*/
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer {
+	width: 362px;
+	border: 1px solid #646464;
+	padding: 25px 35px;
+	background-color: #FFF;
+	display: none;
+	clear: both;
+	position: absolute;
+	top: 437px;
+	left: 242px;
+	z-index: 1000;
+	color: #1B1B1B;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer h3 {
+	margin-bottom: 30px;
+	font-size: 17px;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer strong.red {
+	color: #F63700;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer ul {
+	margin-bottom: 20px;
+	line-height: 1.9em;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer div#shareSNS a
+	{
+	display: block;
+	float: left;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer div#shareSNS input
+	{
+	width: 278px;
+	height: 26px;
+	margin: 0 12px 25px 8px;
+	border: 1px solid #DDD;
+	overflow: hidden;
+	float: left;
+	color: #55C1C1;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#partnerProgLayer img.icoClose
+	{
+	float: right;
+}
+
+/*-----------------------------------------------------------------
+미니몰 관련(기존 Global에 있는 것은(#minimallGuide) 삭제 필요함)
+-----------------------------------------------------------------*/
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer {
+	width: 502px;
+	border: 1px solid #646464;
+	padding: 25px 35px;
+	background-color: #FFF;
+	display: none;
+	clear: both;
+	position: absolute;
+	top: 472px;
+	left: 148px;
+	z-index: 1000;
+	color: #1B1B1B;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer h3 {
+	margin-bottom: 30px;
+	font-size: 17px;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer strong.red {
+	color: #F63700;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer ul {
+	margin-bottom: 20px;
+	line-height: 1.9em;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer input#minimallForm1
+	{
+	width: 488px;
+	height: 26px;
+	margin: 0 0 25px 8px;
+	border: 1px solid #DDD;
+	overflow: hidden;
+	float: left;
+	color: #55C1C1;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer div.uriDiv {
+	margin-bottom: 16px;
+	float: left;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer div.uriDiv textarea
+	{
+	width: 226px;
+	height: 52px;
+	margin: 12px 0 0 9px;
+	border: 1px solid #DDD;
+	color: #646464;
+}
+/* 관리하기 버튼 CSS입니다. */
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer div#reportBtn {
+	width: 100px;
+	height: 30px;
+	border: 0;
+	background-color: #F63700;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer div#reportBtn a
+	{
+	color: #FFF;
+	font-weight: 700;
+	text-decoration: none;
+	display: block;
+}
+
+div#lThumb ul.prodFuncList li.prodFunc div#minimallLayer img.icoClose {
+	float: right;
+}
+
+/*-----------------------------------------------------------------
+관리메뉴 출력 관련
+-----------------------------------------------------------------*/
+div#lThumb div.adminMenu {
+	border: 1px solid #ddd;
+	margin-top: -20px;
+	padding: 10px 10px;
+	font-size: 12px;
+	color: #cc00cc;
+}
+
+div#lThumb div.adminMenu a {
+	font-size: 12px;
+	color: #cc00cc;
+	text-decoration: none;
+}
+
+div#lThumb div.adminMenu a:hover {
+	text-decoration: underline;
+}
+
+div#lThumb div.sellerMenu {
+	margin-bottom: 30px;
+	border: 1px solid #ddd;
+	padding: 20px 15px;
+	font-size: 12px;
+	color: #646464;
+}
+
+div#lThumb div.sellerMenu a {
+	font-size: 12px;
+	color: #646464;
+	text-decoration: none;
+}
+
+div#lThumb div.sellerMenu a:hover {
+	text-decoration: underline;
+}
+
+#lInfoList {
+	position: relative;
+	top: 0;
+	left: 0;
+	float: right;
+	width: 552px;
+	padding-right: 24px;
+	z-index: 20;
+}
+
+#lInfoList .lInfoTopTitleIdWrap {
+	border-bottom: 1px solid #dddddd;
+	/*	margin-bottom		: 30px;*/
+	padding-right: 12px;
+}
+
+#lInfoList .lowestPriceItemviewTitle {
+	margin-top: 8px;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#lInfoList .lowestPriceItemviewTitle .lowestPriceInfoLayer {
+	width: 228px;
+	height: 146px;
+	line-height: 15px;
+	border: 1px solid #1b1b1b;
+	background-color: #fff;
+	font-size: 12px;
+	color: #1b1b1b;
+	padding: 8px 10px 10px 10px;
+	letter-spacing: -1px;
+	position: absolute;
+	top: 25px;
+	left: 325px;
+	display: none;
+	z-index: 100;
+}
+
+#lInfoList .lowestPriceItemviewTitle .lowestPriceSole {
+	height: 116px;
+}
+
+#lInfoList .lInfoTopWrap {
+	height: 30px;
+	position: relative;
+}
+
+#lInfoList .lInfoTopSaleIcon {
+	margin-top: 4px;
+	margin-bottom: 10px;
+}
+
+#lInfoList .lInfoTopSaleIcon img {
+	vertical-align: top;
+}
+
+#lInfoList .lInfoTopItemNo {
+	float: right;
+	font-size: 11px;
+	color: #646464;
+	line-height: 10px;
+	padding: 0 10px 0 0;
+}
+
+#lInfoList .lInfoTopRank {
+	float: right;
+	font-size: 11px;
+	color: #aaaaaa;
+	line-height: 10px;
+	cursor: pointer;
+}
+
+#lInfoList .lInfoTopRank img {
+	vertical-align: top;
+}
+
+#lInfoList .lInfoTopRank span {
+	color: #55c1c1;
+	text-decoration: underline;
+}
+
+#lInfoList .lInfoClearBoth {
+	clear: both;
+}
+
+#lInfoList #rankInfoPopLayer {
+	width: 552px;
+	height: 368px;
+	background-color: #ffffff;
+	border: 1px solid #646464;
+	position: absolute;
+	top: 18px;
+	right: 0;
+	padding: 25px 35px;
+	color: #1b1b1b;
+	display: none;
+	z-index: 9999;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerTitle {
+	float: left;
+	font-size: 17px;
+	font-weight: 700;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerClose {
+	float: right;
+	cursor: pointer;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg {
+	margin: 20px 0;
+	position: relative;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerPointItem
+	{
+	position: absolute;
+	top: 80px;
+	left: 115px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerItemSellPoint
+	{
+	position: absolute;
+	top: 80px;
+	left: 200px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerItemFeePoint
+	{
+	position: absolute;
+	top: 80px;
+	left: 288px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerItemBuyerScore
+	{
+	position: absolute;
+	top: 80px;
+	left: 375px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerItemFreeshipPoint
+	{
+	position: absolute;
+	top: 80px;
+	left: 465px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerPointSeller
+	{
+	position: absolute;
+	top: 217px;
+	left: 115px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerSellerSellAmountPoint
+	{
+	position: absolute;
+	top: 217px;
+	left: 200px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerSellerFeePoint
+	{
+	position: absolute;
+	top: 217px;
+	left: 288px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerSellerBuyerScorePoint
+	{
+	position: absolute;
+	top: 217px;
+	left: 375px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerImg .rankInfoPopLayerPointTotal
+	{
+	position: absolute;
+	top: 125px;
+	left: 8px;
+	width: 100px;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 700;
+	color: #646464;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerCon {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+#lInfoList #rankInfoPopLayer .rankInfoPopLayerCon .rankInfoPopLayerConHelp
+	{
+	color: #55c1c1;
+	cursor: pointer;
+	text-decoration: underline;
+	list-style-type: none;
+	margin-left: 7px;
+}
+
+#lInfoList .lInfoTitle {
+	margin-top: -5px;
+	margin-bottom: 10px;
+	font-size: 17px;
+	color: #1b1b1b;
+}
+
+#lInfoList .lInfoIdNick {
+	font-size: 12px;
+	color: #646464;
+	padding: 12px 0 10px 0;
+	width: 100%;
+}
+
+#lInfoList .lInfoIdNick a {
+	font-size: 12px;
+	color: #646464;
+	text-decoration: none;
+}
+
+#lInfoList .lInfoIdNick a:hover {
+	text-decoration: underline;
+}
+
+#lInfoList .lInfoIdNick .info {
+	float: right;
+}
+
+#lInfoList .lInfoIdNick .rank {
+	margin-left: 8px;
+}
+
+#lInfoList .lInfoIdNick .rank span {
+	color: #aaa;
+}
+
+#lInfoList .lInfoIdNick .satisfy {
+	font-size: 11px;
+	color: #646464;
+}
+
+#lInfoList .lInfoIdNick .satisfy img {
+	margin-left: 1px;
+	vertical-align: -2px;
+}
+
+#lInfoList .lInfoSellWrap {
+	border-bottom: 1px solid #dddddd;
+	margin-top: 25px;
+	font-size: 12px;
+	color: #646464;
+	padding-right: 12px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl {
+	width: 100%;
+	border-collapse: collapse;
+	border: 0;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd1 {
+	width: 98px;
+	padding: 0 0 20px 0;
+	text-align: left;
+	vertical-align: top;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 {
+	padding: 0 0 20px 0;
+	text-align: left;
+}
+
+/*판매단가*/
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellNegoDate
+	{
+	color: #f63700;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellNegoAmt
+	{
+	color: #f63700;
+	padding-top: 10px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellNegoAmt .lInfoSellNegoTotal
+	{
+	font-size: 27px;
+	font-weight: 700;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDoAmt
+	{
+	float: left;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDo {
+	float: left;
+	font-size: 11px;
+	color: #aaaaaa;
+	margin-left: 10px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDo a
+	{
+	color: #aaaaaa;
+	text-decoration: none;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDo span
+	{
+	color: #e5004f;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDiscountWrap
+	{
+	margin-bottom: 5px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellNotDiscount
+	{
+	text-decoration: line-through;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDiscountRate
+	{
+	color: #f63700;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellPrice
+	{
+	font-size: 27px;
+	color: #1b1b1b;
+	float: left;
+	margin-bottom: 5px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellPrice span
+	{
+	font-size: 17px;
+	color: #1b1b1b;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellUnitQty
+	{
+	font-size: 12px;
+	color: #646464;
+	float: left;
+	margin: 5px 0 0 10px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellOrderNego
+	{
+	font-size: 11px;
+	color: #646464;
+	float: right;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellOrderNego a
+	{
+	color: #646464;
+	text-decoration: none;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellOrderNego img
+	{
+	vertical-align: -2px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .comMemSellIconView
+	{
+	font-size: 15px;
+	color: #1b1b1b;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .comMemSellIconViewDomeme
+	{
+	font-size: 11px;
+	color: #646464;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 #sampleLayer {
+	visibility: hidden;
+	padding: 0 8px 2px 8px;
+	border: 1px solid #dddddd;
+	color: #646464;
+	font-size: 11px;
+	background-color: #ffffff;
+	position: absolute;
+	top: -18px;
+	left: 54px
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .sampleDiscountWrap
+	{
+	position: relative;
+	font-size: 11px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .sampleDiscountWrap #sampleDiscountCon
+	{
+	visibility: hidden;
+	padding: 5px 10px;
+	border: 1px solid #dddddd;
+	color: #646464;
+	font-size: 11px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 25px;
+	left: 125px;
+	width: 300px;
+	z-index: 1000;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .sampleDiscountWrap img
+	{
+	vertical-align: -4px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .sampleDiscountPopup
+	{
+	color: #aaa;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .sampleDiscountPopup img
+	{
+	margin-left: 5px;
+}
+
+/* 배송운임 */
+/* 배송정보 */
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellQty,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliInfo
+	{
+	float: left;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellBuyQ,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliRequest
+	{
+	float: right;
+	color: #aaaaaa;
+	font-size: 11px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellBuyQ a,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliRequest a
+	{
+	color: #646464;
+	text-decoration: none;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellBuyQ img,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliRequest img
+	{
+	vertical-align: -2px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .icoQuestion {
+	vertical-align: -3px;
+	cursor: pointer;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .buyerOptQtyWrap
+	{
+	position: relative;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .buyerOptQtyWrap,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .deliBuyerOptQtyWrap
+	{
+	padding: 5px 0 8px 0;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .buyerOptQtyWrap .buyerOptQtyTbl,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .deliBuyerOptQtyWrap .deliBuyerOptQtyTbl
+	{
+	border-collapse: collapse;
+	border: 1px solid #dddddd;
+	/*	width				: 100%;*/
+	font-size: 11px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .buyerOptQtyWrap .buyerOptQtyTbl td,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .deliBuyerOptQtyWrap .deliBuyerOptQtyTbl td
+	{
+	border: 1px solid #dddddd;
+	padding: 2px 12px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .buyerOptQtyWrap .buyerOptQtyTbl img
+	{
+	vertical-align: -4px;
+	cursor: pointer;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIcon
+	{
+	color: #55c1c1;
+	font-size: 11px;
+	display: inline;
+	margin-left: 5px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIconCN
+	{
+	color: #ff643c;
+	font-size: 11px;
+	display: inline;
+	margin-left: 5px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIconTH
+	{
+	color: #2dc1e7;
+	font-size: 11px;
+	display: inline;
+	margin-left: 5px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIcon img,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIconCN img,
+	#lInfoList .lInfoSellWrap .lInfoSellTbl .lInfoSellTblTd2 .lInfoSellDeliIconTH img
+	{
+	vertical-align: -2px;
+}
+
+#lInfoList .lInfoSellWrap .lInfoSellTbl select {
+	height: 24px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	color: #646464;
+	font-size: 12px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+
+
+
+
+
+
+#lPay {
+	float: right;
+	width: 552px;
+	margin-right: 24px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+
+#lPay #lPayHead {
+	padding-right: 12px;
+	text-align: right;
+}
+
+#lPay #lPayHead a {
+	display: inline-block;
+	height: 10px;
+	margin: 8px 0;
+	color: #646464;
+	font-size: 11px;
+	line-height: 10px;
+	text-decoration: none;
+}
+
+*+html body #lPay #lPayHead a {
+	display: inline;
+}
+
+#lPay #lPayHead img {
+	vertical-align: -2px;
+}
+
+#lPay #itemOptSelect {
+	padding-right: 12px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#lPay #itemOptSelect table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 0;
+}
+
+#lPay #itemOptSelect th {
+	width: 98px;
+	height: 26px;
+	padding: 2px 0;
+	border: 0;
+	font-weight: 700;
+	text-align: left;
+}
+
+#lPay #itemOptSelect td {
+	height: 26px;
+	padding: 2px 0;
+	border: 0;
+}
+
+#lPay #itemOptSelect select {
+	width: 100%;
+	height: 24px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+}
+
+#lPay #itemOptResult {
+	border-bottom: 1px solid #aaa;
+}
+
+#lPay #itemOptResult table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#lPay #itemOptResult th, #lPay #itemOptResult td {
+	overflow: hidden;
+	height: 30px;
+	border: 0;
+	border-top: 1px solid #ddd;
+	color: #1b1b1b;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+	font-weight: 100;
+	line-height: 16px;
+	text-align: left;
+}
+
+#lPay #itemOptResult th {
+	padding: 10px 0;
+}
+
+#lPay #itemOptResult td.qty {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 121px;
+	padding: 10px 0;
+}
+
+#lPay #itemOptResult td.qty input {
+	position: absolute;
+	top: 10px;
+	left: 29px;
+	width: 45px;
+	height: 24px;
+	padding: 2px 8px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-family: 'Arial';
+	font-size: 16px;
+	font-weight: 700;
+	text-align: right;
+	line-height: 22px;
+}
+
+#lPay #itemOptResult td.qty button {
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 18px;
+	text-indent: -5000px;
+	line-height: 2px;
+	cursor: pointer;
+}
+
+#lPay #itemOptResult td.qty button.btnUp {
+	left: 91px;
+	background-image:
+		url('/images/item/view/btn_qtyPlus.png');
+}
+
+#lPay #itemOptResult td.qty button.btnDown {
+	left: 0;
+	background-image:
+		url('/images/item/view/btn_qtyMinus.png');
+}
+
+#lPay #itemOptResult td.amt {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 92px;
+	padding: 10px 39px 10px 0;
+	color: #1b1b1b;
+	text-align: right;
+}
+
+#lPay #itemOptResult td.amt button {
+	overflow: hidden;
+	position: absolute;
+	top: 11px;
+	right: 12px;
+	border: 1px solid #fff;
+	background-color: #fff;
+	background-image:
+		url('/images/item/view/ico_closeSmall.png');
+	background-position: right 10px;
+	background-repeat: no-repeat;
+	color: #646464;
+	font-size: 10px;
+	text-indent: -50px;
+	line-height: 26px;
+	cursor: pointer;
+}
+
+#lPay #itemOptResult .res {
+	visibility: hidden;
+	overflow: hidden;
+	height: 0;
+}
+
+#lPay #lPayNoOpt {
+	overflow: hidden;
+	height: 48px;
+	border-bottom: 1px solid #c6c6c6;
+	padding: 0;
+	font-size: 0;
+}
+
+#lPay #lPayNoOpt .lPayNoOptHead {
+	position: relative;
+	top: 14px;
+	left: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: 98px;
+	height: 48px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+	font-weight: 700;
+}
+
+*+html body #lPay #lPayNoOpt .lPayNoOptHead {
+	display: inline;
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody {
+	position: relative;
+	top: 9px;
+	left: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: 200px;
+	height: 48px;
+}
+
+*+html body #lPay #lPayNoOpt .lPayNoOptBody {
+	display: inline;
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody a {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	border: 1px solid #e9e9e9;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: 28px 28px;
+	vertical-align: 0;
+}
+
+*+html body #lPay #lPayNoOpt .lPayNoOptBody a {
+	display: inline;
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody #lPayNoOptBtnMinus {
+	left: 0;
+	background-image:
+		url("/images/item/view/btn_minus.png");
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody #lPayNoOptBtnPlus {
+	left: 92px;
+	background-image:
+		url("/images/item/view/btn_plus.png");
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody input {
+	position: absolute;
+	top: 0;
+	left: 29px;
+	width: 42px;
+	height: 24px;
+	padding: 2px 10px;
+	border: 1px solid #e9e9e9;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 16px;
+	font-weight: 700;
+	text-align: right;
+	line-height: 22px;
+	vertical-align: 0;
+}
+
+#lPay #lPayNoOpt .lPayNoOptBody span {
+	position: absolute;
+	top: 7px;
+	left: 128px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+}
+
+#lPay #lPayRes {
+	position: relative;
+	top: 0;
+	left: 0;
+	color: #666;
+	font-size: 12px;
+	text-align: right;
+}
+
+#lPay #lPayRes .amt {
+	font-weight: 700;
+}
+
+#lPay #lPayRes .amt strong {
+	position: relative;
+	top: 2px;
+	left: 0;
+	margin-left: 10px;
+	margin-right: 2px;
+	color: #f63700;
+	font-family: 'Verdana';
+	font-size: 27px;;
+	font-weight: 100;
+	letter-spacing: -2px;
+}
+
+#lPay #lPayRes .amt b {
+	color: #1b1b1b;
+	font-size: 17px;;
+	font-weight: 100;
+}
+
+#lPay #lPayRes .qty strong {
+	color: #f63700;
+}
+
+#lPay #lPayRes .sample {
+	position: absolute;
+	top: 37px;
+	right: 0;
+	padding: 3px 12px 5px 12px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	text-align: center;
+}
+
+#lPay #lPayRes .sample b {
+	color: #f63700;
+}
+
+#lPay #lPayRes .sample img {
+	position: absolute;
+	top: -5px;
+	right: 5px;
+}
+
+#lPay #lItemOptDummy {
+	visibility: hidden;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+}
+
+#lPayBottom {
+	position: relative;
+	top: 0;
+	left: 0;
+	float: right;
+	width: 640px;
+	height: 50px;
+	margin-right: 24px;
+	margin-top: 40px;
+	font-size: 0;
+	text-align: right;
+	z-index: 30;
+}
+
+#lPayBottom a {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	width: 148px;
+	height: 50px;
+	margin-left: 12px;
+	text-decoration: none;
+}
+
+#lPayBottom button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 16px;
+	text-align: center;
+	line-height: 16px;
+	cursor: pointer;
+}
+
+#lPayBottom button.nego {
+	width: 148px;
+	height: 50px;
+	padding-bottom: 4px;
+	color: #fff;
+	border: 1px solid #646464;
+	background-color: #646464;
+	vertical-align: 0;
+}
+
+#lPayBottom button.buy {
+	width: 148px;
+	height: 50px;
+	color: #fff;
+	border: 1px solid #ff643c;
+	background-color: #ff643c;
+	vertical-align: 0;
+}
+
+#lPayBottom button.buy small {
+	font-size: 13px;
+	letter-spacing: -1px;
+	line-height: 17px;
+}
+
+#lPayBottom button.normal {
+	width: 148px;
+	height: 50px;
+	padding-bottom: 0px;
+	border: 1px solid #646464;
+	color: #333;
+	background-color: #ffffff;
+	vertical-align: 0;
+}
+
+#lPayDonate {
+	float: right;
+	width: 280px;
+	height: 11px;
+	margin: 14px 160px 31px 20px;
+	color: #a9a9a9;
+	font-family: 'Dotum', '돋움';
+	font-size: 11px;
+	line-height: 11px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#lPayDonate img {
+	vertical-align: -2px;
+}
+
+*+html body #lPayBottom a {
+	display: inline;
+}
+
+#lPayCartNotice {
+	display: none;
+	position: absolute;
+	top: -230px;
+	right: 0;
+	width: 318px;
+	height: 184px;
+	padding-top: 36px;
+	border: 1px solid #95989a;
+	background-color: #fff;
+	text-align: center;
+}
+
+#lPayCartNotice .title {
+	margin-bottom: 18px;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+#lPayCartNotice .contents {
+	margin-bottom: 44px;
+	font-size: 13px;
+	letter-spacing: -1px;
+	line-height: 21px;
+}
+
+#lPayCartNotice .btn button {
+	position: static;
+	width: 86px;
+	height: 30px;
+	margin: 0 7px;
+	border: 0;
+	color: #fff;
+	font-size: 13px;
+	letter-spacing: -1px;
+	line-height: 14px;
+	text-align: center;
+}
+
+#lPayCartNotice .btn button.cart {
+	background-color: #ff643c;
+}
+
+#lPayCartNotice .btn button.continue {
+	background-color: #aaaaaa;
+}
+
+#lPayCartNotice button.close {
+	position: absolute;
+	top: 13px;
+	left: 278px;
+	overflow: hidden;
+	width: 27px;
+	height: 27px;
+	border: 0;
+	background-color: #fff;
+	background-image:
+		url('/images/item/view/ico_close.png');
+	background-repeat: no-repeat;
+	background-size: 27px 27px;
+	font-size: 0;
+	text-indent: -5000px;
+}
+
+#lPayConsumer {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 9999999;
+}
+
+#lPayConsumer .frm {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -326px;
+	margin-left: -335px;
+	width: 622px;
+	height: 610px;
+	padding: 24px 26px;
+	background-color: #fff;
+	color: #1b1b1b;
+	text-align: center;
+}
+
+#lPayConsumer .frm h3 {
+	height: 20px;
+	margin: 0;
+	margin-bottom: 9px;
+	padding: 0;
+	padding-bottom: 9px;
+	border-bottom: 1px solid #aaa;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: -1px;
+	line-height: 20px;
+	text-align: left;
+}
+
+#lPayConsumer .frm .desc {
+	height: 13px;
+	margin-bottom: 32px;
+	font-size: 13px;
+	letter-spacing: -1px;
+	line-height: 13px;
+	text-align: left;
+}
+
+#lPayConsumer .frm table {
+	width: 100%;
+	margin-bottom: 23px;
+	border-top: 2px solid #646464;
+	border-bottom: 2px solid #646464;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+#lPayConsumer .frm table th {
+	width: 135px;
+	padding-top: 17px;
+	border-bottom: 1px solid #ddd;
+	color: #1b1b1b;
+	font-size: 13px;
+	font-weight: 100;
+	text-align: left;
+	letter-spacing: -1px;
+	text-indent: 15px;
+	line-height: 13px;
+}
+
+#lPayConsumer .frm table td {
+	min-height: 38px;
+	padding-top: 8px;
+	border-bottom: 1px solid #ddd;
+	letter-spacing: -1px;
+	text-align: left;
+}
+
+#lPayConsumer .frm table tr:first-child th, #lPayConsumer .frm table tr:first-child td
+	{
+	border-bottom: 1px solid #aaa;
+}
+
+#lPayConsumer .frm input[type=text], #lPayConsumer .frm select,
+	#lPayConsumer .frm textarea {
+	height: 30px;
+	margin-bottom: 8px;
+	border: 1px solid #aaa;
+	color: #1b1b1b;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 13px;
+	font-weight: 100;
+	line-height: 13px;
+}
+
+#lPayConsumer .frm .lenfull {
+	width: 450px;
+	text-indent: 8px;
+}
+
+#lPayConsumer .frm .lenpost {
+	width: 68px;
+	text-indent: 8px;
+}
+
+#lPayConsumer .frm input.lenshort {
+	width: 80px;
+	text-indent: 8px;
+}
+
+#lPayConsumer .frm select.lenshort {
+	width: 100px;
+	padding-left: 8px;
+}
+
+#lPayConsumer .frm textarea {
+	width: 450px;
+	height: 55px;
+	resize: none;
+}
+
+#lPayConsumer .frm input.inputBtn {
+	height: 34px;
+	border: 1px solid #aaa;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+}
+
+#lPayConsumer .frm #lPayAddrCheck {
+	position: relative;
+	top: 8px;
+	right: 30px;
+	float: right;
+}
+
+#lPayConsumer .frm #lPayAddrOpt input, #lPayConsumer .frm #lPayAddrCheck input
+	{
+	width: auto;
+	height: auto;
+	vertical-align: -2px;
+	cursor: pointer;
+}
+
+#lPayConsumer .frm button {
+	width: 50px;
+	height: 30px;
+	border: 0;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 100;
+	line-height: 13px;
+	cursor: pointer;
+}
+
+#lPayConsumer .frm button.submit {
+	background-color: #1ec400;
+}
+
+#lPayConsumer .frm button.close {
+	background-color: #aaa;
+}
+
+#domemeMiddle {
+	z-index: 600;
+}
+
+
+
+
+#lBtm {
+	display: none;
+	position: fixed;
+	width: 956px;
+	bottom: 0;
+	margin-left: 12px;
+	z-index: 99999;
+}
+
+#lBtm #lBtmBar {
+	height: 40px;
+	border-bottom: 2px solid #ff643c;
+	background-color: #1b1b1b;
+	color: #fff;
+	font-size: 12px;
+	line-height: 32px;
+}
+
+#lBtm #lBtmBar .amt {
+	padding-left: 14px;
+	font-weight: 700;
+}
+
+#lBtm #lBtmBar .amt strong {
+	position: relative;
+	top: 2px;
+	left: 0;
+	margin-left: 10px;
+	margin-right: 4px;
+	color: #f63700;
+	font-family: 'Verdana';
+	font-size: 20px;;
+	font-weight: 100;
+	letter-spacing: -2px;
+}
+
+#lBtm #lBtmBar .qty {
+	margin-left: 8px;
+	color: #fff;
+	font-size: 12px;
+	letter-spacing: 0;
+}
+
+#lBtm #lBtmBar .qty strong {
+	margin-right: 0px;
+	color: #f63700;
+	font-family: 'Verdana';
+	font-weight: 700;
+}
+
+#lBtm #lBtmBar #lBtmBuy {
+	position: absolute;
+	top: 0;
+	right: 248px;
+	width: 80px;
+	height: 40px;
+	border: 0;
+	background-color: #ff643c;
+	color: #fff;
+	font-weight: 700;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#lBtm #lBtmBar #lBtmCart {
+	position: absolute;
+	top: 0;
+	right: 168px;
+	width: 80px;
+	height: 40px;
+	border: 0;
+	background-color: #aaa;
+	color: #fff;
+	font-weight: 700;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#lBtm #lBtmBar #lBtmFav {
+	position: absolute;
+	top: 0;
+	right: 88px;
+	width: 80px;
+	height: 40px;
+	border: 0;
+	background-color: #fff;
+	color: #1b1b1b;
+	font-weight: 700;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#lBtm #lBtmBar #lBtmFolder {
+	position: absolute;
+	top: 0;
+	right: 0;
+	overflow: hidden;
+	width: 88px;
+	height: 40px;
+	border: 0;
+	background-color: #1b1b1b;
+	background-image:
+		url('/images/item/view/btn_bottomDown.png');
+	background-repeat: no-repeat;
+	text-indent: -5000px;
+	cursor: pointer;
+}
+
+#lBtm.hide #lBtmBar #lBtmFolder {
+	background-image:
+		url('/images/item/view/btn_bottomUp.png');
+}
+
+#lBtm.hide #lBtmBody {
+	display: none;
+}
+
+#lBtm #lBtmBody {
+	overflow: hidden;
+	padding: 12px;
+	background-color: #ffffff;
+}
+
+#lBtm #lBtmBodyTop {
+	height: 12px;
+	padding-top: 9px;
+	font-size: 11px;
+	line-height: 10px;
+	color: #aaa;
+}
+
+#lBtm #lBtmBodyTop li {
+	float: left;
+	overflow: visible;
+	height: 11px;
+	margin-right: 19px;
+	padding-left: 10px;
+	border-left: 1px solid #aaa;
+	line-height: 8px;
+}
+
+#lBtm #lBtmBodyTop a {
+	color: #aaa;
+	text-decoration: none;
+}
+
+#lBtm #lBtmBodyTop img {
+	vertical-align: -2px;
+}
+
+#lBtm #lBtmBodyTop span {
+	position: relative;
+	top: -7px;
+}
+
+#lBtm #lBtmBodyTop select#lCartDeliChoose {
+	position: relative;
+	top: -7px;
+	height: 24px;
+	margin-left: 4px;
+	padding: 1px;
+	border: 1px solid #ddd;
+	color: #646464;
+	font-size: 11px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	line-height: 11px;
+	vertical-align: 0px;
+}
+
+#lBtm #itemOptSelect {
+	overflow-x: hidden;
+	overflow-y: auto;
+	float: left;
+	width: 453px;
+	max-height: 150px;
+	margin-right: -1px;
+	padding-right: 12px;
+	border-right: 1px solid #ddd;
+}
+
+#lBtm #itemOptSelect table {
+	width: 100%;
+	border: 0;
+	border-collapse: collapse;
+}
+
+#lBtm #itemOptSelect th {
+	width: 90px;
+	height: 50px;
+	padding: 0;
+	border: 0;
+	text-align: left;
+}
+
+#lBtm #itemOptSelect td {
+	height: 50px;
+	padding: 0;
+	border: 0;
+}
+
+#lBtm #itemOptSelect select {
+	width: 100%;
+	height: 24px;
+	padding: 2px;
+	border: 1px solid #ddd;
+	font-family: 'Malgun Gothic', '맑은 고딕';
+	font-size: 12px;
+}
+
+#lBtm #itemOptResult {
+	overflow-x: hidden;
+	overflow-y: auto;
+	float: left;
+	width: 454px;
+	max-height: 150px;
+	padding-left: 12px;
+	border-left: 1px solid #ddd;
+}
+
+#lBtm #itemOptResult table {
+	width: 425px;
+	border-collapse: collapse;
+}
+
+#lBtm #itemOptResult th {
+	height: 49px;
+	padding: 0;
+	padding-right: 30px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+	font-weight: 100;
+}
+
+#lBtm #itemOptResult td {
+	height: 29px;
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+#lBtm #itemOptResult td.qty {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 111px;
+	padding: 10px 0;
+}
+
+#lBtm #itemOptResult td.qty input {
+	position: absolute;
+	top: 10px;
+	left: 29px;
+	width: 45px;
+	height: 24px;
+	padding: 2px 8px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-family: 'Arial';
+	font-size: 16px;
+	font-weight: 700;
+	text-align: right;
+	line-height: 22px;
+}
+
+#lBtm #itemOptResult td.qty button {
+	overflow: hidden;
+	position: absolute;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 18px;
+	text-indent: -5000px;
+	line-height: 2px;
+	cursor: pointer;
+}
+
+#lBtm #itemOptResult td.qty button.btnUp {
+	left: 91px;
+	background-image:
+		url('/images/item/view/btn_qtyPlus.png');
+}
+
+#lBtm #itemOptResult td.qty button.btnDown {
+	left: 0;
+	background-image:
+		url('/images/item/view/btn_qtyMinus.png');
+}
+
+#lBtm #itemOptResult td.amt {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 92px;
+	padding: 10px 21px 10px 0;
+	color: #1b1b1b;
+	text-align: right;
+}
+
+#lBtm #itemOptResult td.amt button {
+	overflow: hidden;
+	position: absolute;
+	top: 11px;
+	right: 0;
+	border: 1px solid #fff;
+	background-color: #fff;
+	background-image:
+		url('/images/item/view/ico_closeSmall.png');
+	background-position: right 10px;
+	background-repeat: no-repeat;
+	color: #646464;
+	font-size: 10px;
+	text-indent: -50px;
+	line-height: 26px;
+	cursor: pointer;
+}
+
+#lBtm #itemOptResult .res {
+	display: none;
+}
+
+#lBtm #lPayNoOpt {
+	overflow: hidden;
+	width: 50%;
+	height: 48px;
+	border-right: 1px solid #c6c6c6;
+	padding: 0;
+	padding-bottom: 40px;
+	font-size: 0;
+}
+
+#lBtm #lPayNoOpt .lPayNoOptHead {
+	position: relative;
+	top: 14px;
+	left: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: 98px;
+	height: 48px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+	font-weight: 700;
+}
+
+*+html body #lBtm #lPayNoOpt .lPayNoOptHead {
+	display: inline;
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody {
+	position: relative;
+	top: 9px;
+	left: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: 200px;
+	height: 48px;
+}
+
+*+html body #lBtm #lPayNoOpt .lPayNoOptBody {
+	display: inline;
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody a {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	border: 1px solid #e9e9e9;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: 28px 28px;
+	vertical-align: 0;
+}
+
+*+html body #lBtm #lPayNoOpt .lPayNoOptBody a {
+	display: inline;
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody #lPayNoOptBtnMinus {
+	left: 0;
+	background-image:
+		url("/images/item/view/btn_minus.png");
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody #lPayNoOptBtnPlus {
+	left: 92px;
+	background-image:
+		url("/images/item/view/btn_plus.png");
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody input {
+	position: absolute;
+	top: 0;
+	left: 29px;
+	width: 42px;
+	height: 16px;
+	padding: 6px 10px;
+	border: 1px solid #e9e9e9;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 16px;
+	font-weight: 700;
+	text-align: right;
+	vertical-align: 0;
+}
+
+#lBtm #lPayNoOpt .lPayNoOptBody span {
+	position: absolute;
+	top: 7px;
+	left: 128px;
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+	font-size: 12px;
+}
+
+#lSummaryPacking {
+	clear: both;
+	position: relative;
+	margin-bottom: 30px;
+	/* height: 230px; */
+	border-top: 1px solid #AAA;
+}
+
+#lSummaryPacking ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#lSummaryPacking header {
+	padding: 50px 0 0 30px;
+	width: 285px;
+	height: 180px;
+}
+
+#lSummaryPacking header h2 {
+	display: table;
+	margin: 0;
+	padding: 0;
+	height: 90px;
+	font-size: 19px;
+	font-weight: bold;
+	color: #000;
+	text-align: left;
+}
+
+#lSummaryPacking header h2>span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#lSummaryPacking header h2 #lSummaryCatName {
+	color: #2DC1E7;
+}
+
+#lSummaryPacking header .lBtnWrap {
+	height: 90px;
+	text-align: center;
+}
+
+#lSummaryPacking header .lBtnWrap a {
+	font-size: 13px;
+	line-height: 90px;
+	text-decoration: underline;
+	color: #000;
+}
+
+#lSummaryPackingView {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 315px;
+	padding-right: 25px;
+}
+
+#lSummaryPackingView nav {
+	padding-top: 20px;
+	height: 30px;
+}
+
+#lSummaryPackingView nav {
+	text-align: right;
+}
+
+#lSummaryPackingView nav button {
+	display: inline-block;
+	margin: 0 0 0 5px;
+	padding: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	border: none;
+	background-color: #C4C4C4;
+	cursor: pointer;
+}
+
+#lSummaryPackingView nav button.selected {
+	background-color: #34373E;
+}
+
+#lSummaryPackingView nav button:active {
+	outline: none;
+}
+
+#lSummaryPackingViewList {
+	overflow: hidden;
+	height: 180px;
+}
+
+#lSummaryPackingViewList ul {
+	overflow: hidden;
+	float: right;
+}
+
+#lSummaryPackingViewList ul li {
+	float: left;
+	margin-left: 10px;
+	width: 120px;
+}
+
+#lSummaryPackingViewList ul li a .lProductImg img {
+	width: 100%;
+}
+
+#lSummaryPackingViewList ul li:first-child {
+	margin: 0;
+}
+
+#lSummaryPackingViewList ul li a {
+	display: block;
+	text-decoration: none;
+	color: #646464;
+}
+
+#lSummaryPackingViewList ul li a .lProductTitle {
+	margin-top: 5px;
+	overflow: hidden;
+	height: 30px;
+	line-height: 15px;
+	font-size: 11px;
+	letter-spacing: -1px;
+	word-break: break-all;
+}
+
+#lSummaryPackingViewList ul li:hover a .lProductTitle {
+	text-decoration: underline;
+}
+
+#lSummaryPackingViewList ul li a .lProductAmt {
+	margin-top: 5px;
+	text-align: center;
+	font-size: 13px;
+	line-height: 20px;
+	font-weight: bold;
+	color: #000;
+}
+
+#itemView #lInfoView {
+	width: 956px;
+	margin: auto;
+}
+
+#itemView #lInfoView .lInfoClearBoth {
+	clear: both;
+}
+
+/*상세설명*/
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 12px;
+	color: #1b1b1b;
+	margin-bottom: 20px;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubTd1
+	{
+	width: 182px;
+	border-right: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	vertical-align: top;
+	padding: 20px 0 20px 7px;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubTd2
+	{
+	border-bottom: 1px solid #dddddd;
+	padding: 0 0 0 10px;
+	vertical-align: middle;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubWarn
+	{
+	padding: 20px 0 0 0;
+	color: #ff643c;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubWarn .lInfoViewSubOb a
+	{
+	color: #0f2c53;
+	font-weight: 700;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubFeedback
+	{
+	color: #1b1b1b;
+	border-bottom: 1px solid #dddddd;
+	padding: 20px 0;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewImgUse
+	{
+	float: left;
+	padding: 20px 0;
+	width: 90%;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewBtn {
+	float: left;
+	width: 206px;
+	padding: 20px 0;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewBtn a.lInfoViewBtnEditA
+	{
+	border: 1px solid #2dc1e7;
+	width: 48px;
+	height: 28px;
+	line-height: 28px;
+	background-color: #ffffff;
+	color: #2dc1e7;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
+	float: right;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubMemo
+	{
+	float: left;
+	width: 550px;
+	padding: 20px 0;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubDelBtn
+	{
+	float: right;
+	padding: 15px 0;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubDate
+	{
+	float: right;
+	margin-right: 20px;
+	padding: 20px 0;
+	font-size: 11px;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubDelBtn input
+	{
+	border: 1px solid #dddddd;
+	width: 48px;
+	height: 28px;
+	background-color: #ffffff;
+	color: #aaaaaa;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubMemoReg
+	{
+	padding: 10px 0;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubMemoReg .lInfoViewSubMemoTextarea textarea
+	{
+	border: 0;
+	width: 540px;
+	height: 60px;
+	padding: 5px;
+	background-color: #f0f0f0;
+	font-size: 11px;
+	color: #646464;
+	float: left;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubMemoReg .lInfoViewSubMemoRegBtn
+	{
+	float: left;
+	margin: 40px 0 0 20px;
+}
+
+#itemView #lInfoView .lInfoViewSubWrap .lInfoViewSubTbl .lInfoViewSubMemoReg .lInfoViewSubMemoRegBtn input
+	{
+	border: 1px solid #2dc1e7;
+	width: 48px;
+	height: 28px;
+	background-color: #2dc1e7;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+/*판매자 공지사항*/
+#itemView #lInfoView .lInfoViewNoticeWrap {
+	margin-bottom: 80px;
+}
+
+#itemView #lInfoView .lInfoViewNoticeWrap .lInfoViewNoticeTbl {
+	border-collapse: collapse;
+	border: 1px solid #dddddd;
+	width: 100%;
+	font-size: 12px;
+	color: #1b1b1b;
+}
+
+#itemView #lInfoView .lInfoViewNoticeWrap .lInfoViewNoticeTbl td {
+	border: 1px solid #dddddd;
+	padding: 20px 10px;
+}
+
+#itemView #lInfoView .lInfoViewNoticeWrap .lInfoViewNoticeTbl .lInfoViewNoticeTitle
+	{
+	font-weight: 700;
+}
+
+#itemView #lInfoView .lInfoViewNoticeWrap .lInfoViewNoticeTbl .lInfoViewNoticeTitle img
+	{
+	vertical-align: -7px;
+	padding-right: 5px;
+}
+
+#itemView #lInfoView .lInfoViewItemContents {
+	margin-bottom: 80px;
+	text-align: center;
+}
+
+#itemView #lInfoView ul.lowestPriceContUlTab {
+	width: 352px;
+	height: 55px;
+	margin: 50px auto 90px auto;
+}
+
+#itemView #lInfoView ul.lowestPriceContUlTab li {
+	float: left;
+	width: 174px;
+	height: 53px;
+	line-height: 53px;
+	border: 1px solid #aaa;
+	background-color: #fff;
+	color: #aaa;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#itemView #lInfoView ul.lowestPriceContUlTab li.selected {
+	background-color: #aaa;
+	color: #fff;
+}
+
+.lTap {
+	overflow: hidden;
+	width: 956px;
+	margin: auto;
+}
+
+.lTap li {
+	position: relative;
+	top: 0;
+	left: 0;
+	float: left;
+	width: 237px;
+	height: 48px;
+	border: 1px solid #aaaaaa;
+	border-right: 0;
+	background-color: #ffffff;
+	font-size: 11pt;
+	line-height: 45px;
+	text-align: center;
+}
+
+.lTap li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	color: #888;
+	text-decoration: none;
+}
+
+.lTap li:last-child {
+	border-right: 1px solid #aaaaaa;
+}
+
+.lTap li.sel {
+	background-color: #0f2c53;
+	border: 1px solid #0f2c53;
+	border-right: 0;
+}
+
+.lTap li.sel a {
+	color: #fff;
+}
+
+.lTap li.sel b {
+	color: #9add01;
+}
+
+/* 초기 가이드 배경 CSS 완성 시, 삭제 필요합니다. */
+div#itemView div#lInfoDuty {
+	xbackground-color: #FFF2E6;
+}
+/* CSS시작 */
+/* 전체 상품고시 div요소(상단탭과 맞추고, 중앙정렬하는데 사용합니다.) */
+div#itemView div#lInfoDuty {
+	width: 954px;
+	margin: 10px auto 80px auto;
+}
+/* 테이블 상단의 안내문구 설정입니다. */
+div#itemView div#lInfoDuty div.basicInfo {
+	padding-top: 5px;
+	color: #1b1b1b;
+	font-size: 11px;
+	line-height: 180%;
+}
+/* 테이블의 캡션은 사용하지 않으므로 텍스트를 화면 밖으로 밀어냅니다. */
+div#itemView div#lInfoDuty table caption {
+	text-indent: -9999px;
+}
+/* 테이블의 전체적인 설정을 작성합니다. */
+div#itemView div#lInfoDuty table.infoDutyTbl {
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #ddd;
+	border-collapse: collapse;
+	color: #1b1b1b;
+	font-size: 11px;
+}
+/* 테이블 내, th 태그에 관련된 속성을 작성합니다. */
+div#itemView div#lInfoDuty table.infoDutyTbl tbody tr.safeInfo th {
+	background-color: #f0f0f0;
+	border: 1px solid #ddd;
+	padding: 4px 8px;
+}
+
+div#itemView div#lInfoDuty table.infoDutyTbl tbody tr.prodInfo th {
+	background-color: #f0f0f0;
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-bottom: 0;
+	padding: 4px 8px;
+}
+/* 테이블 내, td 태그에 관련된 속성을 작성합니다. */
+div#itemView div#lInfoDuty table.infoDutyTbl tbody tr.safeInfo td {
+	border: 1px solid #ddd;
+	padding: 15px 8px;
+	line-height: 1.5em;
+}
+
+div#itemView div#lInfoDuty table.infoDutyTbl tbody tr.safeInfo td div span
+	{
+	color: #8e8e8e;
+	font-size: 11px;
+}
+
+div#itemView div#lInfoDuty table.infoDutyTbl tbody tr.prodInfo td {
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-bottom: 0;
+	padding: 4px 8px;
+}
+
+#itemView #lReview {
+	margin: 0 12px 80px 12px;
+}
+
+#itemView #lReview {
+	font-size: 11px;
+	color: #1b1b1b;
+}
+
+#itemView #lReview #lReviewHead {
+	height: 50px;
+	line-height: 50px;
+}
+
+#itemView #lReview #lReviewHead #lReviewHeadForAdmin {
+	float: right;
+}
+
+#itemView #lReview #lReviewHead #lReviewHeadForAdmin span {
+	font-weight: 700;
+}
+
+#itemView #lReview #lReviewHead #lReviewHeadForAdmin a {
+	color: #cc00cc;
+}
+
+#itemView #lReview #lReviewHead #lReviewHeadForAdmin a:hover {
+	text-decoration: underline;
+}
+
+#itemView #lReview table#lReviewTbl {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#itemView #lReview table#lReviewTbl thead th, #itemView #lReview table#lReviewTbl tbody td
+	{
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	padding: 5px 12px;
+	margin: 0;
+	font-size: 11px;
+	line-height: 22px;
+	color: #1b1b1b;
+}
+
+#itemView #lReview table#lReviewTbl thead th {
+	border-top: 1px solid #aaa;
+	font-weight: 100;
+	vertical-align: middle;
+	padding: 8px;
+}
+
+#itemView #lReview table#lReviewTbl tbody td {
+	vertical-align: top;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.scoreTd {
+	padding-top: 10px;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.scoreTd img {
+	margin: 0 2px;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.brdBtm0 {
+	border-bottom: 0;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.memoTd {
+	text-align: left;
+	line-height: 27px;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.memoTd img.replyImg {
+	margin-right: 10px;
+	vertical-align: text-bottom;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.delTd {
+	vertical-align: bottom;
+}
+
+#itemView #lReview table#lReviewTbl tbody td.delTd .deleteBtn {
+	width: 48px;
+	height: 28px;
+	line-height: 28px;
+	border: 1px solid #ddd;
+	color: #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	text-align: center;
+	cursor: pointer;
+}
+
+#itemView #lReview a {
+	text-decoration: none;
+}
+
+#itemView #lReview #lReviewPage {
+	clear: both;
+	margin: 30px 0;
+	font-size: 0;
+	text-align: center;
+}
+
+#itemView #lReview #lReviewPage .btn {
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	top: 1px;
+	left: 0;
+	width: 30px;
+	height: 30px;
+	margin-right: 2px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	text-indent: -500px;
+	cursor: pointer;
+}
+
+#itemView #lReview #lReviewPage .bf10 {
+	background-image:
+		url('/images/item/view/btn_pageBefore10.png');
+}
+
+#itemView #lReview #lReviewPage .bf1 {
+	background-image:
+		url('/images/item/view/btn_pageBefore1.png');
+}
+
+#itemView #lReview #lReviewPage .af1 {
+	background-image:
+		url('/images/item/view/btn_pageAfter1.png');
+}
+
+#itemView #lReview #lReviewPage .af10 {
+	background-image:
+		url('/images/item/view/btn_pageAfter10.png');
+}
+
+#itemView #lReview #lReviewPage ol {
+	display: inline-block;
+	margin-right: 2px;
+}
+
+#itemView #lReview #lReviewPage li {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 28px;
+	height: 28px;
+	margin: 0 10px;
+	border: 1px solid #fff;
+	background-color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 14px;
+	cursor: pointer;
+}
+
+#itemView #lReview #lReviewPage li.curr {
+	border: 1px solid #ddd;
+	background-color: #66c009;
+	font-size: 14px;
+	text-align: center;
+}
+
+#itemView #lReview #lReviewPage li a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding-top: 6px;
+	color: #1b1b1b;
+}
+
+#itemView #lReview #lReviewPage li.curr a {
+	color: #fff;
+}
+
+#itemView #lReview #lReviewPage #lReviewPageInputs {
+	display: inline-block;
+	position: relative;
+	top: -10px;
+	left: 0;
+	margin-left: 37px;
+}
+
+#itemView #lReview #lReviewPage #lReviewPageInputs input[type="text"] {
+	width: 48px;
+	height: 12px;
+	padding: 8px 6px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+#itemView #lReview #lReviewPage #lReviewPageInputs input[type="button"]
+	{
+	display: inline-block;
+	width: 46px;
+	height: 30px;
+	margin-left: -1px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#itemView #lReview #lReviewPage #lReviewPageInputs span {
+	padding-left: 10px;
+	color: #646464;
+	font-size: 12px;
+}
+/* IE7 Hack */
+*+html body #itemView #lReview #lReviewPage .btn, *+html body #itemView #lReview #lReviewPage ol,
+	*+html body #itemView #lReview #lReviewPage li, *+html body #itemView #lReview #lReviewPage #lReviewPageInputs,
+	*+html body #itemView #lReview #lReviewPage #lReviewPageInputs input[type="button"]
+	{
+	display: inline;
+}
+
+*+html body #itemView #lReview #lReviewPage .bf10 {
+	margin-left: 480px;
+}
+
+*+html body #itemView #lReview #lReviewPage #lReviewPageInputs input, *+html body #itemView #lReview #lReviewPage #lReviewPageInputs input
+	{
+	position: relative;
+	top: 6px;
+	left: 0;
+}
+
+#itemView #lSupport {
+	width: 950px;
+	margin: 0 auto;
+	font-size: 11px;
+	color: #1b1b1b;
+	margin-bottom: 80px;
+}
+
+#lSeller {
+	width: 956px;
+	margin: 0 12px;
+}
+
+#lSeller #sellerSellInfo {
+	width: 466px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 12px;
+}
+
+#lSeller #sellerSellInfo .sellInfoSymbol {
+	height: 15px;
+	margin-bottom: 15px;
+	font-size: 11px;
+	color: #646464;
+}
+
+#lSeller #sellerSellInfo .sellInfoSymbol span {
+	color: #aaa;
+}
+
+#lSeller #sellerSellInfo .sellInfoSymbol img.good {
+	vertical-align: -2px;
+}
+
+#lSeller #sellerSellInfo .sellInfoSymbol img.power {
+	vertical-align: -3px;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple {
+	height: 130px;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .sellerNickId .nick {
+	font-size: 18px;
+	color: #1b1b1b;
+	font-weight: 700;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .sellerNickId .id {
+	font-size: 15px;
+	color: #aaa;
+	font-weight: 700;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .sellerSatisfy span {
+	font-size: 11px;
+	color: #646464;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .wishSellerNQuestionBtns a {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .wishSellerNQuestionBtns a.wishSellerBtn
+	{
+	margin-right: 12px;
+	width: 122px;
+	border: 1px solid #ddd;
+	color: #aaa;
+}
+
+#lSeller #sellerSellInfo .sellerInfoSimple .wishSellerNQuestionBtns a.questionBtn
+	{
+	width: 70px;
+	background-color: #1ec400;
+	color: #fff;
+}
+
+#lSeller #otherItemListWrap {
+	width: 466px;
+	height: 160px;
+	float: left;
+	margin: 30px 0;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 15px;
+	padding-bottom: 9px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li {
+	position: absolute;
+	top: 0;
+	text-align: center;
+	line-height: 14px;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li.sampleTab {
+	left: 0;
+	width: 203px;
+	padding-right: 30px;
+	background-image:
+		url("/images/item/view/img_seperatorRight.jpg");
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li.basicTab {
+	left: 233px;
+	width: 233px;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li .tabText {
+	font-size: 12px;
+	color: #aaaaaa;
+	cursor: default;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li.selected span {
+	font-weight: 700;
+	color: #646464;
+}
+
+#lSeller #otherItemListWrap ul#otherItemTabsUl li a {
+	display: block;
+	width: 38px;
+	height: 13px;
+	line-height: 13px;
+	border: 1px solid #aaa;
+	font-size: 11px;
+	float: right;
+	letter-spacing: -1px;
+	text-decoration: none;
+	color: #646464;
+	font-weight: 100;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlNone {
+	display: none;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock {
+	width: 466px;
+	height: 130px;
+	position: absolute;
+	top: 30px;
+	left: 0;
+	display: block;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li {
+	width: 80px;
+	height: 130px;
+	float: right;
+	margin-left: 16px;
+	text-align: center;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li:last-child {
+	margin-left: 0;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li a {
+	display: block;
+	width: 80px;
+	height: 117px;
+	overflow: hidden;
+	font-size: 11px;
+	color: #646464;
+	margin: 3px 0 1px 0;
+	text-decoration: none;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li a:hover {
+	text-decoration: underline;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li a img {
+	margin-bottom: 5px;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li .amtWrap {
+	font-size: 12px;
+	color: #1b1b1b;
+}
+
+#lSeller #otherItemListWrap ul.otherItemsUlBlock li .amtWrap span {
+	font-weight: 700;
+	font-family: 'verdana';
+}
+
+#lSeller ul#sellerHInfoUl {
+	overflow: hidden;
+	clear: both;
+	border-top: 1px solid #ddd;
+	padding: 15px 12px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#lSeller ul#sellerHInfoUl li {
+	width: 442px;
+	float: left;
+	font-size: 11px;
+	color: #1b1b1b;
+	padding: 7px 0;
+	line-height: 11px;
+}
+
+*+html body #lSeller #sellerSellInfo .sellerInfoSimple .wishSellerNQuestionBtns a
+	{
+	display: inline;
+}
+
+/* 초기 가이드 배경 CSS 완성 시, 삭제 필요합니다. */
+#itemView #lSellerBody {
+	width: 956px;
+	margin: 0 auto 80px auto;
+	font-size: 11px;
+	color: #646464;
+	line-height: 1.5em;
+}
+/* CSS시작 */
+/* 페이지 제목부분 CSS입니다. */
+div#lSellerBody b.title {
+	font-size: 12px;
+	color: #1b1b1b;
+}
+
+/*-----------------------------------------------------------------
+클린캠페인 div 태그
+-----------------------------------------------------------------*/
+div#lSellerBody div#cleanCampaign {
+	width: 932px;
+	border: 1px solid #ff643c;
+	padding: 12px 12px 24px 12px;
+	color: #ff643c;
+	background-color: #fff;
+}
+
+div#lSellerBody div#cleanCampaign img {
+	margin: 0 10px 0 7px;
+}
+
+div#lSellerBody div#cleanCampaign b {
+	font-size: 18px;
+	color: #ff643c;
+	vertical-align: 3px;
+}
+
+div#lSellerBody div#cleanCampaign ul {
+	padding-top: 14px;
+}
+/* 클린캠페인 신고하기 버튼 CSS입니다. */
+div#lSellerBody div#cleanCampaign div#reportBtn {
+	width: 100px;
+	height: 30px;
+	border: 0;
+	background-color: #ff643c;
+	font-size: 12px;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+}
+
+div#lSellerBody div#cleanCampaign div#reportBtn a {
+	color: #fff;
+	font-weight: 700;
+	text-decoration: none;
+	display: block;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------
+반품/교환정보 div 태그
+-----------------------------------------------------------------*/
+div#lSellerBody div.lSellerBodyDiv {
+	margin-top: 30px;
+	padding: 0 12px;
+}
+
+div#lSellerBody div.lSellerBodyDiv p {
+	margin-top: 30px;
+}
+
+div#lSellerBody div.lSellerBodyDiv a {
+	color: #1ec400;
+}
+
+/*-----------------------------------------------------------------
+판매자 입력정보 div 태그
+-----------------------------------------------------------------*/
+div#lSellerBody div#sellerInfo {
+	margin: 30px 0;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 30px 12px;
+}
+
+/*-----------------------------------------------------------------
+상품문의 목록
+-----------------------------------------------------------------*/
+/*앞에 #lSupport #supportIframe 앞에다가 추가할 것*/
+#supportIframe
+{
+	height				: 575px;
+}
+#lSupportList
+{
+	font-family			: 'Malgun Gothic';
+}
+#lSupportList #lSupportListTop
+{
+/*	margin-top			: 10px;*/
+	margin-bottom		: 11px;
+	font-size			: 11px;
+	font-family			: 'Malgun Gothic';
+}
+#lSupportList #lSupportListTop ul
+{
+	float				: left;
+	padding-left		: 18px;
+	margin-top			: 5px;
+	margin-bottom		: 10px;
+}
+#lSupportList #lSupportListTop ul .lSupportViewBar
+{
+	display				: inline-block;
+	margin				: 0 5px;
+}
+#lSupportList #lSupportListTop ul a
+{
+	color				: #1ec400;
+	text-decoration		: none;
+}
+#lSupportList #lSupportListTop ul a:hover
+{
+	text-decoration		: underline;
+}
+#lSupportList #lSupportListTop ul .lSupportViewTopColor
+{
+	color				: #1ec400;
+}
+#lSupportList #lSupportListTop #lSupportListWriteBtn input[type=button]
+{
+	color				: #ffffff;
+	background-color	: #1ec400;
+	display				: block;
+	width				: 90px;
+	height				: 30px;
+	line-height			: 30px;
+	font-size			: 12px;
+	font-weight			: bold;
+	border				: none;
+	cursor				: pointer;
+	float				: right;
+	font-family			: 'Malgun Gothic';
+	margin				: 0 0 10px 0;
+}
+
+/*table css*/
+#lSupportList #lSupportListPage
+{
+	padding-top			: 42px;
+}
+#lSupportList #lSupportListPage table
+{
+	width				: 100%;
+	font-size			: 11px;
+	font-family			: 'Malgun Gothic';
+/*	margin-top			: 11px;*/
+	border-top			: 1px solid #aaaaaa;
+	border-collapse		: collapse;
+/*	table-layout		: fixed;*/
+}
+#lSupportList #lSupportListPage table thead th
+{
+	border-bottom		: 1px solid #dddddd;
+	padding				: 10px 0;
+	text-align			: center;
+	line-height			: 20px;
+}
+#lSupportList #lSupportListPage table tbody td
+{
+	border-bottom		: 1px solid #dddddd;
+	padding				: 10px 0;
+	text-align			: center;
+}
+#lSupportList #lSupportListPage table tbody td a
+{
+	text-decoration		: none;
+	color				: #000000;
+}
+#lSupportList #lSupportListPage table tbody td a:hover
+{
+	text-decoration		: underline;
+}
+
+/*페이지네이션*/
+#lPage
+{	
+	clear				: both;
+	margin				: 30px 0;
+	font-size			: 0;
+	text-align			: center;
+}
+#lPage .btn
+{	
+	display				: inline-block;
+	overflow			: hidden;
+	position			: relative;
+	top					: 1px;
+	left				: 0;
+	width				: 30px;
+	height				: 30px;
+	margin-right		: 2px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	background-repeat	: no-repeat;
+	text-indent			: -500px;
+	cursor				: pointer;
+	line-height			: 100px;
+}
+#lPage .bf10
+{
+	background-image	: url('/images/item/view/btn_pageBefore10.png');
+}
+#lPage .bf1
+{
+	background-image	: url('images/item/view/btn_pageBefore1.png');
+}
+#lPage .af1
+{
+	background-image	: url('/images/item/view/btn_pageAfter1.png');
+}
+#lPage .af10
+{
+	background-image	: url('/images/item/view/btn_pageAfter10.png');
+}
+#lPage ol
+{
+	display				: inline-block;
+	margin-right		: 2px;
+}
+#lPage li
+{	
+	display				: inline-block;
+	position			: relative;
+	top					: 0;
+	left				: 0;
+	width				: 28px;
+	height				: 28px;
+	margin				: 0 10px;
+	border				: 1px solid #fff;
+	background-color	: #fff;
+	font-size			: 14px;
+	font-weight			: 700;
+	text-align			: center;
+	line-height			: 14px;
+	cursor				: pointer;
+}
+#lPage li.curr
+{	
+	border				: 1px solid #ddd;
+	background-color	: #66c009;
+	font-size			: 14px;
+	text-align			: center;
+}
+#lPage li a
+{
+	display				: block;
+	position			: absolute;
+	top					: 0;
+	left				: 0;
+	bottom				: 0;
+	right				: 0;
+	padding-top			: 6px;
+	color				: #1b1b1b;
+	text-decoration		: none;
+}
+#lPage li.curr a
+{
+	color				: #fff;
+}
+#lPage li.curr a:hover
+{
+	text-decoration		: underline;
+}
+#lPage form
+{
+	display				: inline-block;
+	position			: relative;
+	top					: -10px;
+	left				: 0;
+	margin-left			: 37px;
+}
+#lPage form input[type="text"]
+{
+	width				: 48px;
+/*	height				: 12px;*/
+	height				: 30px;
+	padding				: 8px 6px 6px 6px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	font-size			: 12px;
+	line-height			: 12px;
+	margin-top			: 2px;
+}
+#lPage form input[type="submit"]
+{
+	display				: inline-block;
+	width				: 46px;
+	height				: 30px;
+	margin-left			: -1px;
+	border				: 1px solid #ddd;
+	background-color	: #fff;
+	font-size			: 12px;
+	text-align			: center;
+	cursor				: pointer;
+}
+#lPage form span
+{
+	padding-left		: 10px;
+	color				: #646464;
+	font-size			: 12px;
+}
+ IE7 Hack 
+*+html body #lPage .btn,
+*+html body #lPage ol,
+*+html body #lPage li,
+*+html body #lPage form,
+*+html body #lPage form input[type="submit"]
+{
+	display				: inline;
+}
+*+html body #lPage .bf10
+{
+	margin-left			: 480px;
+}
+*+html body #lPage input,
+*+html body #lPage input
+{
+	position			: relative;
+	top					: 6px;
+	left				: 0;
+}
+
+/*-----------------------------------------------------------------
+상품문의 입력
+-----------------------------------------------------------------*/
+#lSupportWrite #lSupportWriteTop
+{
+	font-size			: 11px;
+	font-family			: 'Malgun Gothic';
+}
+#lSupportWrite #lSupportWriteTop ul
+{
+	float				: left;
+	padding-left		: 18px;
+	margin-top			: 5px;
+	margin-bottom		: 10px;
+}
+#lSupportWrite #lSupportWriteTop ul .lSupportWriteBar
+{
+	display				: inline-block;
+	margin				: 0 5px;
+}
+
+#lSupportWrite #lSupportWriteTop ul .lSupportWriteTopColor
+{
+	color				: #1ec400;
+}
+
+#lSupportWrite #lSupportWriteTop ul a
+{
+	color				: #1ec400;
+	text-decoration		: none;
+}
+#lSupportWrite #lSupportWriteTop ul a:hover
+{
+	text-decoration		: underline;
+}
+#lSupportWrite #lSupportWriteTop #lSupportListWriteBtn input[type=button]
+{
+	color				: #1ec400;
+	background-color	: #ffffff;
+	display				: block;
+	width				: 90px;
+	height				: 30px;
+	line-height			: 30px;
+	font-size			: 12px;
+	font-weight			: bold;
+	border				: 1px solid #1ec400;
+	cursor				: pointer;
+	float				: right;
+	font-family			: 'Malgun Gothic';
+	margin				: 0 0 10px 0;
+}
+
+
+/*table*/
+#lSupportWrite #lSupportWritePage
+{
+/*	padding-top			: 42px;*/
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap
+{
+	margin-top			:12px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap table
+{
+	width				: 100%;
+	font-family			: 'Malgun Gothic';
+	border-collapse		: collapse;
+	border-top			: 1px solid #aaaaaa;
+	font-size			: 9pt;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap table th
+{
+	padding				: 11px 0 10px 0;
+	border-bottom		: 1px solid #dddddd;
+	text-align			: left;
+	font-weight			: normal;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap table td
+{
+	padding				: 9px;
+	border-bottom		: 1px solid #dddddd;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap table .lSuportWriteItemTitle
+{
+	font-weight			: bold;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap table .lSupportWriteMemo
+{
+	vertical-align		: text-top;
+}
+/*체크박스*/
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteCheckBoxWrap input[type=checkbox]
+{
+	display				: none;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteCheckBoxWrap input[type=checkbox] + label
+{
+	display				: inline-block;
+	cursor				: pointer;
+	position			: relative;
+	padding-left		: 25px;
+	font-size			: 9pt;
+	color				: #000;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteCheckBoxWrap input[type=checkbox] + label:before
+{
+	content				: "";
+	display				: inline-block;
+	position			: absolute;
+	left				: 0;
+	width				: 16px;
+	height				: 16px;
+	border				: 1px solid #c1c1c1;
+	background-color	: #fff;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteCheckBoxWrap input[type=checkbox]:checked + label:before
+{
+	content				: "\2713";
+	font-size			: 15px;
+	font-weight			: 800;
+	color				: #fff;
+	border				: 1px solid #20B243;
+	background-color	: #66c009;
+	text-align			: center;
+	line-height			: 18px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap input[type=text]
+{
+	width				: 100%;
+	height				: 30px;
+	border				: 1px solid #dddddd;
+	color				: #lblblb;
+	font-size			: 12px;
+	/* padding				: 6px; */
+	vertical-align		: -2px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteNotice
+{
+	padding-bottom		: 9px;
+	color				: #aaaaaa;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap textarea
+{
+	width				: 100%;
+	height				: 100px;
+	background-color	: #f0f0f0;
+	border				: 1px solid #dddddd;
+	/* padding				: 10px; */
+	color				: #646464;
+	resize				: none;
+	font-size			: 11px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteImageWrap
+{
+	font-size			: 9pt;
+	margin-top			: 18px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteImageWrap .lSupportWriteImage
+{
+	float				: left;
+	color				: #1b1b1b;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteImageWrap .lSupportWrtieImageFiles
+{
+	float				: left;
+	margin-left			: 25px;
+	width				: 500px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteImageWrap .lSupportWrtieImageFiles input[type=file]
+{
+	display				: block;
+	width				: 500px;
+	margin-bottom		: 9px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportEditFileWrap
+{
+	margin-top			: 17px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportEditFileWrap .lSupportEditImgWrap
+{
+
+	margin-bottom		: 10px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportEditFileWrap .lSupportEditImgWrap .lSupportEditImg
+{
+	float				: left;
+	line-height			: 26px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportEditFileWrap .lSupportEditImgWrap .lSupportEditImgName
+{
+	text-decoration		: underline;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportEditFileWrap input[type=button]
+{
+	width				: 45px;
+	height				: 25px;
+	background-color	: #ffffff;
+	border				: 1px solid #dddddd;
+	color				: #aaaaaa;
+	cursor				: pointer;
+	display				: inline-block;
+	margin-left			: 10px;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm #lSupportWriteTblWrap .lSupportWriteImageWrap  input[type=button]
+{
+	width				: 90px;
+	height				: 30px;
+	background-color	: #ffffff;
+	border				: 1px solid #dddddd;
+	color				: #aaaaaa;
+	font-size			: 12px;
+	cursor				: pointer;
+	display				: inline-block;
+	margin-left			: 10px;
+}
+/*문의글등록,취소*/
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm .lSupportWriteSubmit
+{
+	padding				: 12px 0;
+	text-align			: center;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm .lSupportWriteSubmit #btnQaRegt
+{
+	width				: 90px;
+	height				: 30px;
+	background-color	: #1ec400;
+	font-size			: 12px;
+	color				: #ffffff;
+	border				: none;
+	cursor				: pointer;
+}
+#lSupportWrite #lSupportWritePage #lSupportWriteFrm .lSupportWriteSubmit input[type=button]
+{
+	width				: 50px;
+	height				: 30px;
+	background-color	: #ffffff;
+	font-size			: 12px;
+	border				: 1px solid #dddddd;
+	color				: #aaaaaa;
+	cursor				: pointer;
+/*	display				: inline-block;*/
+}
+
+
+#lSupportList
+{
+	font-family			: 'Malgun Gothic';
+}
+#lSupportView #lSupportViewTop
+{
+/*	margin-top			: 10px;*/
+	margin-bottom		: 11px;
+	font-size			: 11px;
+	font-family			: 'Malgun Gothic';
+}
+#lSupportView #lSupportViewTop ul
+{
+	float				: left;
+	padding-left		: 18px;
+	margin-top			: 0;
+}
+#lSupportView #lSupportViewTop ul .lSupportViewBar
+{
+	display				: inline-block;
+	margin				: 0 5px;
+}
+#lSupportView #lSupportViewTop ul a
+{
+	color				: #1ec400;
+	text-decoration		: none;
+}
+#lSupportView #lSupportViewTop ul a:hover
+{
+	text-decoration		: underline;
+}
+#lSupportView #lSupportViewTop ul .lSupportViewTopColor
+{
+	color				: #1ec400;
+}
+#lSupportView #lSupportViewTop #lSupportViewWriteBtn input[type=button]
+{
+	color				: #1ec400;
+	background-color	: #ffffff;
+	display				: block;
+	width				: 90px;
+	height				: 30px;
+	line-height			: 30px;
+	font-size			: 12px;
+	font-weight			: bold;
+	border				: 1px solid #1ec400;
+	cursor				: pointer;
+	float				: right;
+	font-family			: 'Malgun Gothic';
+}
+
+/*table*/
+#lSupportView #lSupportViewPage 
+{
+	padding-top			: 42px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl
+{
+	width				: 100%;
+	font-family			: 'Malgun Gothic';
+	border-collapse		: collapse;
+	border-top			: 1px solid #aaaaaa;
+	font-size			: 11px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewTh
+{
+	padding				: 8px 0;
+	border-bottom		: 1px solid #dddddd;
+	color				: #1b1b1b;
+	text-align			: left;
+	text-indent			: 10px;
+	font-size			: 11px;
+	background-color	: #f0f0f0;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .td
+{
+	padding				: 8px 10px;
+	border-bottom		: 1px solid #dddddd;
+	background-color	: #ffffff;
+	font-size			: 12px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWriteName
+{
+	font-weight			: bold;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewImageDownload
+{
+	color				: #0f2c53;
+	text-decoration		: underline;
+	font-weight			: bold;
+	margin-right		: 8px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSuppoortViewContents
+{
+	padding				: 25px 0;
+	font-size			: 11px;
+	float				: left;
+	width				: 845px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewBtn
+{
+	float				: right;
+	margin-top			: 10px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewBtn input[name=update]
+{
+	color				: #1ec400;
+	border				: 1px solid #1ec400;
+	background-color	: #ffffff;
+	width				: 50px;
+	height				: 28px;
+	text-align			: center;
+	display				: inline-block;
+	font-weight			: bold;
+	cursor				: pointer;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewBtn input[name=delete]
+{
+	color				: #aaaaaa;
+	border				: 1px solid #aaaaaa;
+	background-color	: #ffffff;
+	width				: 50px;
+	height				: 28px;
+	text-align			: center;
+	display				: inline-block;
+	font-weight			: bold;
+	cursor				: pointer;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewReplyList
+{
+	font-size			: 11px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewReplyList .lSupportViewReply
+{
+	border-top			: 1px solid #d3d3d3;
+	padding				: 10px 0;
+	font-size			: 9pt;
+	background-image	: url('http://211.43.195.137/image/item/view/ico_comment.png');
+	background-repeat	: no-repeat;
+	background-position	: 0px 10px;
+	
+	position			: relative;
+}
+
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewReplyList .lSupportViewReply .lSupportViewReplyWrap
+{
+	padding-left		: 20px;
+	color				: #aaaaaa;
+	font-size			: 9pt;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewReplyList .lSupportViewReply .lSupportViewComments
+{
+	padding				: 10px 0px 10px 20px;
+	color				: #1b1b1b;
+	overflow			: hidden;
+	font-size			: 9pt;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewReplyList .lSupportViewReply .lSupportViewComments .lSupportViewComMemo
+{
+	width				: 730px;
+	font-size			: 11px;
+	float				: left;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite
+{
+	clear				: both;
+	font-size			: 9pt;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm
+{
+	overflow			: hidden;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table
+{
+	border-collapse		: collapse;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table .lSupportViewMemo
+{
+	padding				: 0px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table .lSupportViewMemo textarea
+{
+	width				: 725px;
+	height				: 70px;
+	border				: 1px solid #ffffff;
+	background-color	: #f0f0f0;
+	color				: #646464;
+	padding				: 10px;
+	resize				: none;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table .lSupportViewComBox
+{
+	padding-left		: 10px;
+	border				: 0px;
+	font-size			: 9pt;
+}
+/*체크박스*/
+#lSupportView #lSupportViewPage .lSupportViewCheckBoxWrap input[type=checkbox]
+{
+	display				: none;
+}
+#lSupportView #lSupportViewPage .lSupportViewCheckBoxWrap input[type=checkbox] + label
+{
+	display				: inline-block;
+	cursor				: pointer;
+	position			: relative;
+	padding-left		: 25px;
+	font-size			: 9pt;
+	color				: #000;
+}
+#lSupportView #lSupportViewPage .lSupportViewCheckBoxWrap input[type=checkbox] + label:before
+{
+	content				: "";
+	display				: inline-block;
+	position			: absolute;
+	left				: 0;
+	width				: 17px;
+	height				: 17px;
+	border				: 1px solid #c1c1c1;
+	background-color	: #fff;
+}
+#lSupportView #lSupportViewPage .lSupportViewCheckBoxWrap input[type=checkbox]:checked + label:before
+{
+	content				: "\2713";
+	font-size			: 15px;
+	font-weight			: 800;
+	color				: #fff;
+	border				: 1px solid #20B243;
+	background-color	: #66c009;
+	text-align			: center;
+	line-height			: 18px;
+}
+
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table .lSupportViewComBox .lSupportViewAddBtn
+{
+	margin-top			: 20px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm table .lSupportViewComBox .lSupportViewAddBtn input[type=submit]
+{
+	width				: 90px;
+	height				: 30px;
+	background-color	: #2dc1e7;
+	color				: #ffffff;
+	font-size			: 12px;
+	border				: none;
+	cursor				: pointer;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap
+{
+	margin-top			: 18px;
+/*	width				: 847px;*/
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap .lSupportViewImages
+{
+	color				: #1b1b1b;
+	float				: left;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap .lSupportViewImages img
+{
+	vertical-align		: -1px;
+	margin-right		: 4px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap .lSupportViewImageFiles
+{
+	font-size			: 11px;
+	float				: left;
+	margin-left			: 25px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap .lSupportViewImageFiles input[type=file]
+{
+	display				: block;
+	width				: 500px;
+	margin-left			: 25px;
+	font-size			: 9pt;
+	vertical-align		: middle;
+	margin-bottom		: 9px;
+}
+#lSupportView #lSupportViewPage table.lSupportViewTbl .lSupportViewWrite .lSupportViewFrm .lSupportViewImageWrap input[type=button]
+{
+	width				: 90px;
+	height				: 30px;
+	background-color	: #ffffff;
+	font-size			: 12px;
+	color				: #aaaaaa;
+	border				: 1px solid #dddddd;
+	cursor				: pointer;
+	display				: inline-block;
+	float				: left;
+	margin-left			: 8px;
+}
+#lSupportView #lSupportViewPage #lSupportViewAdminBtn
+{
+	color				: #AB40BF;
+	border				: 1px solid #AB40BF;
+	background-color	: #ffffff;
+	width				: 95px;
+	height				: 28px;
+	text-align			: center;
+	display				: inline-block;
+	font-weight			: bold;
+	cursor				: pointer;
+}

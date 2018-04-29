@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.test.dao.TestDao">
+    <select id="test" resultType="String">
+        SELECT '123123123'
+    </select>
+    <insert id="testInsert">
+    	insert into rb_menu(
+    		menu_id
+			,menu_name
+			,menu_order
+			,menu_link
+			,menu_reg_user
+			,menu_reg_dttm
+			,menu_mod_user
+			,menu_mod_dttm
+    	)values(
+    	'11'
+    	,'한글데이터'
+    	,3
+    	,'aa'
+    	,'aa'
+    	,now()
+    	,'aa'
+    	,now()
+    	)
+    </insert>
+    <select id="testSelect" resultType="string">
+    	select menu_name from rb_menu where menu_id = 'M00001'
+    </select>
+    <update id="testUpdate" parameterType="string">
+    	update rb_menu 
+    	set menu_name = #{value}
+    	where menu_id = 'M00001'
+    </update>
+    
+    <insert id="testValid"></insert>
+</mapper>

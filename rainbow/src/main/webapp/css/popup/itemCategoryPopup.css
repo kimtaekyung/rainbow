@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+A:link    {
+	color:#000000;
+	text-decoration: none;
+}
+A:visited {
+	color:#000000;
+	text-decoration: none;
+}
+A:active  {
+	color:#000000;
+	text-decoration: none;
+}
+A:hover  {
+	color:#0000cc;
+	text-decoration: underline;
+}
+
+.linkNormal A:link    {
+	color:#0000cc;
+	text-decoration: none;
+}
+.linkNormal A:visited {
+	color:#7600C8;
+	text-decoration: none;
+}
+.linkNormal A:active  {
+	color:#cc0000;
+	text-decoration: none;
+}
+.linkNormal A:hover  {
+	color:#0000cc;
+	text-decoration: underline;
+}
+
+.button {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #d0d0d0;
+	background: #eeeeee;
+	height:20;
+}
+.input    {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #cccccc;
+	background : #ffffff;
+	height:20;
+}
+.input::-webkit-input-placeholder
+{
+	color: #aaa;
+}
+.input::-moz-placeholder
+{
+	color: #aaa;
+}
+.input:-ms-input-placeholder
+{
+	color: #aaa;
+}
+.input:-moz-placeholder
+{
+	color: #aaa;
+}
+BODY,TD,DIV,form,center,option,pre,br {
+	color:#000000;
+	font-size:9pt;
+	font-family:굴림,tahoma;
+	line-height:155%;
+}
+input,SELECT,TEXTAREA {
+	color:#000000;
+	font-size:9pt;
+	font-family:굴림,tahoma;
+	line-height:145%;
+}
+BODY {
+	margin:0 0 0 0
+}
+
+.highlight	{
+	color:yellow;
+	background:red;
+	font-weight:bold;
+}
+
+.highlight2	{
+	color:#008000;
+	background:#D3FF05;
+}
+
+.rightline_d0d0d0	{
+	border-width: 0 1 0 0;
+	border-style: solid;
+	border-color: d0d0d0;
+}
+
+.rightline_999999	{
+	border-width: 0 1 0 0;
+	border-style: solid;
+	border-color: 999999;
+}
+
+.smsBox{
+	border-width: 0px;
+	border-style: solid;
+	font: 9pt;
+	overflow:hidden
+}
+
+.disabledBox{
+	background-color:#E1E1E1;
+	border-width:1;
+	border-color:silver;
+	border-style:solid;
+}
+.image    {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #e0e0e0;
+	background : #ffffff;
+}
+
+.UB	{
+	color:	#0000cc;
+	text-decoration:	underline;
+}
+
+.UR	{
+	color:	#cc0000;
+	text-decoration:	underline;
+}
+
+.png24 {
+    tmp:expression(setPng24(this));
+}
+
+.linkRed
+{
+	text-decoration	: underline;
+	color			: #cc0000;
+	cursor			: pointer;
+}
+
+.linkBlue
+{
+	text-decoration	: underline;
+	color			: #0000cc;
+	cursor			: pointer;
+}
+
+.linkGreen
+{
+	text-decoration	: underline;
+	color			: #008000;
+	cursor			: pointer;
+}

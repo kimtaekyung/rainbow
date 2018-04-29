@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rainbow.shop.member.dao.MemberAuthDao">
+	<!-- 회원 가입 아이디 중복 검사 -->
+	<select id="checkMemberId" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_id) FROM 
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_id = #{mb_id}
+	</select>
+	<select id="checkMemberLoginId" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_id) FROM 
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_id = #{mb_id}
+		AND mb_state = 1
+	</select>
+	<!-- 회원 가입 닉네임 중복 검사 -->
+	<select id="checkMemberNickName" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_nickname) FROM 
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_nickname = #{mb_nickname}
+	</select>
+	<!-- 회원 가입 휴대폰번호 중복 검사 -->
+	<select id="checkMemberHp" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_hp) FROM 
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_hp = #{mb_hp}
+	</select>
+	<!-- 회원 가입 휴대폰번호 중복 검사 -->
+	<select id="checkMemberEmail" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_email) FROM 
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_email = #{mb_email}
+	</select>
+	<!-- 추천인 아이디 검색 -->
+	<select id="searchRecommId" statementType="PREPARED" parameterType="hashmap" resultType="int">
+		SELECT COUNT(mb_recomm_id) FROM
+		RB_MEMBER
+		WHERE 1=1
+		AND mb_id = #{mb_recomm_id}
+		AND mb_state = '1'	
+	</select>
+	
+	<!-- 회원 가입 -->
+	<insert id="memberJoin" statementType="PREPARED" parameterType="hashmap">
+		INSERT INTO RB_MEMBER
+		(
+			MB_ID
+			,MB_PASSWORD
+			,MB_NAME
+			,MB_NICKNAME
+			,MB_HP
+			,MB_EMAIL
+			<if test="mb_birthday != null and mb_birthday !=''">
+			,MB_BIRTHDAY
+			</if>
+			<if test="mb_birthday_type != null and mb_birthday_type !=''">
+			,MB_BIRTHDAY_TYPE
+			</if>
+			<if test="mb_tel != null and mb_tel != ''">
+			,MB_TEL
+			</if>
+			<if test="mb_zip_code != null and mb_zip_code != ''">
+			,MB_ZIP_CODE
+			</if>
+			<if test="mb_address != null and mb_address != ''">
+			,MB_ADDRESS
+			</if>
+			<if test="mb_address_detail != null and mb_address_detail != ''">
+			,MB_ADDRESS_DETAIL
+			</if>
+			<if test="mb_address_type != null and mb_address_type != ''">
+			</if>
+			<if test="mb_biz_name != null and mb_biz_name != ''">
+			,MB_BIZ_NAME
+			</if>
+			<if test="mb_biz_ceo_name != null and mb_biz_ceo_name != ''">
+			,MB_BIZ_CEO_NAME
+			</if>
+			<if test="mb_biz_no != null and mb_biz_no != ''">
+			,MB_BIZ_NO
+			</if>
+			<if test="mb_biz_tel != null and mb_biz_tel != ''">
+			,MB_BIZ_TEL
+			</if>
+			<if test="mb_biz_zip_code != null and mb_biz_zip_code != ''">
+			,MB_BIZ_ZIP_CODE
+			</if>
+			<if test="mb_biz_address != null and mb_biz_address != ''">
+			,MB_BIZ_ADDRESS
+			</if>
+			<if test="mb_biz_address_detail != null and mb_biz_address_detail != ''">
+			,MB_BIZ_ADDRESS_DETAIL
+			</if>
+			<if test="mb_biz_type_1 != null and mb_biz_type_1 !=''">
+			,MB_BIZ_TYPE_1
+			</if>
+			<if test="mb_biz_type_2 != null and mb_biz_type_2 !=''">
+			,MB_BIZ_TYPE_2
+			</if>
+			<if test="mb_biz_type_3 != null and mb_biz_type_3 !=''">
+			,MB_BIZ_TYPE_3
+			</if>
+			<if test="mb_biz_type_4 != null and mb_biz_type_4 !=''">
+			,MB_BIZ_TYPE_4
+			</if>
+			<if test="mb_biz_type_5 != null and mb_biz_type_5 !=''">
+			,MB_BIZ_TYPE_5
+			</if>
+			<if test="mb_biz_code != null and mb_biz_code !=''">
+			,MB_BIZ_CODE
+			</if>
+			<if test="mb_info_recv_mail != null and mb_info_recv_mail !=''">
+			,MB_INFO_RECV_MAIL
+			</if>
+			<if test="mb_info_recv_post != null and mb_info_recv_post !=''">
+			,MB_INFO_RECV_POST
+			</if>
+			<if test="mb_info_recv_sms != null and mb_info_recv_sms !=''">
+			,MB_INFO_RECV_SMS
+			</if>
+			<if test="mb_info_recv_hp != null and mb_info_recv_hp !=''">
+			,MB_INFO_RECV_HP
+			</if>
+			<if test="mb_info_open != null and mb_info_open !=''">
+			,MB_INFO_OPEN
+			</if>
+			<if test="mb_recomm_id != null and mb_recomm_id !=''">
+			,MB_RECOMM_ID
+			</if>
+			,MB_TYPE
+			,GRADE_SEQ
+			,MB_REG_DTTM
+			,MB_SESSION_ID
+			,MB_JOIN_IP
+			<if test="mb_join_url != null and mb_join_url !=''">
+			,MB_JOIN_URL
+			</if>
+			<if test="mb_state != null and mb_state !=''">
+			,MB_STATE
+			</if>
+		)VALUES(
+			#{mb_id}
+			,#{mb_password}
+			,#{mb_name}
+			,#{mb_nickname}
+			,#{mb_hp}
+			,#{mb_email}
+			<if test="mb_birthday != null and mb_birthday !=''">
+			,#{mb_birthday}
+			</if>
+			<if test="mb_birthday_type != null and mb_birthday_type !=''">
+			,#{mb_birthday_type}
+			</if>
+			<if test="mb_tel != null and mb_tel != ''">
+			,#{mb_tel}
+			</if>
+			<if test="mb_zip_code != null and mb_zip_code != ''">
+			,#{mb_zip_code}
+			</if>
+			<if test="mb_address != null and mb_address != ''">
+			,#{mb_address}
+			</if>
+			<if test="mb_address_detail != null and mb_address_detail != ''">
+			,#{mb_address_detail}
+			</if>
+			<if test="mb_address_type != null and mb_address_type != ''">
+			,#{mb_address_type}
+			</if>
+			<if test="mb_biz_name != null and mb_biz_name != ''">
+			,#{mb_biz_name}
+			</if>
+			<if test="mb_biz_ceo_name != null and mb_biz_ceo_name != ''">
+			,#{mb_biz_ceo_name}
+			</if>
+			<if test="mb_biz_no != null and mb_biz_no != ''">
+			,#{mb_biz_no}
+			</if>
+			<if test="mb_biz_tel != null and mb_biz_tel != ''">
+			,#{mb_biz_tel}
+			</if>
+			<if test="mb_biz_zip_code != null and mb_biz_zip_code != ''">
+			,#{mb_biz_zip_code}
+			</if>
+			<if test="mb_biz_address != null and mb_biz_address != ''">
+			,#{mb_biz_address}
+			</if>
+			<if test="mb_biz_address_detail != null and mb_biz_address_detail != ''">
+			,#{mb_biz_address_detail}
+			</if>
+			<if test="mb_biz_type_1 != null and mb_biz_type_1 !=''">
+			,#{mb_biz_type_1}
+			</if>
+			<if test="mb_biz_type_2 != null and mb_biz_type_2 !=''">
+			,#{mb_biz_type_2}
+			</if>
+			<if test="mb_biz_type_3 != null and mb_biz_type_3 !=''">
+			,#{mb_biz_type_3}
+			</if>
+			<if test="mb_biz_type_4 != null and mb_biz_type_4 !=''">
+			,#{mb_biz_type_4}
+			</if>
+			<if test="mb_biz_type_5 != null and mb_biz_type_5 !=''">
+			,#{mb_biz_type_5}
+			</if>
+			<if test="mb_biz_code != null and mb_biz_code !=''">
+			,#{mb_biz_zip_code}
+			</if>
+			<if test="mb_info_recv_mail != null and mb_info_recv_mail !=''">
+			,#{mb_info_recv_mail}
+			</if>
+			<if test="mb_info_recv_post != null and mb_info_recv_post !=''">
+			,#{mb_info_recv_post}
+			</if>
+			<if test="mb_info_recv_sms != null and mb_info_recv_sms !=''">
+			,#{mb_info_recv_sms}
+			</if>
+			<if test="mb_info_recv_hp != null and mb_info_recv_hp !=''">
+			,#{mb_info_recv_hp}
+			</if>
+			<if test="mb_info_open != null and mb_info_open !=''">
+			,#{mb_info_open}
+			</if>
+			<if test="mb_recomm_id != null and mb_recomm_id !=''">
+			,#{mb_recomm_id}
+			</if>
+			,#{mb_type}
+			,1
+			,NOW()
+			,#{mb_session_id}
+			,#{mb_join_ip}
+			<if test="mb_join_url != null and mb_join_url !=''">
+			,#{mb_join_url}
+			</if>
+			<if test="mb_state != null and mb_state !=''">
+			,#{mb_state}
+			</if>
+		)
+		
+		<selectKey resultType="int" keyProperty="mb_seq" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert>
+	
+	<!-- 회원 비밀번호화 세션아이디 가져오기 -->
+	<select id="getMemberPassword" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			MB_PASSWORD 
+			,MB_SESSION_ID
+			,MB_ALLOW_IP
+			,MB_ALLOW_IP_USE_YN
+			,MB_SEQ
+		FROM RB_MEMBER
+		WHERE MB_ID = #{mb_id}
+	</select>
+	
+	<!-- 로그인 검증후 로그인 로그 생성 및 멤버 상태,세션아이디,패스워드 업데이트 -->
+	<select id="loginSuccess" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call PROC_LOGIN_SUCCESS
+			(
+	        	#{mb_id,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_password,mode=IN,jdbcType=VARCHAR}
+	        	,#{mb_session_id, mode=IN, jdbcType=VARCHAR}
+	        	,#{lo_type,mode=IN,jdbcType=CHAR}
+	        	,#{lo_device_type,mode=IN,jdbcType=CHAR}
+	        	,#{lo_url,mode=IN,jdbcType=VARCHAR}
+	        	,#{lo_ip,mode=IN,jdbcType=VARCHAR}
+	        	,#{lo_device_env,mode=IN,jdbcType=VARCHAR}
+	        	,#{return_query, mode=OUT, jdbcType=INTEGER}
+	        	,#{return_mb_seq, mode=OUT, jdbcType=INTEGER}
+	     	)
+	    }
+	</select>
+	
+	<!-- 로그인 검증후 로그인 로그 생성 및 멤버 상태,세션아이디,패스워드 업데이트 -->
+	<select id="memberLogoutProcess" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+		{ call PROC_MEMBER_LOGOUT_PROCESS
+			(
+				#{mb_seq, mode=IN, jdbcType=INTEGER}
+	        	,#{lo_type, mode=IN, jdbcType=CHAR}
+	        	,#{lo_device_type, mode=IN, jdbcType=CHAR}
+	        	,#{lo_ip, mode=IN, jdbcType=VARCHAR}
+	        	,#{lo_url, mode=IN, jdbcType=VARCHAR}
+	        	,#{mb_session_id, mode=IN, jdbcType=VARCHAR}
+	        	,#{lo_device_env, mode=IN, jdbcType=VARCHAR}
+	        	,#{return_query, mode=OUT, jdbcType=INTEGER}
+	     	)
+	    }
+	</select>
+	
+	
+	
+	
+	<!-- 회원정보 가져오기 -->
+	<select id="getMemberInfo" statementType="PREPARED" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			MB_SEQ
+			,MB_ID
+			,MB_NAME
+			,MB_NICKNAME
+			,MB_BIRTHDAY
+			,MB_BIRTHDAY_TYPE
+			,MB_TEL
+			,MB_HP
+			,MB_EMAIL
+			,MB_ZIP_CODE
+			,MB_ADDRESS
+			,MB_ADDRESS_DETAIL
+			,MB_ADDRESS_TYPE
+			,MB_BIZ_NAME
+			,MB_BIZ_CEO_NAME
+			,MB_BIZ_NO
+			,MB_BIZ_TEL
+			,MB_BIZ_ADDRESS
+			,MB_BIZ_TYPE_1
+			,MB_BIZ_TYPE_2
+			,MB_BIZ_TYPE_3
+			,MB_BIZ_TYPE_4
+			,MB_BIZ_TYPE_5
+			,MB_BIZ_CODE
+			,MB_INFO_RECV_MAIL
+			,MB_INFO_RECV_POST
+			,MB_INFO_RECV_SMS
+			,MB_INFO_RECV_HP
+			,MB_INFO_OPEN
+			,MB_RECOMM_ID
+			,MB_STATE
+			,MB_TYPE
+			,MB_IS_LOGIN
+			,MB_LOGIN_IP
+			,GRADE_SEQ
+			,MB_CASH
+			,MB_CASH_CARD
+			,MB_POINT
+			,MB_REG_DTTM
+			,MB_LEAVE_DTTM
+			,MB_BIZ_ADDRESS_DETAIL
+			,MB_BIZ_ZIP_CODE
+			,MB_JOIN_IP
+			,MB_JOIN_URL
+			,MB_LOGIN_DEVICE_TYPE
+			,MB_BANK_NAME
+			,MB_BANK_NO
+			,MB_BANK_OWNER
+			,MB_EVENT_RECEIVE
+			,MB_BIZ_CONDITION
+			,MB_BIZ_CATEGORY
+			,MB_BIZ_IMG_PATH
+			,MB_CERT
+			,MB_CERT_PHONE
+			,MB_CERT_EMAIL
+			,MB_BIZ_CERT_STATE
+			,(SELECT COUNT(RL_SEQ) FROM RB_LETTER 
+				WHERE RL_RECEIVER_SEQ = #{mb_seq} 
+				AND RL_STATE = '1' 
+				AND  RL_VIEW_STATE = '1'
+			) AS MB_LETTER_COUNT
+			,(SELECT COUNT(DISTINCT ORDER_NO) FROM RB_SHOP_CART
+				WHERE MB_SEQ = #{mb_seq}
+				AND CART_STATE = '1'
+			) AS MB_CART_COUNT
+		FROM RB_MEMBER
+		WHERE MB_SEQ = #{mb_seq}
+	</select> 
+	
+	<!-- 회원 알람 설정 추가(회원 가입시 기본 호출) -->
+	<insert id="insertMemberSetting" parameterType="hashmap" statementType="PREPARED">
+		INSERT INTO RB_MEMBER_SETTING
+		(MB_SEQ,RMS_REG_DTTM)VALUES(#{value},now());
+	</insert>
+</mapper>

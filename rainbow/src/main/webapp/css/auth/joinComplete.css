@@ -1,0 +1,9 @@
+@charset "UTF-8";
+.memJoinSuccess {
+	text-align: center;
+	margin-top: 70px;
+}
+
+.memJoinSuccess div {
+	margin-bottom: 20px;
+}

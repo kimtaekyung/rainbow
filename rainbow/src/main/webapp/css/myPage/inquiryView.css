@@ -1,0 +1,9 @@
+@charset "UTF-8";
+.alertInfo{
+	width			: 100%;
+	text-align		: center;
+	height			: 100px;
+	line-height		: 100px;
+	border			: 1px solid #ED5441;
+	margin-bottom	: 50px;
+}

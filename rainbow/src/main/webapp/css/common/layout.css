@@ -1,0 +1,47 @@
+@charset "UTF-8";
+#wrap, #wrap button, #wrap input {
+	font-family: 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Sans-serif';
+}
+
+#wrap #lHeaderTop {
+	border-bottom: 1px solid #DDD;
+}
+
+.clearboth {
+	clear: both;
+}
+
+
+.slideShowPage li
+{
+	display				: inline-block;
+	_display			: inline;
+	width				: 9px;
+	height				: 9px;
+	margin-right		: 4px;
+	font-size			: 0;
+	background-image	: url('http://211.43.195.137/image/v6/common/pagination/img_pageGray.png');
+	background-repeat	: no-repeat;
+	cursor				: pointer;
+}
+*:first-child+html .slideShowPage li
+{
+	/* IE7 Hack */
+	display				: inline;
+}
+.slideShowPage li.curr
+{
+	background-image	: url('http://211.43.195.137/image/v6/common/pagination/img_pageGreen.png');
+	background-repeat	: no-repeat;
+}
+#v6RowB1
+{
+	margin-bottom		: 12px;
+	position			: relative;
+}
+#v6Row0
+{
+	width				: auto;
+	height				: 20px;
+	margin-bottom		: 15px;
+	padding				: 6px;

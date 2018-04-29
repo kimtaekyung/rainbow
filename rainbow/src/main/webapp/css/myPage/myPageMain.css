@@ -1,0 +1,514 @@
+@charset "UTF-8";
+/*-----------------------------------------------------------------
+	contents 나의 쿠폰현황
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageSeller {
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+
+#myPageMainWrap .myPageCoupon {
+	height: 20px;
+	border: 1px solid #ccc;
+	font-size: 13px;
+	color: #676767;
+	background-color: #e6e7e9;
+	padding: 10px;
+	margin-bottom: 25px;
+}
+
+#myPageMainWrap .myPageCouponNew {
+	height: 50px;
+	border: 1px solid #ccc;
+	font-size: 13px;
+	color: #676767;
+	background-color: #e6e7e9;
+	padding: 10px;
+	margin-bottom: 25px;
+}
+
+#myPageMainWrap .myPageCoupon .left {
+	float: left;
+	padding-top: 3px;
+}
+
+#myPageMainWrap .myPageCoupon .left a {
+	color: #676767;
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageCoupon .right {
+	float: right;
+	font-size: 0;
+	word-spacing: 0;
+	letter-spacing: -1px;
+}
+
+#myPageMainWrap .myPageCoupon .right a {
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageCoupon .bottom {
+	clear: both;
+}
+
+#myPageMainWrap .myPageCoupon .bottom a {
+	color: #676767;
+	text-decoration: none;
+}
+/*-----------------------------------------------------------------
+	contents 운세알리미
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageFortune {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 770px;
+	height: 31px;
+	margin-top: -15px;
+	margin-bottom: 16px;
+	background-image:
+		url('http://211.43.195.137/image/partner/bgi_fortuneMessenger.gif');
+}
+
+#myPageMainWrap .myPageFortune a {
+	color: #0000cc;
+}
+
+#myPageMainWrap .myPageFortune .wrap {
+	display: block;
+	position: absolute;
+	top: 10px;
+	left: 113px;
+	width: 590px;
+	height: 12px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+#myPageMainWrap .myPageFortune .wrap #todayFortune {
+	text-indent: 590px;
+}
+
+#myPageMainWrap .myPageFortune .conf {
+	display: block;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+/*-----------------------------------------------------------------
+	contents 나의 회원등급현황
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageMember {
+	margin-bottom: 15px;
+}
+
+#myPageMainWrap .myPageMemGrade {
+	float: left;
+}
+
+#myPageMainWrap .myPageMemLevelTitle {
+	font-size: 12px;
+	margin-bottom: 5px;
+}
+
+#myPageMainWrap .myPageMemLevelTitle a {
+	color: #a7a7a7;
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageMemLevelTitle img {
+	vertical-align: -3px;
+}
+
+#myPageMainWrap .myPageMemLevelTitle span {
+	margin-left: 146px;
+}
+
+#myPageMainWrap .myPageMemLevelTitle span img {
+	vertical-align: -2px;
+}
+
+#myPageMainWrap .myPageMemLevel td {
+	border: 1px solid #d2d2d2;
+	text-align: center;
+	padding: 5px 0px;
+}
+
+#myPageMainWrap .myPageMemLevel th {
+	height: 30px;
+	border: 1px solid #d2d2d2;
+	background-color: #efefef;
+}
+
+#myPageMainWrap .myPageMemLevel table {
+	border-collapse: collapse;
+	border: 1px solid #d2d2d2;
+	font-size: 12px;
+	color: #8b8b8b;
+}
+
+#myPageMainWrap .myPageMemLevel .myPageLevelTotal {
+	padding: 0 10px;
+}
+/*-----------------------------------------------------------------
+	contents 나의 인증내역
+-----------------------------------------------------------------*/
+#myPageMainWrap  .myPageCertification {
+	float: right;
+	margin-left: 9px;
+	font-size: 0;
+}
+
+#myPageMainWrap  .myPageCertification a {
+	text-decoration: none;
+}
+
+#myPageMainWrap  .myPageCertification .myPageCerTitle {
+	margin-bottom: 6px;
+}
+
+#myPageMainWrap  .myPageCertification .myPageCerContents {
+	border: 2px solid #d2d2d2;
+	padding: 0 7px;
+	overflow: hidden;
+}
+
+#myPageMainWrap  .myPageCertification a {
+	float: left;
+	display: block;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#myPageMainWrap  .myPageCertification img.noCert {
+	position: absolute;
+	top: 20px;
+	left: 22px;
+}
+
+/*-----------------------------------------------------------------
+	contents 회원정보수정, 개인환경설정
+-----------------------------------------------------------------*/
+/*-----------------------------------------------------------------
+	contents 세금계산서 발급현황
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageConCenter {
+	margin-bottom: 20px;
+	font-size: 0;
+}
+
+#myPageMainWrap .myPageConCenter .myPageInfoModify {
+	float: left;
+	width: 221px;
+	height: 64px;
+	padding: 10px 2px;
+	background-image:
+		url('http://211.43.195.137/image/v6/elements/my/mypage/main/img_roundboxPersonal.jpg');
+	background-repeat: no-repeat;
+}
+
+#myPageMainWrap .myPageConCenter .myPageInfoModify div {
+	float: left;
+	width: 110px;
+	height: 59px;
+	padding-top: 5px;
+	text-align: center;
+}
+
+#myPageMainWrap .myPageConCenter .myPageInfoModify div .btnName {
+	margin-bottom: 17px;
+}
+
+#myPageMainWrap .myPageConCenter .myPageInfoModify .left {
+	border-right: 1px solid #d3d3d3;
+}
+
+#myPageMainWrap .myPageConCenter .stat {
+	padding-top: 8px;
+	padding-left: 10px;
+}
+
+#myPageMainWrap .myPageConCenter .stat table {
+	margin-top: 8px;
+	border-collapse: collapse;
+	font-family: '돋움', 'dotum';
+	font-size: 12px;
+	color: #a7a7a7;
+}
+
+#myPageMainWrap .myPageConCenter .stat td {
+	border: 1px solid #d2d2d2;
+	text-align: center;
+	padding: 16px 0;
+}
+
+#myPageMainWrap .myPageConCenter .stat span {
+	display: inline-block;
+}
+
+#myPageMainWrap .myPageConCenter .stat span.valueShort {
+	width: 52px;
+	text-align: right;
+}
+
+#myPageMainWrap .myPageConCenter .stat span.valueLong {
+	width: 60px;
+	text-align: right;
+}
+/*-----------------------------------------------------------------
+	회원지원센터
+-----------------------------------------------------------------*/
+.supportCenterWrap {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+/*-----------------------------------------------------------------
+	contents 공지사항
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageConBottom .myPageNotice {
+	width: 280px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeTitle {
+	border-bottom: 1px solid #818181;
+	width: 280px;
+	margin-bottom: 3px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeTitle a {
+	color: #a7a7a7;
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeTitle span {
+	font-size: 9pt;
+	color: #a7a7a7;
+	margin-left: 170px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeTitle span img
+	{
+	vertical-align: -1px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeCon {
+	font-size: 9pt;
+	color: #a8a8a8;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeCon table {
+	border-collapse: collapse;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeCon table tr td
+	{
+	padding: 6px 0 4px 0;
+	border-bottom: 1px solid #d3d3d3;
+	line-height: 16px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeCon table tr td div.new
+	{
+	float: right;
+	padding-top: 0;
+	padding-right: 4px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageNotice .myPageNoticeCon table tr td a.title
+	{
+	display: block;
+	float: left;
+	color: #a7a7a7;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	letter-spacing: -1px;
+	overflow: hidden;
+}
+
+/*-----------------------------------------------------------------
+	contents e-money
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageConBottom .myPageEmoney {
+	margin: 0 15px 0 15px;
+	width: 262px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyTitle {
+	margin-bottom: 2px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon {
+	height: 126px;
+	font-size: 13px;
+	color: #8b8b8b;
+	border: 2px solid #d2d2d2;
+	padding: 6px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table {
+	border-collapse: collapse;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr td
+	{
+	padding-top: 3px;
+	padding-bottom: 5px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr.childTop td
+	{
+	height: 20px;
+	padding-top: 8px;
+	padding-bottom: 3px;
+	background-color: #efefef;
+	line-height: 20px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr.childBottom td
+	{
+	height: 20px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-color: #efefef;
+	line-height: 20px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr.childTop .title,
+	#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr.childBottom .title
+	{
+	text-indent: 5px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr td.amt
+	{
+	padding-right: 4px;
+	text-align: right;
+	text-decoration: underline;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table tr td div table tr td
+	{
+	padding: 5px 0;
+}
+
+#myPageMainWrap .myPageConBottom .myPageEmoney .myPageEmoneyCon table div img
+	{
+	vertical-align: -5px;
+}
+/*-----------------------------------------------------------------
+	contents 나의상담기록
+-----------------------------------------------------------------*/
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeTitle
+	{
+	border-bottom: 1px solid #818181;
+	width: 197px;
+	margin-bottom: 5px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeTitle span
+	{
+	font-size: 9pt;
+	color: #a7a7a7;
+	margin-left: 60px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeTitle span img
+	{
+	vertical-align: -1px;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeTitle a
+	{
+	color: #a7a7a7;
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeCon
+	{
+	font-size: 9pt;
+	color: #a8a8a8;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeCon ul li
+	{
+	padding: 4px 0 5px 0;
+	width: 195px;
+	height: 17px;
+	border-bottom: 1px solid #d3d3d3;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeCon ul li a
+	{
+	color: #a8a8a8;
+	text-decoration: none;
+}
+
+#myPageMainWrap .myPageConBottom .myPageCounRecode .myPageCounRecodeCon ul li img
+	{
+	margin-right: 5px;
+	vertical-align: -3px;
+}
+/*-----------------------------------------------------------------
+	하단 상품등록시 주의사항
+-----------------------------------------------------------------*/
+.myPageItemCheck {
+	border-top: 1px solid #d1d1d1;
+	border-bottom: 1px solid #d1d1d1;
+	background-color: #f6f6f6;
+	color: #8a8a8a;
+	font-family: '돋움', 'dotum';
+	font-size: 11px;
+	padding: 5px 0;
+	text-align: center;
+	width: 930px;
+	margin-left: 25px;
+	margin-bottom: 30px;
+}
+
+div.rankTitle {
+	color: #8B8B8B;
+	font-size: 15px;
+	font-family: '돋움', 'dotum';
+	font-weight: 900;
+	text-indent: 20px;
+	line-height: 90px;
+}
+
+div.rankWrap {
+	width: 100px;
+	height: 92px;
+	float: left;
+	position: relative;
+}
+
+div.rankWrap img {
+	position: absolute;
+	top: 12px;
+	left: 15px;
+}
+
+div.rankFont {
+	position: absolute;
+	top: 29px;
+	left: 29px;
+	color: #FFF;
+	font-size: 45px;
+	font-family: '맑은 고딕', 'Malgun Gothic';
+	font-weight: 900;
+}
+
+div.scoreFont {
+	width: 100px;
+	position: absolute;
+	top: 70px;
+	left: -7px;
+	color: #8B8B8B;
+	font-size: 13px;
+	font-family: '돋움', 'dotum';
+	text-align: center;
+}
