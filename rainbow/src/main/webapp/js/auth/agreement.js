@@ -2,6 +2,7 @@
  * 
  */
 $(document).ready(function(){
+	//커밋 테스트
 	//회원가입 가입하기 버튼
 	$("input[name=agree_check]").on("click",function(e){
 		if($("input#input_sign_agree_check_1").prop("checked") && $("input#input_sign_agree_check_2").prop("checked")){
