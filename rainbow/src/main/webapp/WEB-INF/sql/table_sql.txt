@@ -1573,10 +1573,6 @@ update rb_cash_charge
 set cc_state = 2, cc_mod_dttm = now()
 where cc_seq = 2;
 
--- 충전 사용내역 프로시저 호출(회원번호,금액,상품 오더 시퀀스)
-call `rainbow`.`PROC_INSERT_RB_CASH_LOG`(1,10000000,1,null,@return_query,@return_result_text);
-call `rainbow`.`PROC_INSERT_RB_CASH_LOG`(2,10000000,1,null,@return_query,@return_result_text);
-
 
 
 -- 관리자 쪽지 보내기
